@@ -1,0 +1,18 @@
+{
+  "id": "datastore",
+  "name": "Datastore",
+  "description": "Shared reference data. Create datastore forms for values that apply across the entire space (lists of states, departments, cost centers, etc.) so kapps don't each carry their own copies.",
+  "version": "0.1.0",
+  "author": "Kinetic Data",
+  "tags": ["data", "reference"],
+  "kapp": {
+    "slug": "datastore",
+    "name": "Datastore",
+    "export": "./kapp.json"
+  },
+  "forms": [],
+  "taskHandlers": [],
+  "workflows": [],
+  "datastores": [],
+  "requires": []
+}

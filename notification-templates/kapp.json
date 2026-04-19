@@ -1,0 +1,5 @@
+{
+  "slug": "notification-templates",
+  "name": "Notification Templates",
+  "_note": "Stub kapp export. The installer (Phase 4+) will POST this to /app/api/v1/kapps. Flesh out with real form/category/attribute data once Phase 4 is wired."
+}

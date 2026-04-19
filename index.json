@@ -1,0 +1,19 @@
+{
+  "registry": "compose-capabilities-sample",
+  "schemaVersion": "1",
+  "description": "Sample Compose Portal capability registry. Clone, rename, and host via GitHub Pages (or any static host).",
+  "capabilities": [
+    {
+      "id": "notification-templates",
+      "manifestUrl": "./notification-templates/manifest.json"
+    },
+    {
+      "id": "robots",
+      "manifestUrl": "./robots/manifest.json"
+    },
+    {
+      "id": "datastore",
+      "manifestUrl": "./datastore/manifest.json"
+    }
+  ]
+}

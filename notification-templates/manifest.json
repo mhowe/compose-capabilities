@@ -1,0 +1,18 @@
+{
+  "id": "notification-templates",
+  "name": "Notification Templates",
+  "description": "Reusable notification templates for email, SMS, and Slack. Provides a Notification Templates kapp with template records, a notification-send task handler, and workflow components that other kapps invoke.",
+  "version": "0.1.0",
+  "author": "Kinetic Data",
+  "tags": ["notifications", "communication"],
+  "kapp": {
+    "slug": "notification-templates",
+    "name": "Notification Templates",
+    "export": "./kapp.json"
+  },
+  "forms": [],
+  "taskHandlers": [],
+  "workflows": [],
+  "datastores": [],
+  "requires": []
+}
