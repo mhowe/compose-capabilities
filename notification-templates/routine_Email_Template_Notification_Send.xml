@@ -1,0 +1,1620 @@
+<tree schema_version="1.0">
+    <sourceName>-</sourceName>
+    <sourceGroup>-</sourceGroup>
+    <definitionId>routine_kinetic_email_template_notification_send_v1</definitionId>
+    <type>Global Routine</type>
+    <status>Active</status>
+    <taskTree builder_version="" schema_version="1.0" version="">
+        <name>Email Template Notification Send</name>
+        <author></author>
+        <notes></notes>
+        <lastID>280</lastID>
+        <taskDefinition id="routine_kinetic_email_template_notification_send_v1" name="Email Template Notification Send" schema_version="1.0" version="1">
+            <visible>false</visible>
+            <deferrable>true</deferrable>
+            <parameters>
+                <parameter id="Recipient List" label="Recipient List" required="true" tooltip="Comma or semicolon list of recipients (usernames, SMTP addresses, team names, Teams channels, or Slack channels). Teams channels use format ‘Teams:Webhook URL’. Slack channels use format ‘Slack:Channel Name’. Wrap values in double quotes if they contain separator characters."></parameter>
+                <parameter id="Notification Template Name" label="Notification Template Name" required="true" tooltip="Name of the notification template to use when sending this email"></parameter>
+                <parameter id="JSON Variables" label="JSON Variables" required="false" tooltip="JSON input of miscellaneous values.  These values are used to replace placeholder content in notification messages."></parameter>
+                <parameter id="Kapp Slug Initiating Notification" label="Kapp Slug Initiating Notification" required="true" tooltip="The slug of the Kapp sending the notification (ex: services, queue, etc.)">&lt;%= @kapp['Slug']%&gt;</parameter>
+                <parameter id="Related Submission Id" label="Related Submission Id" required="false" tooltip="Id of the submission to get values for, required if using those or attachments in the message">&lt;%= @submission['Id']%&gt;</parameter>
+                <parameter id="Form Slug Initiating Notification" label="Form Slug Initiating Notification" required="false" tooltip="The slug of the Form sending the notification (ex: work-order, cleaning, etc.)">&lt;%= @form['Slug']%&gt;</parameter>
+            </parameters>
+            <handler name="system_tree_call" version="1"></handler>
+            <results format="xml"></results>
+        </taskDefinition>
+        <request>
+            <task definition_id="system_start_v1" id="start" name="Start" x="104" y="155">
+                <version>1</version>
+                <configured>true</configured>
+                <defers>false</defers>
+                <deferrable>false</deferrable>
+                <visible>false</visible>
+                <parameters></parameters>
+                <messages></messages>
+                <dependents>
+                    <task label="" type="Complete" value="">system_integration_v1_220</task>
+                </dependents>
+            </task>
+            <task definition_id="system_loop_head_v1" id="system_loop_head_v1_144" name="Send Message Loop Start" x="1965.8849862934553" y="370.29094601826023">
+                <version>1</version>
+                <configured>true</configured>
+                <defers>false</defers>
+                <deferrable>false</deferrable>
+                <visible>false</visible>
+                <parameters>
+                    <parameter dependsOnId="" dependsOnValue="" id="data_source" label="Data Source:" menu="" required="true" tooltip="The source that contains the data to use to create each task in the loop.">&lt;%= 
+emails = JSON.parse(@results['Collect Results']['output']).select{|item| item['method'] == "email"}
+emails.to_json
+%&gt;</parameter>
+                    <parameter dependsOnId="" dependsOnValue="" id="loop_path" label="Loop Path:" menu="" required="true" tooltip="The XPath statement to indicate what data records to process.">$.[*]</parameter>
+                    <parameter dependsOnId="" dependsOnValue="" id="var_name" label="Variable Name:" menu="" required="false" tooltip="The local variable name used to represent the data used in loop tasks.">recipient</parameter>
+                </parameters>
+                <messages></messages>
+                <dependents>
+                    <task label="" type="Complete" value="">system_loop_tail_v1_145</task>
+                    <task label="" type="Complete" value="">kinetic_request_ce_notification_template_send_v5_192</task>
+                </dependents>
+            </task>
+            <task definition_id="system_loop_tail_v1" id="system_loop_tail_v1_145" name="Send Message Loop End" x="1965.953089196115" y="663.8033370569449">
+                <version>1</version>
+                <configured>true</configured>
+                <defers>false</defers>
+                <deferrable>false</deferrable>
+                <visible>false</visible>
+                <parameters>
+                    <parameter dependsOnId="" dependsOnValue="" id="type" label="Type:" menu="All,Some,Any" required="true" tooltip="How many loop processes must be completed before continuing?">All</parameter>
+                    <parameter dependsOnId="type" dependsOnValue="Some" id="number" label="Number:" menu="" required="false" tooltip="If some, how many?"></parameter>
+                </parameters>
+                <messages></messages>
+                <dependents>
+                    <task label="Has Teams or Slack Notifications" type="Complete" value="emails = JSON.parse(@results['Collect Results']['output']).select{|item| item['method'] == &quot;teams&quot; || item['method'] == &quot;slack&quot;}&#10;emails.size &gt; 0">system_integration_v1_224</task>
+                    <task label="" type="Complete" value="">system_junction_v1_267</task>
+                </dependents>
+            </task>
+            <task definition_id="system_tree_return_v1" id="system_tree_return_v1_155" name="Return" x="1953.2249872334799" y="1345.2741927269255">
+                <version>1</version>
+                <configured>true</configured>
+                <defers>false</defers>
+                <deferrable>false</deferrable>
+                <visible>false</visible>
+                <parameters></parameters>
+                <messages></messages>
+                <dependents></dependents>
+            </task>
+            <task definition_id="system_loop_head_v1" id="system_loop_head_v1_169" name="Sanitize Recipients - Start" x="56" y="380">
+                <version>1</version>
+                <configured>true</configured>
+                <defers>false</defers>
+                <deferrable>false</deferrable>
+                <visible>false</visible>
+                <parameters>
+                    <parameter dependsOnId="" dependsOnValue="" id="data_source" label="Data Source:" menu="" required="true" tooltip="The source that contains the data to use to create each task in the loop.">&lt;%= #supports comma or semi-colon separated lists. Items can be wrapped in double quotes to support values that may include one of the separators
+@inputs['Recipient List'].split(/[,;](?=(?:[^"]*"[^"]*")*[^"]*$)/).map(&amp;:strip)
+%&gt;</parameter>
+                    <parameter dependsOnId="" dependsOnValue="" id="loop_path" label="Loop Path:" menu="" required="true" tooltip="The XPath statement to indicate what data records to process.">$.[*]</parameter>
+                    <parameter dependsOnId="" dependsOnValue="" id="var_name" label="Variable Name:" menu="" required="false" tooltip="The local variable name used to represent the data used in loop tasks.">recipient</parameter>
+                </parameters>
+                <messages></messages>
+                <dependents>
+                    <task label="" type="Complete" value="">system_loop_tail_v1_170</task>
+                    <task label="" type="Complete" value="">system_integration_v1_171</task>
+                </dependents>
+            </task>
+            <task definition_id="system_loop_tail_v1" id="system_loop_tail_v1_170" name="Sanitize Recipients - End" x="1208.971729214415" y="381.03341875608237">
+                <version>1</version>
+                <configured>true</configured>
+                <defers>false</defers>
+                <deferrable>false</deferrable>
+                <visible>false</visible>
+                <parameters>
+                    <parameter dependsOnId="" dependsOnValue="" id="type" label="Type:" menu="All,Some,Any" required="true" tooltip="How many loop processes must be completed before continuing?">All</parameter>
+                    <parameter dependsOnId="type" dependsOnValue="Some" id="number" label="Number:" menu="" required="false" tooltip="If some, how many?"></parameter>
+                </parameters>
+                <messages></messages>
+                <dependents>
+                    <task label="" type="Complete" value="">utilities_echo_v1_178</task>
+                </dependents>
+            </task>
+            <task definition_id="system_integration_v1" id="system_integration_v1_171" name="Fetch User" x="56.034126163391925" y="536.7745604963803">
+                <version>1</version>
+                <configured>true</configured>
+                <defers>false</defers>
+                <deferrable>false</deferrable>
+                <visible>false</visible>
+                <parameters>
+                    <parameter dependsOnId="" dependsOnValue="" id="connection" label="Connection ID" menu="" required="true" tooltip="Connection ID">1415539c-bb98-48bb-ad33-11be25189ad0</parameter>
+                    <parameter dependsOnId="" dependsOnValue="" id="operation" label="Operation ID" menu="" required="true" tooltip="Operation ID">771f279a-988d-4b91-9b8f-85861c5c13fe</parameter>
+                    <parameter dependsOnId="" dependsOnValue="" id="parameters.Username" label="Username" menu="" required="false" tooltip="">&lt;%=
+value = @results['Sanitize Recipients - Start']['Value']
+if value.start_with?('"') &amp;&amp; value.end_with?('"')
+  value[1..-2]  # Remove both quotes
+elsif value.start_with?('"')
+  value[1..-1]  # Remove just the leading quote
+else
+  value  # No quotes, leave as-is
+end
+%&gt;</parameter>
+                </parameters>
+                <messages></messages>
+                <dependents>
+                    <task label="Not Found" type="Complete" value="@results['Fetch User']['Username'].to_s.empty?">system_integration_v1_172</task>
+                    <task label="User Found" type="Complete" value="!@results['Fetch User']['Username'].to_s.empty?">utilities_echo_v1_200</task>
+                </dependents>
+            </task>
+            <task definition_id="system_integration_v1" id="system_integration_v1_172" name="Fetch Team" x="52.83377308707123" y="850.7856766704966">
+                <version>1</version>
+                <configured>true</configured>
+                <defers>false</defers>
+                <deferrable>false</deferrable>
+                <visible>false</visible>
+                <parameters>
+                    <parameter dependsOnId="" dependsOnValue="" id="connection" label="Connection ID" menu="" required="true" tooltip="Connection ID">1415539c-bb98-48bb-ad33-11be25189ad0</parameter>
+                    <parameter dependsOnId="" dependsOnValue="" id="operation" label="Operation ID" menu="" required="true" tooltip="Operation ID">5a5da035-b670-4683-9895-7fb1f63cc29e</parameter>
+                    <parameter dependsOnId="" dependsOnValue="" id="parameters.Name" label="Name" menu="" required="false" tooltip="">&lt;%=
+value = @results['Sanitize Recipients - Start']['Value']
+if value.start_with?('"') &amp;&amp; value.end_with?('"')
+  value[1..-2]  # Remove both quotes
+elsif value.start_with?('"')
+  value[1..-1]  # Remove just the leading quote
+else
+  value  # No quotes, leave as-is
+end
+%&gt;</parameter>
+                </parameters>
+                <messages></messages>
+                <dependents>
+                    <task label="Not Found" type="Complete" value="@results['Fetch Team']['Name'].to_s.empty?">utilities_echo_v1_173</task>
+                    <task label="Team Found" type="Complete" value="!@results['Fetch Team']['Name'].to_s.empty?">utilities_echo_v1_202</task>
+                </dependents>
+            </task>
+            <task definition_id="utilities_echo_v1" id="utilities_echo_v1_173" name="Is Valid Email, Teams or Slack format" x="50.71011178931113" y="1149.4757853492442">
+                <version>1</version>
+                <configured>true</configured>
+                <defers>false</defers>
+                <deferrable>false</deferrable>
+                <visible>true</visible>
+                <parameters>
+                    <parameter dependsOnId="" dependsOnValue="" id="input" label="Input" menu="" required="true" tooltip="">&lt;%=
+# !(/^"?(teams:|slack:)\s*.+|^"?[A-Z0-9._%+-~'?]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.match("#{@results['Sanitize Recipients - Start']['Value']}").nil?)
+
+value = @results['Sanitize Recipients - Start']['Value']
+if value.start_with?('"') &amp;&amp; value.end_with?('"')
+  value = value[1..-2]  # Remove both quotes
+elsif value.start_with?('"')
+  value = value[1..-1]  # Remove just the leading quote
+else
+  value  # No quotes, leave as-is
+end
+
+!(/^(teams:|slack:)\s*.+|^[A-Z0-9._%+-~'?]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.match(value).nil?)
+%&gt;</parameter>
+                </parameters>
+                <messages></messages>
+                <dependents>
+                    <task label="Valid" type="Complete" value="@results['Is Valid Email, Teams or Slack format']['output'] === &quot;true&quot;">utilities_echo_v1_176</task>
+                </dependents>
+            </task>
+            <task definition_id="utilities_echo_v1" id="utilities_echo_v1_176" name="Format Email, Teams, or Slack JSON" x="458.4073980906273" y="1147.0856562744189">
+                <version>1</version>
+                <configured>true</configured>
+                <defers>false</defers>
+                <deferrable>false</deferrable>
+                <visible>true</visible>
+                <parameters>
+                    <parameter dependsOnId="" dependsOnValue="" id="input" label="Input" menu="" required="true" tooltip="">&lt;%=
+value = @results['Sanitize Recipients - Start']['Value']
+# Remove optional quotes
+clean_value = value.strip
+if clean_value.start_with?('"') &amp;&amp; clean_value.end_with?('"')
+  clean_value = clean_value[1..-2]  # Remove both first and last character
+elsif clean_value.start_with?('"')
+  clean_value = clean_value[1..-1]  # Remove just the leading quote
+end
+value_lower = clean_value.downcase
+
+if value_lower.start_with?("teams:")
+  ndm = "teams"
+  ndt = clean_value.split(":", 2)[1]&amp;.strip || ""
+elsif value_lower.start_with?("slack:")
+  ndm = "slack"
+  ndt = clean_value.split(":", 2)[1]&amp;.strip || ""
+else
+  ndm = "email"
+  ndt = clean_value
+end
+
+{
+  "type" =&gt; "broadcast",
+  "method"=&gt; ndm,
+  "target" =&gt; ndt,
+  "language"=&gt; "- Default -",
+  "cid" =&gt; JSON.parse(@results['Get Space']['Attributes Map'])['CID'][0]
+}.to_json
+%&gt;</parameter>
+                </parameters>
+                <messages></messages>
+                <dependents>
+                    <task label="" type="Complete" value="">system_junction_v1_177</task>
+                </dependents>
+            </task>
+            <task definition_id="system_junction_v1" id="system_junction_v1_177" name="Sanitize - Complete" x="1214.1959259327596" y="936.8600818765689">
+                <version>1</version>
+                <configured>true</configured>
+                <defers>false</defers>
+                <deferrable>false</deferrable>
+                <visible>false</visible>
+                <parameters></parameters>
+                <messages></messages>
+                <dependents>
+                    <task label="" type="Complete" value="">system_loop_tail_v1_170</task>
+                </dependents>
+            </task>
+            <task definition_id="utilities_echo_v1" id="utilities_echo_v1_178" name="Collect Results" x="1545.9979566353456" y="377.10692358610186">
+                <version>1</version>
+                <configured>true</configured>
+                <defers>false</defers>
+                <deferrable>false</deferrable>
+                <visible>true</visible>
+                <parameters>
+                    <parameter dependsOnId="" dependsOnValue="" id="input" label="Input" menu="" required="true" tooltip="">&lt;%=
+targets = []
+recipient_details = []
+
+if @results.key? 'Format User JSON'
+  @results['Format User JSON'].collect do |user|
+    parsed_user = JSON.parse(user[1]['output'])
+    unless targets.include?(parsed_user['target'])
+      recipient_details.push(parsed_user)
+      targets.push(parsed_user['target'])
+    end
+  end
+end
+
+if @results.key? 'Format Team JSON'
+  @results['Format Team JSON'].collect do |users|
+    JSON.parse(users[1]['output']).each do |user|
+      unless targets.include?(user['target'])
+        recipient_details.push(user)
+        targets.push(user['target'])
+      end
+    end
+  end
+end
+
+if @results.key? 'Format Group Notification Target JSON'
+  @results['Format Group Notification Target JSON'].collect do |target_group|
+    JSON.parse(target_group[1]['output']).each do |target|
+      unless targets.include?(target['target'])
+        recipient_details.push(target)
+        targets.push(target['target'])
+      end
+    end
+  end
+end
+
+if @results.key? 'Format Email, Teams, or Slack JSON'
+  @results['Format Email, Teams, or Slack JSON'].collect do |target|
+    parsed_target = JSON.parse(target[1]['output'])
+    unless targets.include?(parsed_target['target'])
+      recipient_details.push(parsed_target)
+      targets.push(parsed_target['target'])
+    end
+  end
+end
+
+recipient_details.select{|user| !user['target'].to_s.include?('@kinops.io')}.to_json
+%&gt;</parameter>
+                </parameters>
+                <messages></messages>
+                <dependents>
+                    <task label="" type="Complete" value="">kinetic_core_api_v1_183</task>
+                </dependents>
+            </task>
+            <task definition_id="kinetic_core_api_v1" id="kinetic_core_api_v1_183" name="Fetch Substitution Data" x="1547.417540277925" y="513.9005627293387">
+                <version>1</version>
+                <configured>true</configured>
+                <defers>false</defers>
+                <deferrable>false</deferrable>
+                <visible>false</visible>
+                <parameters>
+                    <parameter dependsOnId="" dependsOnValue="" id="error_handling" label="Error Handling" menu="Error Message,Raise Error" required="true" tooltip="Determine what to return if an error is encountered.">Error Message</parameter>
+                    <parameter dependsOnId="" dependsOnValue="" id="method" label="Method" menu="GET,POST,PUT,PATCH,DELETE" required="true" tooltip="GET,POST,PUT,PATCH,DELETE (Defaults to GET)">GET</parameter>
+                    <parameter dependsOnId="" dependsOnValue="" id="path" label="Path" menu="" required="true" tooltip="Example: /kapps/:kappSlug/forms/:formSlug">&lt;%=
+### SUBMISSIONS ###
+related_submission_id = @inputs['Related Submission Id']
+has_related_submission = !related_submission_id.to_s.empty?
+submission_includes = "details,origin,parent,type,values,form,form.attributes,form.kapp,form.kapp.attributes,form.kapp.space,form.kapp.space.attributes"
+
+### FORMS ###
+related_form_slug = @inputs['Form Slug Initiating Notification']
+has_related_form = !related_form_slug.to_s.empty?
+form_includes = "details,attributes,kapp,kapp.attributes,kapp.space,kapp.space.attributes"
+
+### KAPPS ###
+related_kapp_slug = @inputs['Kapp Slug Initiating Notification']
+has_related_kapp = !related_form_slug.to_s.empty?
+kapp_includes = "details,attributes,space,space.attributes"
+
+### ROUTE VARIABLE ###
+data_api_route = "/"
+
+if has_related_submission
+  data_api_route &lt;&lt; "submissions/#{related_submission_id}?include=#{submission_includes}"
+elsif has_related_form
+  data_api_route &lt;&lt; "kapps/#{related_kapp_slug}/forms/#{related_form_slug}?include=#{form_includes}"
+elsif has_related_kapp
+  data_api_route = "/kapps/#{related_kapp_slug}?include=#{kapp_includes}"
+else
+  data_api_route = '/space?include=attributes,details'
+end
+
+data_api_route%&gt;</parameter>
+                    <parameter dependsOnId="" dependsOnValue="" id="body" label="Body" menu="" required="false" tooltip="JSON body if applicable (POST,PUT,PATCH)"></parameter>
+                </parameters>
+                <messages></messages>
+                <dependents>
+                    <task label="" type="Complete" value="">utilities_echo_v1_195</task>
+                </dependents>
+            </task>
+            <task definition_id="kinetic_request_ce_notification_template_send_v5" id="kinetic_request_ce_notification_template_send_v5_192" name="Assemble and Send Message" x="2234.331546536449" y="504.10393631010294">
+                <version>3</version>
+                <configured>true</configured>
+                <defers>false</defers>
+                <deferrable>false</deferrable>
+                <visible>false</visible>
+                <parameters>
+                    <parameter dependsOnId="" dependsOnValue="" id="error_handling" label="Error Handling" menu="Error Message,Raise Error" required="true" tooltip="Determine what to return if an error is encountered.">Error Message</parameter>
+                    <parameter dependsOnId="" dependsOnValue="" id="space_slug" label="Space Slug" menu="" required="false" tooltip="The id of the space from which the submission is being retrieved."></parameter>
+                    <parameter dependsOnId="" dependsOnValue="" id="recipient_json" label="Recipient Json Object" menu="" required="true" tooltip="The recipient object should look like this. {&quot;type&quot;:&quot;user&quot;,&quot;username&quot;:&quot;test@mycompany.com&quot;,&quot;smtpaddress&quot;:{&quot;to&quot;:&quot;to_test@mycompany.com&quot;,&quot;cc&quot;:&quot;cc_test@mycompany.com&quot;,&quot;bcc&quot;:&quot;bcc_test@mycompany.com&quot;},&quot;language&quot;:&quot;- Default -&quot;,&quot;email notifications&quot;:&quot;yes&quot;}  ">&lt;%=
+# Just passing in an email address will work as well as the formatted object.
+#if JSON.parse(@results['Send Message Loop Start']['Value'])['type'] == 'user'
+#  JSON.parse(@results['Fetch User Data']['Response Body'])['user']['email']
+#elsif JSON.parse(@results['Send Message Loop Start']['Value'])['type'] == 'smtp'
+#  JSON.parse(@results['Send Message Loop Start']['Value'])['recipient']
+#end
+JSON.parse(@results['Send Message Loop Start']['Value'])['target']
+
+%&gt;</parameter>
+                    <parameter dependsOnId="" dependsOnValue="" id="notification_template_name" label="Notification Template Name" menu="" required="true" tooltip="The notification template name being used.">&lt;%=@inputs['Notification Template Name']%&gt;</parameter>
+                    <parameter dependsOnId="" dependsOnValue="" id="replacement_values" label="Replacement Values" menu="" required="false" tooltip="JSON string of replacement values. Required to successfully apply replacements to any notification template.  JSON keys can be 'form', 'values', and 'vars'.">&lt;%= @results['Replacement Values For Email']['output'] %&gt;</parameter>
+                    <parameter dependsOnId="" dependsOnValue="" id="submission_id" label="Submission Id" menu="" required="false" tooltip="Needed if the message contains attachments.">&lt;%=@inputs['Related Submission Id']%&gt;</parameter>
+                </parameters>
+                <messages></messages>
+                <dependents>
+                    <task label="" type="Complete" value="">system_loop_tail_v1_145</task>
+                </dependents>
+            </task>
+            <task definition_id="utilities_echo_v1" id="utilities_echo_v1_195" name="Replacement Values For Email" x="1545.3193982829077" y="675.4776817021849">
+                <version>1</version>
+                <configured>true</configured>
+                <defers>false</defers>
+                <deferrable>false</deferrable>
+                <visible>true</visible>
+                <parameters>
+                    <parameter dependsOnId="" dependsOnValue="" id="input" label="Input" menu="" required="true" tooltip="">&lt;%=
+## Parse Replacement Variables Data
+data_response = @results['Fetch Substitution Data']['Handler Error Message'].nil? ? JSON.parse(@results['Fetch Substitution Data']['Response Body']) : nil
+user_response = (@results.has_key?('Fetch User Data') &amp;&amp; @results['Fetch User Data']['Handler Error Message'].nil?) ? JSON.parse(@results['Fetch User Data']['Response Body']) : nil
+addtl_vars = @inputs['JSON Variables'].to_s.empty? ? nil : JSON.parse(@inputs['JSON Variables'])
+backup_vars = {"spaceAttributes" =&gt; {"Theme Color Primary" =&gt; "#666666"}}
+
+### SUBMISSIONS ###
+related_submission_id = @inputs['Related Submission Id']
+has_related_submission = !related_submission_id.to_s.empty?
+
+### FORMS ###
+related_form_slug = @inputs['Form Slug Initiating Notification']
+has_related_form = !related_form_slug.to_s.empty?
+
+### KAPPS ###
+related_kapp_slug = @inputs['Kapp Slug Initiating Notification']
+has_related_kapp = !related_form_slug.to_s.empty?
+
+### DATASTORE ###
+#is_datastore = ['yes', 'true'].include?(@inputs['Is Datastore'].to_s.downcase)
+
+api_context = ""
+if has_related_submission
+  api_context = "Submission"
+#elsif has_related_form &amp;&amp; (has_related_kapp || is_datastore)
+elsif has_related_form &amp;&amp; has_related_kapp
+  api_context = "Form"
+elsif has_related_kapp
+  api_context = "Kapp"
+else
+  api_context = "Space"
+end
+
+@variables =  {}
+variableTypes = [
+  "submission",
+  "values",
+  "form",
+  "formAttributes",
+  "kapp",
+  "kappAttributes",
+  "space",
+  "spaceAttributes",
+  "vars",
+  "user",
+  "userAttributes",
+  "userProfileAttributes"
+]
+variableTypes.each do |var|
+  @variables[var] = {}
+end
+
+def buildSubmissionVariables(data)
+  data = data['submission']
+  data.keys.each do |key|
+    # Build Up Submission Properties (non hash / arrays)
+    if !data[key].is_a?(Hash) &amp;&amp; !data[key].is_a?(Array)
+      @variables['submission'][key] = data[key]
+    end
+
+    # Pass Form Object to the Build Form Variables Routine to Handle the Rest
+    buildFormVariables('form' =&gt; data[key]) if key == 'form'
+
+    # Build Submission Values Variables
+    @variables['values'] = data[key] if key == 'values'
+  end
+end
+
+def buildFormVariables(data)
+  data = data['form']
+  data.keys.each do |key|
+    # Build Up Form Properties (non hash / arrays)
+    if !data[key].is_a?(Hash) &amp;&amp; !data[key].is_a?(Array)
+      label = 'Form ' + key.capitalize
+      @variables['form'][label] = data[key]
+    end
+
+    # Build Attributes for this object
+    if key == 'attributes'
+      data[key].each do |obj|
+        @variables['formAttributes'][obj['name']] = obj['values'].join(', ')
+      end
+    end
+
+    # Pass Kapp Object to the Build Kapp Variables Routine to Handle the Rest
+    buildKappVariables('kapp' =&gt; data[key]) if key == 'kapp'
+
+    # Pass Kapp Object to the Build Space Variables Routine to Handle the Rest
+    # (for Datastore submissions)
+    buildSpaceVariables('space' =&gt; data[key]) if key == 'space'
+  end
+end
+
+def buildKappVariables(data)
+  data = data['kapp']
+  data.keys.each do |key|
+    # Build Up Kapp Properties (non hash / arrays)
+    if !data[key].is_a?(Hash) &amp;&amp; !data[key].is_a?(Array)
+      label = 'Kapp ' + key.capitalize
+      @variables['kapp'][label] = data[key]
+    end
+
+    # Build Attributes for this object
+    if key == 'attributes'
+      data[key].each do |obj|
+        @variables['kappAttributes'][obj['name']] = obj['values'].join(', ')
+      end
+    end
+
+    # Pass Space Object to the Build Space Variables Routine to Handle the Rest
+    buildSpaceVariables('space' =&gt; data[key]) if key == 'space'
+  end
+end
+
+def buildSpaceVariables(data)
+  data = data['space']
+  data.keys.each do |key|
+    # Build Up Space Properties (non hash / arrays)
+    if !data[key].is_a?(Hash) &amp;&amp; !data[key].is_a?(Array)
+      label = 'Space ' + key.capitalize
+      @variables['space'][label] = data[key]
+    end
+
+    # Build Attributes for this object
+    next unless key == 'attributes'
+    data[key].each do |obj|
+      @variables['spaceAttributes'][obj['name']] = obj['values'].join(', ')
+    end
+  end
+end
+
+def buildUserVariables(data)
+  data = data['user']
+  data.keys.each do |key|
+    # Build Up User Properties (non hash / arrays)
+    if !data[key].is_a?(Hash) &amp;&amp; !data[key].is_a?(Array)
+      @variables['user'][key] = data[key]
+    end
+
+    # Build Attributes for this object
+    if key == 'attributes'
+      data[key].each do |obj|
+        @variables['userAttributes'][obj['name']] = obj['values'].join(', ')
+      end
+    end
+
+    # Build Profile Attributes for this object
+    next unless key == 'profileAttributes'
+    data[key].each do |obj|
+      @variables['userProfileAttributes'][obj['name']] = obj['values'].join(', ')
+    end
+  end
+end
+
+if !data_response.nil?
+  # Build variables from data
+  if api_context == 'Submission'
+    buildSubmissionVariables(data_response)
+  elsif api_context == 'Form'
+    buildFormVariables(data_response)
+  elsif api_context == 'Kapp'
+    buildKappVariables(data_response)
+  else
+    buildSpaceVariables(data_response)
+  end
+end
+
+# Add User Variables if supplied
+if !user_response.nil?
+  buildUserVariables(user_response)
+end
+
+# Add Additional Variables
+@variables['vars'] = addtl_vars unless addtl_vars.nil?
+
+# Check for Backups if supplied
+unless backup_vars.nil?
+  # Loop over Each Backup Key (kapp / submission / values / user...etc)
+  backup_vars.keys.each do |key|
+    # If the backup is a valid property of what variables are expected
+    next if @variables[key].nil?
+    # Loop over each backup value supplied and check if it exists
+    backup_vars[key].each do |k, v|
+      # If no value was found, use the backup value
+      if @variables[key][k].nil? || @variables[key][k].empty?
+        @variables[key][k] = v
+      end
+    end
+  end
+end
+
+@variables.to_json%&gt;</parameter>
+                </parameters>
+                <messages></messages>
+                <dependents>
+                    <task label="" type="Complete" value="">system_loop_head_v1_144</task>
+                </dependents>
+            </task>
+            <task definition_id="kinetic_agent_handler_execute_v3" id="kinetic_agent_handler_execute_v3_197" name="Assemble and Send Message - Agent" x="2457.1082075604036" y="503.0550743720536">
+                <version>1</version>
+                <configured>true</configured>
+                <defers>false</defers>
+                <deferrable>false</deferrable>
+                <visible>false</visible>
+                <parameters>
+                    <parameter dependsOnId="" dependsOnValue="" id="error_handling" label="Error Handling" menu="Error Message,Raise Error" required="true" tooltip="Determine what to return if an error is encountered.">Raise Error</parameter>
+                    <parameter dependsOnId="" dependsOnValue="" id="agent_slug" label="Agent Slug" menu="" required="true" tooltip="The slug of the agent that contains the handler to execute. (Configured in Space &gt; Platform Components &gt; Agents)">kinetic-agent</parameter>
+                    <parameter dependsOnId="" dependsOnValue="" id="handler_slug" label="Handler Slug" menu="" required="true" tooltip="The slug of the handler to execute. ex on-prem-incident-create">kinetic_request_ce_notification_template_send_v3</parameter>
+                    <parameter dependsOnId="" dependsOnValue="" id="payload" label="Payload" menu="" required="false" tooltip="The parameter-to-value mappings of the handler that is being executed in JSON format.             ie {&quot;baz&quot;: &quot;buz&quot;}">&lt;%=
+recipient = ""
+if JSON.parse(@results['Send Message Loop Start']['Value'])['type'] == 'user'
+  recipient = JSON.parse(@results['Fetch User Data']['Response Body'])['user']['email']
+elsif JSON.parse(@results['Send Message Loop Start']['Value'])['type'] == 'smtp'
+  recipient = JSON.parse(@results['Send Message Loop Start']['Value'])['recipient']
+end
+
+{'error_handling' =&gt; 'Raise Error',
+ 'space_slug' =&gt; '',
+ 'recipient_json' =&gt; recipient,
+ 'notification_template_name' =&gt; @inputs['Notification Template Name'],
+ 'replacement_values' =&gt; @results['Replacement Values For Email']['output'],
+ 'submission_id' =&gt; @inputs['Related Submission Id'] 
+}.to_json
+%&gt;</parameter>
+                </parameters>
+                <messages></messages>
+                <dependents></dependents>
+            </task>
+            <task definition_id="utilities_echo_v1" id="utilities_echo_v1_198" name="**NOTE**  Use of Agent Handlers" x="2353.44827039066" y="429.1066589773394">
+                <version>1</version>
+                <configured>true</configured>
+                <defers>false</defers>
+                <deferrable>false</deferrable>
+                <visible>true</visible>
+                <parameters>
+                    <parameter dependsOnId="" dependsOnValue="" id="input" label="Input" menu="" required="true" tooltip="">This routine contains the workflow necessary to use this routine in environments that use either local handlers or agent handlers.
+
+Use the instructions below to connect the correct nodes for the enviroment
+
+Local Handlers:
+-Connect the following node
+  - 'Junction' to 'Assemble and Send Message'
+  - 'Assemble and Send Message' to 'Send Message Loop End'
+  - Remove any connectors to and from 'Assemble and Send Message - Agent'
+  
+Agent Handlers:
+-Connect the following node
+  - 'Junction' to 'Assemble and Send Message - Agent'
+  - 'Assemble and Send Message - Agent' to 'Send Message Loop End'
+  - Remove any connectors to and from 'Assemble and Send Message'</parameter>
+                </parameters>
+                <messages></messages>
+                <dependents></dependents>
+            </task>
+            <task definition_id="utilities_echo_v1" id="utilities_echo_v1_199" name="Format User JSON" x="453.33280010402837" y="437.40568407128154">
+                <version>1</version>
+                <configured>true</configured>
+                <defers>false</defers>
+                <deferrable>false</deferrable>
+                <visible>true</visible>
+                <parameters>
+                    <parameter dependsOnId="" dependsOnValue="" id="input" label="Input" menu="" required="true" tooltip="">&lt;%=
+#email_notifications = 'yes'
+
+language = '- Default -'
+if !@results['Fetch User']['Preferred Locale'].to_s.empty?
+  language = @results['Fetch User']['Preferred Locale']
+end
+
+target = nil
+profile_attrs = JSON.parse(@results['Fetch User']['Profile Attributes'])
+if profile_attrs.key?('Notification Delivery Target') &amp;&amp; 
+   profile_attrs['Notification Delivery Target'][0] &amp;&amp; 
+   !profile_attrs['Notification Delivery Target'][0].to_s.strip.empty?
+  target = JSON.parse(@results['Fetch User']['Profile Attributes'])['Notification Delivery Target'][0]
+else 
+  unless /^[A-Z0-9._%+-~'?]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.match((@results['Fetch User']['Email']).to_s).nil?
+    target = @results['Fetch User']['Email']
+  end
+end
+
+format = {}
+#format['type'] = 'smtp'
+format['type'] = 'individual'
+format['method'] = @results['User Delivery Method']['output']
+format['username'] = @results['Fetch User']['Username']
+#format['smtpaddress'] = email
+format['target'] = target
+format['language'] = language
+#format['email notifications'] = email_notifications
+#format['delivery_method'] = @results['User Delivery Method']['output']
+format['cid'] = JSON.parse(@results['Fetch User']['Attributes'])['CID'][0] || JSON.parse(@results['Get Space']['Attributes Map'])['CID'][0]
+
+format.to_json%&gt;</parameter>
+                </parameters>
+                <messages></messages>
+                <dependents>
+                    <task label="" type="Complete" value="">system_junction_v1_177</task>
+                </dependents>
+            </task>
+            <task definition_id="utilities_echo_v1" id="utilities_echo_v1_200" name="User Delivery Method" x="449.89348500517053" y="539.7745604963806">
+                <version>1</version>
+                <configured>true</configured>
+                <defers>false</defers>
+                <deferrable>false</deferrable>
+                <visible>true</visible>
+                <parameters>
+                    <parameter dependsOnId="" dependsOnValue="" id="input" label="Input" menu="" required="true" tooltip="">&lt;%=
+delivery_method = 'email'
+
+ndm = JSON.parse(@results['Fetch User']['Profile Attributes'])['Notification Delivery Method'][0]
+if !ndm.to_s.strip.empty?
+  if ['email','teams','slack','none'].include?(ndm.strip.downcase)
+    delivery_method = ndm.strip.downcase
+  end
+end
+
+delivery_method
+%&gt;</parameter>
+                </parameters>
+                <messages></messages>
+                <dependents>
+                    <task label="Not None" type="Complete" value="@results['User Delivery Method']['output'] != &quot;none&quot;">utilities_echo_v1_199</task>
+                    <task label="None" type="Complete" value="@results['User Delivery Method']['output'] == &quot;none&quot;">system_noop_v1_201</task>
+                </dependents>
+            </task>
+            <task definition_id="system_noop_v1" id="system_noop_v1_201" name="Do Not Send Email - User" x="446.49462748254945" y="651.5996437891105">
+                <version>1</version>
+                <configured>true</configured>
+                <defers>false</defers>
+                <deferrable>false</deferrable>
+                <visible>false</visible>
+                <parameters></parameters>
+                <messages></messages>
+                <dependents>
+                    <task label="" type="Complete" value="">system_junction_v1_177</task>
+                </dependents>
+            </task>
+            <task definition_id="utilities_echo_v1" id="utilities_echo_v1_202" name="Team Delivery Method" x="452.89349490157684" y="850.9110405670472">
+                <version>1</version>
+                <configured>true</configured>
+                <defers>false</defers>
+                <deferrable>false</deferrable>
+                <visible>true</visible>
+                <parameters>
+                    <parameter dependsOnId="" dependsOnValue="" id="input" label="Input" menu="" required="true" tooltip="">&lt;%=
+ndt = JSON.parse(@results['Fetch Team']['Notification Delivery Target'])
+
+delivery_method = 'individual'
+if !@results['Fetch Team']['Notification Delivery Method'].to_s.strip.empty?
+  ndm = @results['Fetch Team']['Notification Delivery Method'].strip.downcase
+  if ['group email','teams','slack','none'].include?(ndm) &amp;&amp; ndt.size &gt; 0
+    delivery_method = @results['Fetch Team']['Notification Delivery Method'].strip.downcase
+  end
+end
+
+delivery_method
+%&gt;</parameter>
+                </parameters>
+                <messages></messages>
+                <dependents>
+                    <task label="" type="Complete" value="">system_junction_v1_177</task>
+                    <task label="None" type="Complete" value="@results['Team Delivery Method']['output'] == &quot;none&quot;">system_noop_v1_204</task>
+                    <task label="Individual" type="Complete" value="@results['Team Delivery Method']['output'] == &quot;individual&quot;">utilities_echo_v1_205</task>
+                    <task label="Group, Slack, or Teams" type="Complete" value="['group email','teams','slack'].include?(@results['Team Delivery Method']['output'])">utilities_echo_v1_206</task>
+                </dependents>
+            </task>
+            <task definition_id="system_noop_v1" id="system_noop_v1_204" name="Do Not Send Email - Group" x="649.9171345391503" y="943.6408187412965">
+                <version>1</version>
+                <configured>true</configured>
+                <defers>false</defers>
+                <deferrable>false</deferrable>
+                <visible>false</visible>
+                <parameters></parameters>
+                <messages></messages>
+                <dependents>
+                    <task label="" type="Complete" value="">system_junction_v1_177</task>
+                </dependents>
+            </task>
+            <task definition_id="utilities_echo_v1" id="utilities_echo_v1_205" name="Format Team JSON" x="448.77152376987436" y="753.7595135826897">
+                <version>1</version>
+                <configured>true</configured>
+                <defers>false</defers>
+                <deferrable>false</deferrable>
+                <visible>true</visible>
+                <parameters>
+                    <parameter dependsOnId="" dependsOnValue="" id="input" label="Input" menu="" required="true" tooltip="">&lt;%=
+formatted_users = []
+##### Fetch Team w/memberships now includes all details.
+# Parse Team Members
+  #team_members = JSON.parse(@results['Fetch Team']['Memberships JSON']).collect { |member| member['user']['username'] }
+# Parse Users and only filter members
+  #team_users = JSON.parse(@results['Retrieve Users']['Users List JSON']).select { |user| team_members.include? user['username'] }
+# Format Each Team User
+  #team_users.each do |user|
+
+JSON.parse(@results['Fetch Team']['Memberships']).each do |user|
+  username = user['User Name']
+  # This is here in preparation for when someone can turn off notifications
+  #email_notifications = 'yes'
+  ndm = (user.dig('Profile Attributes Map', 'Notification Delivery Method')&amp;.first || "email").downcase
+  
+  language = '- Default -' 
+  unless user['User Preferred Locale'].to_s.empty?
+    language = user['User Preferred Locale']
+  end
+
+  email = nil
+  unless /^[A-Z0-9._%+-~'?]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.match((user['User Email']).to_s).nil?
+    email = user['User Email']
+  end
+
+  format = {}
+  #format['type'] = 'user'
+  format['type'] = 'individual'
+  format['methode'] = ndm
+  #format['username'] = user['username']
+  format['username'] = username
+  #format['smtpaddress'] = email
+  format['target'] = email
+  format['language'] = language
+  #format['email notifications'] = email_notifications
+  formatted_users &lt;&lt; format
+end
+
+formatted_users.to_json%&gt;</parameter>
+                </parameters>
+                <messages></messages>
+                <dependents></dependents>
+            </task>
+            <task definition_id="utilities_echo_v1" id="utilities_echo_v1_206" name="Format Group Notification Target JSON" x="449.627695474741" y="1035.7587791759843">
+                <version>1</version>
+                <configured>true</configured>
+                <defers>false</defers>
+                <deferrable>false</deferrable>
+                <visible>true</visible>
+                <parameters>
+                    <parameter dependsOnId="" dependsOnValue="" id="input" label="Input" menu="" required="true" tooltip="">&lt;%=
+cid = JSON.parse(@results['Fetch Team']['CID'])[0] || JSON.parse(@results['Get Space']['Attributes Map'])['CID'][0]
+
+ndm = @results['Team Delivery Method']['output']
+if ndm == "group email"
+  ndm = "email"
+end
+
+ndt = JSON.parse(@results['Fetch Team']['Notification Delivery Target'])
+group_targets=[]
+
+ndt.each{|target|
+  group_targets.push({
+    #"type"=&gt; "smtp",
+    "type" =&gt; "broadcast",
+    "method"=&gt; ndm,
+    "target" =&gt; target.strip,
+    "language"=&gt; "- Default -",
+    "cid" =&gt; cid
+  })
+}
+
+group_targets.to_json
+%&gt;</parameter>
+                </parameters>
+                <messages></messages>
+                <dependents>
+                    <task label="" type="Complete" value="">system_junction_v1_177</task>
+                </dependents>
+            </task>
+            <task definition_id="system_loop_head_v1" id="system_loop_head_v1_208" name="Send Message - Teams or Slack - Loop Start" x="3679.9758509888557" y="786.2003155468138">
+                <version>1</version>
+                <configured>true</configured>
+                <defers>false</defers>
+                <deferrable>false</deferrable>
+                <visible>false</visible>
+                <parameters>
+                    <parameter dependsOnId="" dependsOnValue="" id="data_source" label="Data Source:" menu="" required="true" tooltip="The source that contains the data to use to create each task in the loop.">&lt;%= 
+emails = JSON.parse(@results['Collect Results']['output']).select{|item| item['method'] == "teams" || item['method'] == "slack"}
+emails.to_json
+%&gt;</parameter>
+                    <parameter dependsOnId="" dependsOnValue="" id="loop_path" label="Loop Path:" menu="" required="true" tooltip="The XPath or JSONPath statement to indicate what data records to process.">$.[*]</parameter>
+                    <parameter dependsOnId="" dependsOnValue="" id="var_name" label="Variable Name:" menu="" required="false" tooltip="The local variable name used to represent the data used in loop tasks."></parameter>
+                </parameters>
+                <messages></messages>
+                <dependents>
+                    <task label="" type="Complete" value="">system_loop_tail_v1_209</task>
+                    <task label="" type="Complete" value="">system_integration_v1_221</task>
+                </dependents>
+            </task>
+            <task definition_id="system_loop_tail_v1" id="system_loop_tail_v1_209" name="Send Message - Teams or Slack - Loop End" x="2454.0559724918226" y="784.1090121418205">
+                <version>1</version>
+                <configured>true</configured>
+                <defers>false</defers>
+                <deferrable>false</deferrable>
+                <visible>false</visible>
+                <parameters>
+                    <parameter dependsOnId="" dependsOnValue="" id="type" label="Type:" menu="All,Some,Any" required="true" tooltip="How many loop processes must be completed before continuing?">All</parameter>
+                    <parameter dependsOnId="type" dependsOnValue="Some" id="number" label="Number:" menu="" required="false" tooltip="If some, how many?"></parameter>
+                </parameters>
+                <messages></messages>
+                <dependents>
+                    <task label="" type="Complete" value="">system_junction_v1_267</task>
+                </dependents>
+            </task>
+            <task definition_id="system_integration_v1" id="system_integration_v1_220" name="Get Space" x="59.05857849518363" y="272.32140067690733">
+                <version>1</version>
+                <configured>true</configured>
+                <defers>false</defers>
+                <deferrable>false</deferrable>
+                <visible>true</visible>
+                <parameters>
+                    <parameter dependsOnId="" dependsOnValue="" id="connection" label="Connection ID" menu="" required="true" tooltip="Connection ID">1415539c-bb98-48bb-ad33-11be25189ad0</parameter>
+                    <parameter dependsOnId="" dependsOnValue="" id="operation" label="Operation ID" menu="" required="true" tooltip="Operation ID">7ad51a20-8bab-422b-a0f7-247e082dccd5</parameter>
+                </parameters>
+                <messages></messages>
+                <dependents>
+                    <task label="" type="Complete" value="">system_loop_head_v1_169</task>
+                </dependents>
+            </task>
+            <task definition_id="system_integration_v1" id="system_integration_v1_221" name="Get Client Configuration" x="3681.4280384928916" y="1100.3833863518419">
+                <version>1</version>
+                <configured>true</configured>
+                <defers>false</defers>
+                <deferrable>false</deferrable>
+                <visible>true</visible>
+                <parameters>
+                    <parameter dependsOnId="" dependsOnValue="" id="connection" label="Connection ID" menu="" required="true" tooltip="Connection ID">1415539c-bb98-48bb-ad33-11be25189ad0</parameter>
+                    <parameter dependsOnId="" dependsOnValue="" id="operation" label="Operation ID" menu="" required="true" tooltip="Operation ID">e8e539c4-4c31-469a-9bfc-9de5aaf4d384</parameter>
+                    <parameter dependsOnId="" dependsOnValue="" id="parameters.CID" label="CID" menu="" required="false" tooltip="">&lt;%= JSON.parse(@results['Send Message - Teams or Slack - Loop Start']['Value'])['cid'] %&gt;</parameter>
+                </parameters>
+                <messages></messages>
+                <dependents>
+                    <task label="Teams + Found Client" type="Complete" value="JSON.parse(@results['Send Message - Teams or Slack - Loop Start']['Value'])['method'] == &quot;teams&quot; &amp;&amp; @results['Get Client Configuration']['_Returned Count'].to_i &gt; 0 &amp;&amp; !JSON.parse(@results['Get Client Configuration']['submissions'])[0]['agent handler'].to_s.empty? ">system_noop_v1_279</task>
+                    <task label="Slack + Found Client" type="Complete" value="JSON.parse(@results['Send Message - Teams or Slack - Loop Start']['Value'])['method'] == &quot;slack&quot; &amp;&amp; @results['Get Client Configuration']['_Returned Count'].to_i &gt; 0 &amp;&amp; !JSON.parse(@results['Get Client Configuration']['submissions'])[0]['agent handler slack'].to_s.empty? ">system_noop_v1_280</task>
+                </dependents>
+            </task>
+            <task definition_id="system_integration_v1" id="system_integration_v1_224" name="Get Notification Snippets" x="2464.2048482312225" y="653.3358532640373">
+                <version>1</version>
+                <configured>true</configured>
+                <defers>false</defers>
+                <deferrable>false</deferrable>
+                <visible>true</visible>
+                <parameters>
+                    <parameter dependsOnId="" dependsOnValue="" id="connection" label="Connection ID" menu="" required="true" tooltip="Connection ID">1415539c-bb98-48bb-ad33-11be25189ad0</parameter>
+                    <parameter dependsOnId="" dependsOnValue="" id="operation" label="Operation ID" menu="" required="true" tooltip="Operation ID">7152d4bc-d8d5-4122-a40d-e933a65b5fe8</parameter>
+                </parameters>
+                <messages></messages>
+                <dependents>
+                    <task label="" type="Complete" value="">system_integration_v1_225</task>
+                </dependents>
+            </task>
+            <task definition_id="system_integration_v1" id="system_integration_v1_225" name="Get Notification Date Formats" x="3098.1940415952563" y="652.1041616970241">
+                <version>1</version>
+                <configured>true</configured>
+                <defers>false</defers>
+                <deferrable>false</deferrable>
+                <visible>true</visible>
+                <parameters>
+                    <parameter dependsOnId="" dependsOnValue="" id="connection" label="Connection ID" menu="" required="true" tooltip="Connection ID">1415539c-bb98-48bb-ad33-11be25189ad0</parameter>
+                    <parameter dependsOnId="" dependsOnValue="" id="operation" label="Operation ID" menu="" required="true" tooltip="Operation ID">bb8d89b8-d63e-4fcd-b893-825ca2666c6c</parameter>
+                </parameters>
+                <messages></messages>
+                <dependents>
+                    <task label="" type="Complete" value="">system_integration_v1_226</task>
+                </dependents>
+            </task>
+            <task definition_id="system_integration_v1" id="system_integration_v1_226" name="Get Notification Template" x="3678.204478256017" y="650.6164844515896">
+                <version>1</version>
+                <configured>true</configured>
+                <defers>false</defers>
+                <deferrable>false</deferrable>
+                <visible>true</visible>
+                <parameters>
+                    <parameter dependsOnId="" dependsOnValue="" id="connection" label="Connection ID" menu="" required="true" tooltip="Connection ID">1415539c-bb98-48bb-ad33-11be25189ad0</parameter>
+                    <parameter dependsOnId="" dependsOnValue="" id="operation" label="Operation ID" menu="" required="true" tooltip="Operation ID">c09e9e4d-5747-4882-9298-ad1a71a75997</parameter>
+                    <parameter dependsOnId="" dependsOnValue="" id="parameters.Template Name" label="Template Name" menu="" required="false" tooltip="">&lt;%= @inputs['Notification Template Name'] %&gt;</parameter>
+                </parameters>
+                <messages></messages>
+                <dependents>
+                    <task label="" type="Complete" value="">system_loop_head_v1_208</task>
+                </dependents>
+            </task>
+            <task definition_id="system_junction_v1" id="system_junction_v1_267" name="Junction" x="1961.1738968541008" y="786.7584203678347">
+                <version>1</version>
+                <configured>true</configured>
+                <defers>false</defers>
+                <deferrable>false</deferrable>
+                <visible>false</visible>
+                <parameters></parameters>
+                <messages></messages>
+                <dependents>
+                    <task label="" type="Complete" value="">system_tree_return_v1_155</task>
+                </dependents>
+            </task>
+            <task definition_id="kinetic_agent_handler_execute_v3" id="kinetic_agent_handler_execute_v3_269" name="Get Slack Id by Email - Agent" x="3303.681650126304" y="1180.717542721235">
+                <version>1</version>
+                <configured>true</configured>
+                <defers>false</defers>
+                <deferrable>false</deferrable>
+                <visible>true</visible>
+                <parameters>
+                    <parameter dependsOnId="" dependsOnValue="" id="error_handling" label="Error Handling" menu="Error Message,Raise Error" required="true" tooltip="Determine what to return if an error is encountered.">Raise Error</parameter>
+                    <parameter dependsOnId="" dependsOnValue="" id="agent_slug" label="Agent Slug" menu="" required="true" tooltip="The slug of the agent that contains the handler to execute. (Configured in Space &gt; Platform Components &gt; Agents)">&lt;%= JSON.parse(@results['Get Client Configuration']['submissions'])[0]['agent server'] %&gt;</parameter>
+                    <parameter dependsOnId="" dependsOnValue="" id="handler_slug" label="Handler Slug" menu="" required="true" tooltip="The slug of the handler to execute. ex on-prem-incident-create">&lt;%= JSON.parse(@results['Get Client Configuration']['submissions'])[0]['agent handler - slack'] %&gt;</parameter>
+                    <parameter dependsOnId="" dependsOnValue="" id="payload" label="Payload" menu="" required="false" tooltip="The parameter-to-value mappings of the handler that is being executed in JSON format.             ie {&quot;baz&quot;: &quot;buz&quot;}">&lt;%=
+target = JSON.parse(@results['Send Message - Slack - Loop Start']['Value'])['target']
+encoded_target = URI.encode_www_form_component(target)
+{
+  "error_handling" =&gt; "Raise Error",
+  "method" =&gt; "GET",
+  "path" =&gt; "/users.lookupByEmail?email=#{encoded_target}",
+}.to_json
+%&gt;</parameter>
+                </parameters>
+                <messages></messages>
+                <dependents>
+                    <task label="" type="Complete" value="">kinetic_agent_handler_execute_v3_270</task>
+                </dependents>
+            </task>
+            <task definition_id="kinetic_agent_handler_execute_v3" id="kinetic_agent_handler_execute_v3_270" name="Send Slack - Individual - Agent" x="2887.103578903451" y="1179.1088258011841">
+                <version>1</version>
+                <configured>true</configured>
+                <defers>false</defers>
+                <deferrable>false</deferrable>
+                <visible>true</visible>
+                <parameters>
+                    <parameter dependsOnId="" dependsOnValue="" id="error_handling" label="Error Handling" menu="Error Message,Raise Error" required="true" tooltip="Determine what to return if an error is encountered.">Raise Error</parameter>
+                    <parameter dependsOnId="" dependsOnValue="" id="agent_slug" label="Agent Slug" menu="" required="true" tooltip="The slug of the agent that contains the handler to execute. (Configured in Space &gt; Platform Components &gt; Agents)">&lt;%= JSON.parse(@results['Get Client Configuration']['submissions'])[0]['agent server'] %&gt;</parameter>
+                    <parameter dependsOnId="" dependsOnValue="" id="handler_slug" label="Handler Slug" menu="" required="true" tooltip="The slug of the handler to execute. ex on-prem-incident-create">&lt;%= JSON.parse(@results['Get Client Configuration']['submissions'])[0]['agent handler - slack'] %&gt;</parameter>
+                    <parameter dependsOnId="" dependsOnValue="" id="payload" label="Payload" menu="" required="false" tooltip="The parameter-to-value mappings of the handler that is being executed in JSON format.             ie {&quot;baz&quot;: &quot;buz&quot;}">&lt;%=
+# Attachments -- OUT OF SCOPE FOR TEAMS RIGHT NOW
+
+notification_template = JSON.parse(@results['Get Notification Template']['Submissions'])[0]
+
+def replacesnippetsInRecord(record)
+  replace_fields = ['Subject', 'HTML Content', 'Text Content']
+  snippet_re = /\$\{snippet\(\'(.*?)\'\)}/
+  #')  #Putting a single quote and closing paren as a comment to make the above line not mess up the visual parsing of this code
+  snippet_records = JSON.parse(@results['Get Notification Snippets']['Submissions'])
+
+  # Loop Over the Subject, HTML, Text of each Record and replace snippets if they were found
+  record.each do |field, value|
+    if replace_fields.include?(field) &amp;&amp; !value.to_s.empty?
+      value.scan(snippet_re).flatten.uniq.each do |snippetName|
+        snippetRecord = snippetRecords.find { |snippet| snippet != nil &amp;&amp; snippet["Name"] == snippetName }
+        # If a snippet record is found, replace it
+        if !snippetRecord.to_s.empty?
+          # If it's an HTML field, use the HTML Content from the snippet
+          if field.include? "HTML"
+            record[field].gsub!("${snippet('#{snippetName}')}", snippetRecord["HTML Content"])
+          else  # Otherwise, use the Text Content (Subject / Text)
+            record[field].gsub!("${snippet('#{snippetName}')}", snippetRecord["Text Content"])
+          end
+        end
+      end
+    end
+  end
+  return record
+end
+
+def apply_replacements(content)
+  replace_values = JSON.parse(@results['Replacement Values For Email']['output'])
+  notification_date_formats = JSON.parse(@results['Get Notification Date Formats']['submissions'])
+  date_format_json = notification_date_formats.each_with_object({}) do |item, hash|
+    hash[item['name']] = { 'Format' =&gt; item['format'] }
+  end
+
+  #Extract the keys from the replacement_values attribute
+  replace_values.keys.each{|key|
+    content = content.gsub(/\$\{#{key}\('(.*?)'\)\}/) do
+      if replace_values[key].has_key?($1)
+        replace_values[key][$1]
+      else
+        "${#{key}('#{$1}')}"
+      end
+    end
+  }
+
+  #Replace Dates
+  #This does a "negative look ahead" to ensure it captures the entire quote string
+  content = content.gsub(/\$\{appearance\('(.*?)'\)\}(?!('\)\}))/) do
+    #need to split into content and ${format()} sections
+    thisContent=$1.split("$")
+    #check if tag matches a valid date and if so convert first part into date and format it.
+    thisDateFormat = thisContent[1].gsub(/\{format\('(.*?)'\)\}/) do
+      if date_format_json.has_key?($1)
+        date_format_json[$1]['Format']
+      else
+        '${format(\''+$1+'\')}'
+      end
+    end
+    if !thisDateFormat.nil? &amp;&amp; !thisDateFormat.include?('{format')
+      if thisDateFormat.include?('%')
+        begin
+          d = DateTime.parse(thisContent[0])
+          d.strftime(thisDateFormat)
+        rescue
+          thisContent[0].to_s
+        end
+      end
+    else
+      '${appearance(\''+thisContent[0]+'$'+thisDateFormat+'\')}'
+    end
+  end
+
+  return content
+end
+
+template_to_use = nil
+# Do this twice since replacements can use snippets in very advanced message templates
+2.times do
+  template_to_use = replacesnippetsInRecord(notification_template)
+  template_to_use["Subject"] = apply_replacements(template_to_use["Subject"])
+  template_to_use["HTML Content"] = apply_replacements(template_to_use["HTML Content"])
+  template_to_use["Text Content"] = apply_replacements(template_to_use["Text Content"])
+end
+
+target_id = JSON.parse(@results['Get Slack Id by Email - Agent']['Response Body'])['user']['id']
+
+{
+  "error_handling" =&gt; "Raise Error",
+  "method" =&gt; "GET",
+  "path" =&gt; "/chat.postMessage",
+  "body" =&gt; {
+    "channel" =&gt; target_id,
+    "text" = "#{template_to_use['Subject']}\n\n#{template_to_use['Text Content']}"
+  }.to_json
+}.to_json
+%&gt;</parameter>
+                </parameters>
+                <messages></messages>
+                <dependents>
+                    <task label="" type="Complete" value="">system_junction_v1_274</task>
+                </dependents>
+            </task>
+            <task definition_id="kinetic_agent_handler_execute_v3" id="kinetic_agent_handler_execute_v3_271" name="Get Slack Channels - Agent" x="3304.2985356134827" y="1331.9493712328235">
+                <version>1</version>
+                <configured>true</configured>
+                <defers>false</defers>
+                <deferrable>false</deferrable>
+                <visible>true</visible>
+                <parameters>
+                    <parameter dependsOnId="" dependsOnValue="" id="error_handling" label="Error Handling" menu="Error Message,Raise Error" required="true" tooltip="Determine what to return if an error is encountered.">Raise Error</parameter>
+                    <parameter dependsOnId="" dependsOnValue="" id="agent_slug" label="Agent Slug" menu="" required="true" tooltip="The slug of the agent that contains the handler to execute. (Configured in Space &gt; Platform Components &gt; Agents)">&lt;%= JSON.parse(@results['Get Client Configuration']['submissions'])[0]['agent server'] %&gt;</parameter>
+                    <parameter dependsOnId="" dependsOnValue="" id="handler_slug" label="Handler Slug" menu="" required="true" tooltip="The slug of the handler to execute. ex on-prem-incident-create">&lt;%= JSON.parse(@results['Get Client Configuration']['submissions'])[0]['agent handler - slack'] %&gt;</parameter>
+                    <parameter dependsOnId="" dependsOnValue="" id="payload" label="Payload" menu="" required="false" tooltip="The parameter-to-value mappings of the handler that is being executed in JSON format.             ie {&quot;baz&quot;: &quot;buz&quot;}">&lt;%=
+{
+  "error_handling" =&gt; "Raise Error",
+  "method" =&gt; "GET",
+  "path" =&gt; "/conversations.list?exclude_archived=true&amp;limit=1000&amp;type=public_channel,private_channel",
+}.to_json
+%&gt;</parameter>
+                </parameters>
+                <messages></messages>
+                <dependents>
+                    <task label="" type="Complete" value="">utilities_echo_v1_272</task>
+                </dependents>
+            </task>
+            <task definition_id="utilities_echo_v1" id="utilities_echo_v1_272" name="Find Channel Id" x="2885.811452140358" y="1325.6107610624026">
+                <version>1</version>
+                <configured>true</configured>
+                <defers>false</defers>
+                <deferrable>false</deferrable>
+                <visible>true</visible>
+                <parameters>
+                    <parameter dependsOnId="" dependsOnValue="" id="input" label="Input" menu="" required="true" tooltip="">&lt;%=
+channels = JSON.parse(@results['Get Slack Channels - Agent']['Response Body'])
+target = JSON.parse(@results['Send Message - Slack - Loop Start']['Value'])['target']
+
+# Find the channel with matching name and get its ID
+channel_id = channels['Channels'].find { |channel| channel['Name'] == target }&amp;.dig('Id')
+%&gt;</parameter>
+                </parameters>
+                <messages></messages>
+                <dependents>
+                    <task label="Found Channel" type="Complete" value="!@results['Find Channel Id']['output'].to_s.strip.empty?">kinetic_agent_handler_execute_v3_273</task>
+                </dependents>
+            </task>
+            <task definition_id="kinetic_agent_handler_execute_v3" id="kinetic_agent_handler_execute_v3_273" name="Send Slack - Team - Agent" x="2448.966728139488" y="1329.6591326949">
+                <version>1</version>
+                <configured>true</configured>
+                <defers>false</defers>
+                <deferrable>false</deferrable>
+                <visible>true</visible>
+                <parameters>
+                    <parameter dependsOnId="" dependsOnValue="" id="error_handling" label="Error Handling" menu="Error Message,Raise Error" required="true" tooltip="Determine what to return if an error is encountered.">Raise Error</parameter>
+                    <parameter dependsOnId="" dependsOnValue="" id="agent_slug" label="Agent Slug" menu="" required="true" tooltip="The slug of the agent that contains the handler to execute. (Configured in Space &gt; Platform Components &gt; Agents)">&lt;%= JSON.parse(@results['Get Client Configuration']['submissions'])[0]['agent server'] %&gt;</parameter>
+                    <parameter dependsOnId="" dependsOnValue="" id="handler_slug" label="Handler Slug" menu="" required="true" tooltip="The slug of the handler to execute. ex on-prem-incident-create">&lt;%= JSON.parse(@results['Get Client Configuration']['submissions'])[0]['agent handler - slack'] %&gt;</parameter>
+                    <parameter dependsOnId="" dependsOnValue="" id="payload" label="Payload" menu="" required="false" tooltip="The parameter-to-value mappings of the handler that is being executed in JSON format.             ie {&quot;baz&quot;: &quot;buz&quot;}">&lt;%=
+# Attachments -- OUT OF SCOPE FOR TEAMS RIGHT NOW
+
+notification_template = JSON.parse(@results['Get Notification Template']['Submissions'])[0]
+
+def replacesnippetsInRecord(record)
+  replace_fields = ['Subject', 'HTML Content', 'Text Content']
+  snippet_re = /\$\{snippet\(\'(.*?)\'\)}/
+  #')  #Putting a single quote and closing paren as a comment to make the above line not mess up the visual parsing of this code
+  snippet_records = JSON.parse(@results['Get Notification Snippets']['Submissions'])
+
+  # Loop Over the Subject, HTML, Text of each Record and replace snippets if they were found
+  record.each do |field, value|
+    if replace_fields.include?(field) &amp;&amp; !value.to_s.empty?
+      value.scan(snippet_re).flatten.uniq.each do |snippetName|
+        snippetRecord = snippetRecords.find { |snippet| snippet != nil &amp;&amp; snippet["Name"] == snippetName }
+        # If a snippet record is found, replace it
+        if !snippetRecord.to_s.empty?
+          # If it's an HTML field, use the HTML Content from the snippet
+          if field.include? "HTML"
+            record[field].gsub!("${snippet('#{snippetName}')}", snippetRecord["HTML Content"])
+          else  # Otherwise, use the Text Content (Subject / Text)
+            record[field].gsub!("${snippet('#{snippetName}')}", snippetRecord["Text Content"])
+          end
+        end
+      end
+    end
+  end
+  return record
+end
+
+def apply_replacements(content)
+  replace_values = JSON.parse(@results['Replacement Values For Email']['output'])
+  notification_date_formats = JSON.parse(@results['Get Notification Date Formats']['submissions'])
+  date_format_json = notification_date_formats.each_with_object({}) do |item, hash|
+    hash[item['name']] = { 'Format' =&gt; item['format'] }
+  end
+
+  #Extract the keys from the replacement_values attribute
+  replace_values.keys.each{|key|
+    content = content.gsub(/\$\{#{key}\('(.*?)'\)\}/) do
+      if replace_values[key].has_key?($1)
+        replace_values[key][$1]
+      else
+        "${#{key}('#{$1}')}"
+      end
+    end
+  }
+
+  #Replace Dates
+  #This does a "negative look ahead" to ensure it captures the entire quote string
+  content = content.gsub(/\$\{appearance\('(.*?)'\)\}(?!('\)\}))/) do
+    #need to split into content and ${format()} sections
+    thisContent=$1.split("$")
+    #check if tag matches a valid date and if so convert first part into date and format it.
+    thisDateFormat = thisContent[1].gsub(/\{format\('(.*?)'\)\}/) do
+      if date_format_json.has_key?($1)
+        date_format_json[$1]['Format']
+      else
+        '${format(\''+$1+'\')}'
+      end
+    end
+    if !thisDateFormat.nil? &amp;&amp; !thisDateFormat.include?('{format')
+      if thisDateFormat.include?('%')
+        begin
+          d = DateTime.parse(thisContent[0])
+          d.strftime(thisDateFormat)
+        rescue
+          thisContent[0].to_s
+        end
+      end
+    else
+      '${appearance(\''+thisContent[0]+'$'+thisDateFormat+'\')}'
+    end
+  end
+
+  return content
+end
+
+template_to_use = nil
+# Do this twice since replacements can use snippets in very advanced message templates
+2.times do
+  template_to_use = replacesnippetsInRecord(notification_template)
+  template_to_use["Subject"] = apply_replacements(template_to_use["Subject"])
+  template_to_use["HTML Content"] = apply_replacements(template_to_use["HTML Content"])
+  template_to_use["Text Content"] = apply_replacements(template_to_use["Text Content"])
+end
+
+target_id = @results['Find Channel Id']['output']
+
+{
+  "error_handling" =&gt; "Raise Error",
+  "method" =&gt; "GET",
+  "path" =&gt; "/chat.postMessage",
+  "body" =&gt; {
+    "channel" =&gt; target_id,
+    "text" = "#{template_to_use['Subject']}\n\n#{template_to_use['Text Content']}"
+  }.to_json
+}.to_json
+%&gt;</parameter>
+                </parameters>
+                <messages></messages>
+                <dependents>
+                    <task label="" type="Complete" value="">system_junction_v1_274</task>
+                </dependents>
+            </task>
+            <task definition_id="system_junction_v1" id="system_junction_v1_274" name="Junction - Teams" x="2453.2220238349373" y="1068.138192424647">
+                <version>1</version>
+                <configured>true</configured>
+                <defers>false</defers>
+                <deferrable>false</deferrable>
+                <visible>false</visible>
+                <parameters></parameters>
+                <messages></messages>
+                <dependents>
+                    <task label="" type="Complete" value="">system_loop_tail_v1_209</task>
+                </dependents>
+            </task>
+            <task definition_id="utilities_echo_v1" id="utilities_echo_v1_276" name="Send Teams via Webhook " x="2891.4447995483756" y="918.8881689918366">
+                <version>1</version>
+                <configured>true</configured>
+                <defers>false</defers>
+                <deferrable>false</deferrable>
+                <visible>true</visible>
+                <parameters>
+                    <parameter dependsOnId="" dependsOnValue="" id="input" label="Input" menu="" required="true" tooltip="">&lt;%=
+require 'net/http'
+require 'json'
+require 'uri'
+
+# Attachments -- OUT OF SCOPE FOR TEAMS RIGHT NOW
+
+notification_template = JSON.parse(@results['Get Notification Template']['Submissions'])[0]
+
+def replacesnippetsInRecord(record)
+  replace_fields = ['Subject', 'HTML Content', 'Text Content']
+  snippet_re = /\$\{snippet\(\'(.*?)\'\)}/
+  #')  #Putting a single quote and closing paren as a comment to make the above line not mess up the visual parsing of this code
+  snippet_records = JSON.parse(@results['Get Notification Snippets']['Submissions'])
+
+  # Loop Over the Subject, HTML, Text of each Record and replace snippets if they were found
+  record.each do |field, value|
+    if replace_fields.include?(field) &amp;&amp; !value.to_s.empty?
+      value.scan(snippet_re).flatten.uniq.each do |snippetName|
+        snippetRecord = snippetRecords.find { |snippet| snippet != nil &amp;&amp; snippet["Name"] == snippetName }
+        # If a snippet record is found, replace it
+        if !snippetRecord.to_s.empty?
+          # If it's an HTML field, use the HTML Content from the snippet
+          if field.include? "HTML"
+            record[field].gsub!("${snippet('#{snippetName}')}", snippetRecord["HTML Content"])
+          else  # Otherwise, use the Text Content (Subject / Text)
+            record[field].gsub!("${snippet('#{snippetName}')}", snippetRecord["Text Content"])
+          end
+        end
+      end
+    end
+  end
+  return record
+end
+
+def apply_replacements(content)
+  replace_values = JSON.parse(@results['Replacement Values For Email']['output'])
+  notification_date_formats = JSON.parse(@results['Get Notification Date Formats']['submissions'])
+  date_format_json = notification_date_formats.each_with_object({}) do |item, hash|
+    hash[item['name']] = { 'Format' =&gt; item['format'] }
+  end
+
+  #Extract the keys from the replacement_values attribute
+  replace_values.keys.each{|key|
+    content = content.gsub(/\$\{#{key}\('(.*?)'\)\}/) do
+      if replace_values[key].has_key?($1)
+        replace_values[key][$1]
+      else
+        "${#{key}('#{$1}')}"
+      end
+    end
+  }
+
+  #Replace Dates
+  #This does a "negative look ahead" to ensure it captures the entire quote string
+  content = content.gsub(/\$\{appearance\('(.*?)'\)\}(?!('\)\}))/) do
+    #need to split into content and ${format()} sections
+    thisContent=$1.split("$")
+    #check if tag matches a valid date and if so convert first part into date and format it.
+    thisDateFormat = thisContent[1].gsub(/\{format\('(.*?)'\)\}/) do
+      if date_format_json.has_key?($1)
+        date_format_json[$1]['Format']
+      else
+        '${format(\''+$1+'\')}'
+      end
+    end
+    if !thisDateFormat.nil? &amp;&amp; !thisDateFormat.include?('{format')
+      if thisDateFormat.include?('%')
+        begin
+          d = DateTime.parse(thisContent[0])
+          d.strftime(thisDateFormat)
+        rescue
+          thisContent[0].to_s
+        end
+      end
+    else
+      '${appearance(\''+thisContent[0]+'$'+thisDateFormat+'\')}'
+    end
+  end
+
+  return content
+end
+
+template_to_use = nil
+# Do this twice since replacements can use snippets in very advanced message templates
+2.times do
+  template_to_use = replacesnippetsInRecord(notification_template)
+  template_to_use["Subject"] = apply_replacements(template_to_use["Subject"])
+  template_to_use["HTML Content"] = apply_replacements(template_to_use["HTML Content"])
+  template_to_use["Text Content"] = apply_replacements(template_to_use["Text Content"])
+end
+
+
+webhook_url = JSON.parse(@results['Send Message - Teams or Slack - Loop Start']['Value'])['target']
+uri = URI(webhook_url)
+
+# Your message data
+message = {
+  "attachments": [
+    {
+      "contentType": "application/vnd.microsoft.card.adaptive",
+      "content": {
+        "type": "AdaptiveCard",
+        "version": "1.4",
+        "body": [
+          {
+            "type": "TextBlock",
+            "text": "#{template_to_use["Subject"]}\n\n#{template_to_use["Text Content"]}",
+            "wrap": true
+          }
+        ]
+      }
+    }
+  ]
+}
+
+
+# Create the HTTP request
+http = Net::HTTP.new(uri.host, uri.port)
+http.use_ssl = true
+
+request = Net::HTTP::Post.new(uri)
+request['Content-Type'] = 'application/json'
+request.body = message.to_json
+
+# Send it
+response = http.request(request)
+
+{
+  "code" =&gt; response.code,
+  "body" =&gt; response.body
+}.to_json
+%&gt;</parameter>
+                </parameters>
+                <messages></messages>
+                <dependents>
+                    <task label="" type="Complete" value="">system_junction_v1_274</task>
+                </dependents>
+            </task>
+            <task definition_id="utilities_echo_v1" id="utilities_echo_v1_277" name="Send Teams Individual via Webhook" x="3298.3428886450424" y="1070.0656905766689">
+                <version>1</version>
+                <configured>true</configured>
+                <defers>false</defers>
+                <deferrable>false</deferrable>
+                <visible>true</visible>
+                <parameters>
+                    <parameter dependsOnId="" dependsOnValue="" id="input" label="Input" menu="" required="true" tooltip="">&lt;%=
+require 'net/http'
+require 'json'
+require 'uri'
+
+# Attachments -- OUT OF SCOPE FOR TEAMS RIGHT NOW
+
+notification_template = JSON.parse(@results['Get Notification Template']['Submissions'])[0]
+
+def replacesnippetsInRecord(record)
+  replace_fields = ['Subject', 'HTML Content', 'Text Content']
+  snippet_re = /\$\{snippet\(\'(.*?)\'\)}/
+  #')  #Putting a single quote and closing paren as a comment to make the above line not mess up the visual parsing of this code
+  snippet_records = JSON.parse(@results['Get Notification Snippets']['Submissions'])
+
+  # Loop Over the Subject, HTML, Text of each Record and replace snippets if they were found
+  record.each do |field, value|
+    if replace_fields.include?(field) &amp;&amp; !value.to_s.empty?
+      value.scan(snippet_re).flatten.uniq.each do |snippetName|
+        snippetRecord = snippetRecords.find { |snippet| snippet != nil &amp;&amp; snippet["Name"] == snippetName }
+        # If a snippet record is found, replace it
+        if !snippetRecord.to_s.empty?
+          # If it's an HTML field, use the HTML Content from the snippet
+          if field.include? "HTML"
+            record[field].gsub!("${snippet('#{snippetName}')}", snippetRecord["HTML Content"])
+          else  # Otherwise, use the Text Content (Subject / Text)
+            record[field].gsub!("${snippet('#{snippetName}')}", snippetRecord["Text Content"])
+          end
+        end
+      end
+    end
+  end
+  return record
+end
+
+def apply_replacements(content)
+  replace_values = JSON.parse(@results['Replacement Values For Email']['output'])
+  notification_date_formats = JSON.parse(@results['Get Notification Date Formats']['submissions'])
+  date_format_json = notification_date_formats.each_with_object({}) do |item, hash|
+    hash[item['name']] = { 'Format' =&gt; item['format'] }
+  end
+
+  #Extract the keys from the replacement_values attribute
+  replace_values.keys.each{|key|
+    content = content.gsub(/\$\{#{key}\('(.*?)'\)\}/) do
+      if replace_values[key].has_key?($1)
+        replace_values[key][$1]
+      else
+        "${#{key}('#{$1}')}"
+      end
+    end
+  }
+
+  #Replace Dates
+  #This does a "negative look ahead" to ensure it captures the entire quote string
+  content = content.gsub(/\$\{appearance\('(.*?)'\)\}(?!('\)\}))/) do
+    #need to split into content and ${format()} sections
+    thisContent=$1.split("$")
+    #check if tag matches a valid date and if so convert first part into date and format it.
+    thisDateFormat = thisContent[1].gsub(/\{format\('(.*?)'\)\}/) do
+      if date_format_json.has_key?($1)
+        date_format_json[$1]['Format']
+      else
+        '${format(\''+$1+'\')}'
+      end
+    end
+    if !thisDateFormat.nil? &amp;&amp; !thisDateFormat.include?('{format')
+      if thisDateFormat.include?('%')
+        begin
+          d = DateTime.parse(thisContent[0])
+          d.strftime(thisDateFormat)
+        rescue
+          thisContent[0].to_s
+        end
+      end
+    else
+      '${appearance(\''+thisContent[0]+'$'+thisDateFormat+'\')}'
+    end
+  end
+
+  return content
+end
+
+template_to_use = nil
+# Do this twice since replacements can use snippets in very advanced message templates
+2.times do
+  template_to_use = replacesnippetsInRecord(notification_template)
+  template_to_use["Subject"] = apply_replacements(template_to_use["Subject"])
+  template_to_use["HTML Content"] = apply_replacements(template_to_use["HTML Content"])
+  template_to_use["Text Content"] = apply_replacements(template_to_use["Text Content"])
+end
+
+
+webhook_url = JSON.parse(@results['Send Message - Teams or Slack - Loop Start']['Value'])['target']
+uri = URI(webhook_url)
+
+# Your message data
+message = {
+  "attachments": [
+    {
+      "contentType": "application/vnd.microsoft.card.adaptive",
+      "content": {
+        "type": "AdaptiveCard",
+        "version": "1.4",
+        "body": [
+          {
+            "type": "TextBlock",
+            "text": "#{template_to_use["Subject"]}\n\n#{template_to_use["Text Content"]}",
+            "wrap": true
+          }
+        ]
+      }
+    }
+  ]
+}
+
+
+# Create the HTTP request
+http = Net::HTTP.new(uri.host, uri.port)
+http.use_ssl = true
+
+request = Net::HTTP::Post.new(uri)
+request['Content-Type'] = 'application/json'
+request.body = message.to_json
+
+# Send it
+response = http.request(request)
+
+{
+  "code" =&gt; response.code,
+  "body" =&gt; response.body
+}.to_json
+%&gt;</parameter>
+                </parameters>
+                <messages></messages>
+                <dependents>
+                    <task label="" type="Complete" value="">system_junction_v1_274</task>
+                </dependents>
+            </task>
+            <task definition_id="system_noop_v1" id="system_noop_v1_279" name="Teams" x="3297.779189396068" y="913.542787880447">
+                <version>1</version>
+                <configured>true</configured>
+                <defers>false</defers>
+                <deferrable>false</deferrable>
+                <visible>false</visible>
+                <parameters></parameters>
+                <messages></messages>
+                <dependents>
+                    <task label="Broadcast" type="Complete" value="JSON.parse(@results['Send Message - Teams or Slack - Loop Start']['Value'])['type'].downcase == &quot;broadcast&quot;">utilities_echo_v1_276</task>
+                    <task label="Individual" type="Complete" value="JSON.parse(@results['Send Message - Teams or Slack - Loop Start']['Value'])['type'].downcase == &quot;individual&quot;">utilities_echo_v1_277</task>
+                </dependents>
+            </task>
+            <task definition_id="system_noop_v1" id="system_noop_v1_280" name="Slack" x="3682.8790172916897" y="1333.0648059810553">
+                <version>1</version>
+                <configured>true</configured>
+                <defers>false</defers>
+                <deferrable>false</deferrable>
+                <visible>false</visible>
+                <parameters></parameters>
+                <messages></messages>
+                <dependents>
+                    <task label="Individual" type="Complete" value="@results['Get Client Configuration']['_Returned Count'].to_i &gt; 0 &amp;&amp; !JSON.parse(@results['Get Client Configuration']['submissions'])[0]['agent handler slack'].to_s.empty? &amp;&amp; JSON.parse(@results['Send Message - Slack - Loop Start']['Value'])['type'].downcase == &quot;individual&quot;">kinetic_agent_handler_execute_v3_269</task>
+                    <task label="Broadcast" type="Complete" value="@results['Get Client Configuration']['_Returned Count'].to_i &gt; 0 &amp;&amp; !JSON.parse(@results['Get Client Configuration']['submissions'])[0]['agent handler slack'].to_s.empty? &amp;&amp; JSON.parse(@results['Send Message - Slack - Loop Start']['Value'])['type'].downcase == &quot;broadcast&quot;">kinetic_agent_handler_execute_v3_271</task>
+                </dependents>
+            </task>
+        </request>
+    </taskTree>
+</tree>

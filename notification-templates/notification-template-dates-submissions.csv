@@ -1,0 +1,6 @@
+_coreState,_currentPage,_formType,_parent,_origin,_createdAt,_createdBy,_updatedAt,_updatedBy,_submittedAt,_submittedBy,_closedAt,_closedBy,Status,Name,Format
+Draft,Datastore,Datastore,,,2024-04-05T23:35:35.013Z,matthew.howe@kineticdata.com,2024-04-05T23:37:54.019Z,matthew.howe@kineticdata.com,,,,,Active,DD-MMM-YYYY hh:mm (24 hour),%d-%^b-%Y %H:%M
+Draft,Datastore,Datastore,,,2023-05-05T19:32:33.102Z,space-integration-user,2023-05-05T19:32:33.102Z,space-integration-user,,,,,Active,MM-DD-YY h:mm (12 hour am/pm),%m-%e-%y %l:%M %p
+Draft,Datastore,Datastore,,,2023-05-05T19:32:32.916Z,space-integration-user,2023-05-05T19:32:32.916Z,space-integration-user,,,,,Active,MM-DD-YY hh:mm (24 hour),%m-%e-%y %H:%M
+Draft,Datastore,Datastore,,,2023-05-05T19:32:32.745Z,space-integration-user,2023-05-05T19:32:32.745Z,space-integration-user,,,,,Active,MM-DD-YY (no time),%m-%e-%y
+Draft,Datastore,Datastore,,,2023-05-05T19:32:32.479Z,space-integration-user,2023-05-05T19:32:32.479Z,space-integration-user,,,,,Active,"Month DD, YYYY (no time)","%b %d, %Y"

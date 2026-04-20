@@ -1,0 +1,592 @@
+<tree schema_version="1.0">
+    <sourceName>-</sourceName>
+    <sourceGroup>-</sourceGroup>
+    <definitionId>routine_robot_execution_routine_v5</definitionId>
+    <type>Global Routine</type>
+    <status>Active</status>
+    <taskTree builder_version="" schema_version="1.0" version="">
+        <name>Robot Execution Routine V5</name>
+        <author></author>
+        <notes></notes>
+        <lastID>114</lastID>
+        <taskDefinition id="routine_robot_execution_routine_v5" name="Robot Execution Routine V5" schema_version="1.0" version="1">
+            <visible>false</visible>
+            <deferrable>true</deferrable>
+            <parameters>
+                <parameter id="submission id" label="submission id" required="true" tooltip="Submission Id of the robot schedule record"></parameter>
+                <parameter id="start time" label="start time" required="true" tooltip="The time from which the next schedule should be determined.  Usually the current time, unless this is for a new schedule."></parameter>
+                <parameter id="schedule update time" label="schedule update time" required="true" tooltip="Schedule update time (for the initial routine call), or current time (for subsequent calls)."></parameter>
+                <parameter id="Initial Run" label="Initial Run" required="true" tooltip="Set to false when this routine calls itself; any other value when called the first time (when a submission is submitted or modified)">False</parameter>
+            </parameters>
+            <handler name="system_tree_call" version="1"></handler>
+            <results format="xml"></results>
+        </taskDefinition>
+        <request>
+            <task definition_id="system_start_v1" id="start" name="Start" x="10" y="10">
+                <version>1</version>
+                <configured>true</configured>
+                <defers>false</defers>
+                <deferrable>false</deferrable>
+                <visible>false</visible>
+                <parameters></parameters>
+                <messages></messages>
+                <dependents>
+                    <task label="" type="Complete" value="">system_integration_v1_113</task>
+                </dependents>
+            </task>
+            <task definition_id="utilities_echo_v1" id="utilities_echo_v1_8" name="Determine wait period" x="836.3483598118864" y="150.39516737981378">
+                <version>1</version>
+                <configured>true</configured>
+                <defers>false</defers>
+                <deferrable>false</deferrable>
+                <visible>true</visible>
+                <parameters>
+                    <parameter dependsOnId="" dependsOnValue="" id="input" label="Input" menu="" required="true" tooltip="">&lt;%= ((Time.parse(@results['Determine next execution']['next_occurrence']) - Time.now()).to_i) %&gt;</parameter>
+                </parameters>
+                <messages></messages>
+                <dependents>
+                    <task label="" type="Complete" value="">system_wait_v1_9</task>
+                    <task label="" type="Complete" value="">system_integration_v1_97</task>
+                </dependents>
+            </task>
+            <task definition_id="system_wait_v1" id="system_wait_v1_9" name="Wait" x="1666.361225102316" y="151.39980012919838">
+                <version>1</version>
+                <configured>true</configured>
+                <defers>true</defers>
+                <deferrable>true</deferrable>
+                <visible>true</visible>
+                <parameters>
+                    <parameter dependsOnId="" dependsOnValue="" id="Time to wait" label="Wait time:" menu="" required="true" tooltip="Time you want to wait for deferred task">&lt;%=@results['Determine wait period']['output']%&gt;</parameter>
+                    <parameter dependsOnId="" dependsOnValue="" id="Time unit" label="Time unit:" menu="Second,Minute,Hour,Day,Week" required="true" tooltip="Unit of measurement for time (Seconds, Minutes, Hours, Days, Weeks)">Second</parameter>
+                </parameters>
+                <messages></messages>
+                <dependents>
+                    <task label="" type="Complete" value="">system_integration_v1_114</task>
+                </dependents>
+            </task>
+            <task definition_id="utilities_defer_v1" id="utilities_defer_v1_18" name="Defer routine execution" x="1667.2687854155997" y="683.229558531904">
+                <version>1</version>
+                <configured>true</configured>
+                <defers>true</defers>
+                <deferrable>true</deferrable>
+                <visible>true</visible>
+                <parameters>
+                    <parameter dependsOnId="" dependsOnValue="" id="deferral_value" label="Initial Deferral Value" menu="" required="false" tooltip=""></parameter>
+                </parameters>
+                <messages></messages>
+                <dependents>
+                    <task label="" type="Create" value="">utilities_echo_v1_53</task>
+                    <task label="" type="Complete" value="">system_integration_v1_110</task>
+                </dependents>
+            </task>
+            <task definition_id="utilities_echo_v1" id="utilities_echo_v1_21" name="Update runtime inputs" x="2794.281133620367" y="683.1107131746152">
+                <version>1</version>
+                <configured>true</configured>
+                <defers>false</defers>
+                <deferrable>false</deferrable>
+                <visible>true</visible>
+                <parameters>
+                    <parameter dependsOnId="" dependsOnValue="" id="input" label="Input" menu="" required="true" tooltip="">&lt;%= inputs = {}
+inputs["Kinetic Robot Execution Record Id"]=JSON.parse(@results['Create execution record']['submission'])['id']
+inputs["Kinetic Robot Deferral Token"]=@results['Defer routine execution']['deferral_token']
+
+prev_execution = JSON.parse( @results['Retrieve previous execution']['Submissions'] )
+if prev_execution.empty?
+  inputs["Kinetic Robot Previous Execution Output"] = {}
+else
+  inputs["Kinetic Robot Previous Execution Output"] = JSON.parse( prev_execution[0]['values']['Output'] )
+end
+
+inputs["Runtime Inputs"]=JSON.parse( JSON.parse( @results['Recheck submission']['Values'] )['Runtime Inputs'] || "{}" )
+
+inputs.to_json%&gt;</parameter>
+                </parameters>
+                <messages></messages>
+                <dependents>
+                    <task label="" type="Complete" value="">system_integration_v1_106</task>
+                </dependents>
+            </task>
+            <task definition_id="system_noop_v1" id="system_noop_v1_27" name="No further schedules" x="834.438123317571" y="439.9828854993542">
+                <version>1</version>
+                <configured>true</configured>
+                <defers>false</defers>
+                <deferrable>false</deferrable>
+                <visible>false</visible>
+                <parameters></parameters>
+                <messages></messages>
+                <dependents>
+                    <task label="" type="Complete" value="">system_integration_v1_93</task>
+                </dependents>
+            </task>
+            <task definition_id="system_noop_v1" id="system_noop_v1_35" name="Schedule inactive" x="36.19708029197082" y="439.8698716335269">
+                <version>1</version>
+                <configured>true</configured>
+                <defers>false</defers>
+                <deferrable>false</deferrable>
+                <visible>false</visible>
+                <parameters></parameters>
+                <messages></messages>
+                <dependents></dependents>
+            </task>
+            <task definition_id="utilities_echo_v1" id="utilities_echo_v1_39" name="Schedule change" x="1265.5678244840212" y="277.81197065408213">
+                <version>1</version>
+                <configured>true</configured>
+                <defers>false</defers>
+                <deferrable>false</deferrable>
+                <visible>true</visible>
+                <parameters>
+                    <parameter dependsOnId="" dependsOnValue="" id="input" label="Input" menu="" required="true" tooltip="">The schedule changed since this execution initiated, which stopes processing on this thread. A separate thread will processing the updated schedule.</parameter>
+                </parameters>
+                <messages></messages>
+                <dependents></dependents>
+            </task>
+            <task definition_id="system_noop_v1" id="system_noop_v1_41" name="Schedule inactive - recheck" x="1262.3717230447442" y="434.0781043197826">
+                <version>1</version>
+                <configured>true</configured>
+                <defers>false</defers>
+                <deferrable>false</deferrable>
+                <visible>false</visible>
+                <parameters></parameters>
+                <messages></messages>
+                <dependents></dependents>
+            </task>
+            <task definition_id="system_noop_v1" id="system_noop_v1_47" name="Schedule changed; new run has been initiated" x="423.9232318147496" y="437.9038509942108">
+                <version>1</version>
+                <configured>true</configured>
+                <defers>false</defers>
+                <deferrable>false</deferrable>
+                <visible>false</visible>
+                <parameters></parameters>
+                <messages></messages>
+                <dependents></dependents>
+            </task>
+            <task definition_id="utilities_echo_v1" id="utilities_echo_v1_48" name="Schedule changed" x="425.88245658192847" y="277.53007802668026">
+                <version>1</version>
+                <configured>true</configured>
+                <defers>false</defers>
+                <deferrable>false</deferrable>
+                <visible>true</visible>
+                <parameters>
+                    <parameter dependsOnId="" dependsOnValue="" id="input" label="Input" menu="" required="true" tooltip="">&lt;%=@inputs['schedule update time'] != @results['Get submission']['Updated At']%&gt;</parameter>
+                </parameters>
+                <messages></messages>
+                <dependents>
+                    <task label="Changed" type="Complete" value="@results['Schedule changed']['output'] == &quot;true&quot;">system_noop_v1_47</task>
+                    <task label="No changes" type="Complete" value="@results['Schedule changed']['output'] == &quot;false&quot;">kinetic_determine_next_occurrence_v2_52</task>
+                </dependents>
+            </task>
+            <task definition_id="utilities_echo_v1" id="utilities_echo_v1_49" name="Notes on if Schedule changed" x="429.49352181064324" y="215.5342459931773">
+                <version>1</version>
+                <configured>true</configured>
+                <defers>false</defers>
+                <deferrable>false</deferrable>
+                <visible>true</visible>
+                <parameters>
+                    <parameter dependsOnId="" dependsOnValue="" id="input" label="Input" menu="" required="true" tooltip="">This ensures that if the task engine was stopped while multiple changes were happening, it validates against the submission details and not the retrieved values.</parameter>
+                </parameters>
+                <messages></messages>
+                <dependents></dependents>
+            </task>
+            <task definition_id="kinetic_determine_next_occurrence_v2" id="kinetic_determine_next_occurrence_v2_52" name="Determine next execution" x="835.5066700226532" y="276.60483262018636">
+                <version>2</version>
+                <configured>true</configured>
+                <defers>false</defers>
+                <deferrable>false</deferrable>
+                <visible>false</visible>
+                <parameters>
+                    <parameter dependsOnId="" dependsOnValue="" id="start" label="Start (UTC)" menu="" required="true" tooltip="The time when the schedule should begin looking for the next occurrence. Enter in a parsable Ruby time (standard Request CE Datetime field works; ex format YYYY-MM-DDTHH:MM:SS+00:00).">&lt;%=
+schedule = JSON.parse(@results['Get submission']['Values'])
+
+if schedule['Recurrence'] == "minutely"
+  @inputs['start time']
+elsif schedule['Recurrence'] == "hourly"
+  execution_hour = Time.parse( @inputs['start time'] ).utc.hour
+  execution_minute = schedule['Execution Minute']
+  Time.parse( "#{execution_hour}:#{execution_minute}", Time.parse( @inputs['start time'] ) ).utc
+else
+  execution_hour = schedule['Execution Hour']
+  execution_minute = schedule['Execution Minute']
+  Time.parse( "#{execution_hour}:#{execution_minute}", Time.parse( @inputs['start time'] ) ).utc
+end
+%&gt;</parameter>
+                    <parameter dependsOnId="" dependsOnValue="" id="recurrence_type" label="Recurrence Type" menu="" required="true" tooltip="Valid options are 'minutely' [requires interval],'hourly' [requires interval],'daily' [requires interval],'weekly' [requires interval],'monthly' [requires timing, interval and either weekdays or days of month],'yearly' [requires timing, interval, months, and either weekdays or days of month]">&lt;%=JSON.parse(@results['Get submission']['Values'])['Recurrence']%&gt;</parameter>
+                    <parameter dependsOnId="" dependsOnValue="" id="timing" label="Timing" menu="" required="false" tooltip="Requires for monthly and yearly Recurrence Types.  Valid options are 'Relative' or 'Absolute'. Relative refers to relatives dates (ex: First Monday in May and June) and Absolute refers to specific dates (ex: 7th and 10th of June)">&lt;%=JSON.parse(@results['Get submission']['Values'])['Timing']%&gt;</parameter>
+                    <parameter dependsOnId="" dependsOnValue="" id="interval" label="Interval" menu="" required="true" tooltip="The interval between the recurrence_type values.">&lt;%=JSON.parse(@results['Get submission']['Values'])['Interval']%&gt;</parameter>
+                    <parameter dependsOnId="" dependsOnValue="" id="months" label="Months" menu="" required="false" tooltip="The months in which this schedule should execute. Possible vales are entered in array format, with the values of 'January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'.  Any combination of values is fine. Example: ['January', 'April', 'July', 'October']">&lt;%=
+#Input needs to be a comma separated list
+JSON.parse(@results['Get submission']['Values'])['Months'].join(",")%&gt;</parameter>
+                    <parameter dependsOnId="" dependsOnValue="" id="days_of_month" label="Days of Month" menu="" required="false" tooltip="The dates on which this schedule should execute. Possible vales are entered in array format, with the values of 1 through 31, and 'last'.  Any combination of values is fine. Example: ['1', '15', 'Last']">&lt;%=
+#Input needs to be a comma separated list
+JSON.parse( @results['Get submission']['Values'] )['Days'].join(",")%&gt;</parameter>
+                    <parameter dependsOnId="" dependsOnValue="" id="weekdays" label="Weekdays" menu="" required="false" tooltip="The weekdays in which this schedule should execute. Possible vales are entered in array format, with the values of 'Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'.  Any combination of values is fine. Example: ['Monday', 'Thursday', 'Saturday']">&lt;%=
+##Input needs to be a comma separated list
+JSON.parse( @results['Get submission']['Values'] )['Weekdays'].join(",")%&gt;</parameter>
+                    <parameter dependsOnId="" dependsOnValue="" id="sunday_index" label="Sunday Index" menu="" required="false" tooltip="Required when Sunday field is populated AND recurrence type is NOT weekly. Possible values are entered in array format, with the values of 'All', 'First, 'Second', 'Third', 'Fourth', 'Last'.  'All' is exclusive to other values.  If not using 'All', any combination of other values is fine.  Example 1: ['All'], Example 2: ['First','Second','Last']">&lt;%=
+#Input needs to be a comma separated list
+JSON.parse( @results['Get submission']['Values'] )['Sunday Index'].join(",")%&gt;</parameter>
+                    <parameter dependsOnId="" dependsOnValue="" id="monday_index" label="Monday Index" menu="" required="false" tooltip="Required when Monday field is populated AND recurrence type is NOT weekly. Possible values are entered in array format, with the values of 'All', 'First, 'Second', 'Third', 'Fourth', 'Last'.  'All' is exclusive to other values.  If not using 'All', any combination of other values is fine.  Example 1: ['All'], Example 2: ['First','Second','Last']">&lt;%=
+##Input needs to be a comma separated list
+JSON.parse( @results['Get submission']['Values'] )['Monday Index'].join(",")%&gt;</parameter>
+                    <parameter dependsOnId="" dependsOnValue="" id="tuesday_index" label="Tuesday Index" menu="" required="false" tooltip="Required when Tuesday field is populated AND recurrence type is NOT weekly. Possible values are entered in array format, with the values of 'All', 'First, 'Second', 'Third', 'Fourth', 'Last'.  'All' is exclusive to other values.  If not using 'All', any combination of other values is fine.  Example 1: ['All'], Example 2: ['First','Second','Last']">&lt;%=
+#Input needs to be a comma separated list
+JSON.parse( @results['Get submission']['Values'] )['Tuesday Index'].join(",")%&gt;</parameter>
+                    <parameter dependsOnId="" dependsOnValue="" id="wednesday_index" label="Wednesday Index" menu="" required="false" tooltip="Required when Wednesday field is populated AND recurrence type is NOT weekly. Possible values are entered in array format, with the values of 'All', 'First, 'Second', 'Third', 'Fourth', 'Last'.  'All' is exclusive to other values.  If not using 'All', any combination of other values is fine.  Example 1: ['All'], Example 2: ['First','Second','Last']">&lt;%=
+##Input needs to be a comma separated list
+JSON.parse( @results['Get submission']['Values'] )['Wednesday Index'].join(",")%&gt;</parameter>
+                    <parameter dependsOnId="" dependsOnValue="" id="thursday_index" label="Thursday Index" menu="" required="false" tooltip="Required when Thursday field is populated AND recurrence type is NOT weekly. Possible values are entered in array format, with the values of 'All', 'First, 'Second', 'Third', 'Fourth', 'Last'.  'All' is exclusive to other values.  If not using 'All', any combination of other values is fine.  Example 1: ['All'], Example 2: ['First','Second','Last']">&lt;%=
+#Input needs to be a comma separated list
+JSON.parse( @results['Get submission']['Values'] )['Thursday Index'].join(",")%&gt;</parameter>
+                    <parameter dependsOnId="" dependsOnValue="" id="friday_index" label="Friday Index" menu="" required="false" tooltip="Required when Friday field is populated AND recurrence type is NOT weekly. Possible values are entered in array format, with the values of 'All', 'First, 'Second', 'Third', 'Fourth', 'Last'.  'All' is exclusive to other values.  If not using 'All', any combination of other values is fine.  Example 1: ['All'], Example 2: ['First','Second','Last']">&lt;%=
+#Input needs to be a comma separated list
+JSON.parse( @results['Get submission']['Values'] )['Friday Index'].join(",")%&gt;</parameter>
+                    <parameter dependsOnId="" dependsOnValue="" id="saturday_index" label="Saturday Index" menu="" required="false" tooltip="Required when Saturday field is populated AND recurrence type is NOT weekly. Possible values are entered in array format, with the values of 'All', 'First, 'Second', 'Third', 'Fourth', 'Last'.  'All' is exclusive to other values.  If not using 'All', any combination of other values is fine.  Example 1: ['All'], Example 2: ['First','Second','Last']">&lt;%=
+#Input needs to be a comma separated list
+JSON.parse( @results['Get submission']['Values'] )['Saturday Index'].join(",")%&gt;</parameter>
+                </parameters>
+                <messages></messages>
+                <dependents>
+                    <task label="Future Time" type="Complete" value="JSON.parse( @results['Get submission']['Values'] )['End Date'].nil? || JSON.parse( @results['Get submission']['Values'] )['End Date'].empty? || ( !( JSON.parse(@results['Get submission']['Values'])['End Date'].nil? ) &amp;&amp; !( JSON.parse(@results['Get submission']['Values'])['End Date'].empty? ) &amp;&amp; ( ( Time.parse( @results['Determine next execution']['next_occurrence'] ) - Time.parse( JSON.parse(@results['Get submission']['Values'])['End Date'] ) ).to_i  &lt; 0) )">utilities_echo_v1_8</task>
+                    <task label="After end date" type="Complete" value="( !( JSON.parse( @results['Get submission']['Values'] )['End Date'].nil? ) &amp;&amp; !( JSON.parse( @results['Get submission']['Values'] )['End Date'].empty? ) &amp;&amp; ( ( Time.parse( @results['Determine next execution']['next_occurrence'] ) - Time.parse( JSON.parse( @results['Get submission']['Values'] )['End Date'] ) ).to_i  &gt;= 0 ) )">system_noop_v1_27</task>
+                </dependents>
+            </task>
+            <task definition_id="utilities_echo_v1" id="utilities_echo_v1_53" name="Capture Execution Start Time" x="2115.3807461199985" y="682.1243355692773">
+                <version>1</version>
+                <configured>true</configured>
+                <defers>false</defers>
+                <deferrable>false</deferrable>
+                <visible>true</visible>
+                <parameters>
+                    <parameter dependsOnId="" dependsOnValue="" id="input" label="Input" menu="" required="true" tooltip="">&lt;%=
+require 'time'
+Time.now().utc.iso8601
+%&gt;</parameter>
+                </parameters>
+                <messages></messages>
+                <dependents>
+                    <task label="" type="Complete" value="">system_integration_v1_103</task>
+                </dependents>
+            </task>
+            <task definition_id="system_noop_v1" id="system_noop_v1_65" name="No updates (no op)" x="1669.4177858525502" y="430.1939486633376">
+                <version>1</version>
+                <configured>true</configured>
+                <defers>false</defers>
+                <deferrable>false</deferrable>
+                <visible>false</visible>
+                <parameters></parameters>
+                <messages></messages>
+                <dependents>
+                    <task label="Inactive" type="Complete" value="JSON.parse(@results['Recheck submission']['Values'])['Status'].downcase != &quot;active&quot;">system_noop_v1_41</task>
+                    <task label="Active" type="Complete" value="JSON.parse(@results['Recheck submission']['Values'])['Status'].downcase == &quot;active&quot;">system_integration_v1_104</task>
+                </dependents>
+            </task>
+            <task definition_id="system_noop_v1" id="system_noop_v1_70" name="Schedule has been deleted" x="2079.529966524858" y="285.9456943236806">
+                <version>1</version>
+                <configured>true</configured>
+                <defers>false</defers>
+                <deferrable>false</deferrable>
+                <visible>false</visible>
+                <parameters></parameters>
+                <messages></messages>
+                <dependents></dependents>
+            </task>
+            <task definition_id="routine_robot_execution_routine_v5" id="routine_robot_execution_routine_v5_83" name="Call self" x="1666.2433482509068" y="981.3191914377193">
+                <version>1</version>
+                <configured>true</configured>
+                <defers>false</defers>
+                <deferrable>true</deferrable>
+                <visible>false</visible>
+                <parameters>
+                    <parameter dependsOnId="" dependsOnValue="" id="submission id" label="submission id" menu="" required="true" tooltip="Submission Id of the robot schedule record">&lt;%=@inputs['submission id']%&gt;</parameter>
+                    <parameter dependsOnId="" dependsOnValue="" id="start time" label="start time" menu="" required="true" tooltip="The time from which the next schedule should be determined.  Usually the current time, unless this is for a new schedule.">&lt;%=Time.now()%&gt;</parameter>
+                    <parameter dependsOnId="" dependsOnValue="" id="schedule update time" label="schedule update time" menu="" required="true" tooltip="Schedule update time (for the initial routine call), or current time (for subsequent calls).">&lt;%=@inputs['schedule update time']%&gt;</parameter>
+                    <parameter dependsOnId="" dependsOnValue="" id="Initial Run" label="Initial Run" menu="" required="true" tooltip="Set to false when this routine calls itself; any other value when called the first time (when a submission is submitted or modified)">False</parameter>
+                </parameters>
+                <messages></messages>
+                <dependents></dependents>
+            </task>
+            <task definition_id="system_integration_v1" id="system_integration_v1_93" name="Find next execution record - Clear" x="832.2497668745251" y="571.4004556310939">
+                <version>1</version>
+                <configured>true</configured>
+                <defers>false</defers>
+                <deferrable>false</deferrable>
+                <visible>false</visible>
+                <parameters>
+                    <parameter dependsOnId="" dependsOnValue="" id="connection" label="Connection ID" menu="" required="true" tooltip="Connection ID">1415539c-bb98-48bb-ad33-11be25189ad0</parameter>
+                    <parameter dependsOnId="" dependsOnValue="" id="operation" label="Operation ID" menu="" required="true" tooltip="Operation ID">f1973347-73eb-4cd3-8c25-80004499875a</parameter>
+                    <parameter dependsOnId="" dependsOnValue="" id="parameters.Direction" label="Direction" menu="" required="false" tooltip="">ASC</parameter>
+                    <parameter dependsOnId="" dependsOnValue="" id="parameters.Form Slug" label="Form Slug" menu="" required="false" tooltip="">robot-next-execution</parameter>
+                    <parameter dependsOnId="" dependsOnValue="" id="parameters.Include" label="Include" menu="" required="false" tooltip="">values</parameter>
+                    <parameter dependsOnId="" dependsOnValue="" id="parameters.Kapp Slug" label="Kapp Slug" menu="" required="false" tooltip="">admin-center</parameter>
+                    <parameter dependsOnId="" dependsOnValue="" id="parameters.Limit" label="Limit" menu="" required="false" tooltip="">1</parameter>
+                    <parameter dependsOnId="" dependsOnValue="" id="parameters.Order By" label="Order By" menu="" required="false" tooltip="">values[Robot ID]</parameter>
+                    <parameter dependsOnId="" dependsOnValue="" id="parameters.Query" label="Query" menu="" required="false" tooltip="">values[Robot ID]="&lt;%=@inputs['submission id']%&gt;"</parameter>
+                </parameters>
+                <messages></messages>
+                <dependents>
+                    <task label="" type="Complete" value="">system_integration_v1_112</task>
+                </dependents>
+            </task>
+            <task definition_id="routine_kinetic_email_template_notification_send_v1" id="routine_kinetic_email_template_notification_send_v1_95" name="Notification:  Schedule Completion" x="829.4146317569482" y="862.907307175466">
+                <version>1</version>
+                <configured>true</configured>
+                <defers>false</defers>
+                <deferrable>true</deferrable>
+                <visible>false</visible>
+                <parameters>
+                    <parameter dependsOnId="" dependsOnValue="" id="Recipient List" label="Recipient List" menu="" required="true" tooltip="Comma or semicolon list of recipients (usernames, SMTP addresses, team names, Teams channels, or Slack channels). Teams channels use format ‘Teams:Webhook URL’. Slack channels use format ‘Slack:Channel Name’. Wrap values in double quotes if they contain separator characters.">&lt;%=JSON.parse(@results['Get submission']['Values'])['Schedule Completion Recipient']%&gt;</parameter>
+                    <parameter dependsOnId="" dependsOnValue="" id="Notification Template Name" label="Notification Template Name" menu="" required="true" tooltip="Name of the notification template to use when sending this email">&lt;%=JSON.parse(@results['Get submission']['Values'])['Schedule Completion Notification Message Template']%&gt;</parameter>
+                    <parameter dependsOnId="" dependsOnValue="" id="JSON Variables" label="JSON Variables" menu="" required="false" tooltip="JSON input of miscellaneous values.  These values are used to replace placeholder content in notification messages."></parameter>
+                    <parameter dependsOnId="" dependsOnValue="" id="Kapp Slug Initiating Notification" label="Kapp Slug Initiating Notification" menu="" required="true" tooltip="The slug of the Kapp sending the notification (ex: services, queue, etc.)">Robot</parameter>
+                    <parameter dependsOnId="" dependsOnValue="" id="Related Submission Id" label="Related Submission Id" menu="" required="false" tooltip="Id of the submission to get values for, required if using those or attachments in the message">&lt;%=@inputs['submission id']%&gt;</parameter>
+                    <parameter dependsOnId="" dependsOnValue="" id="Form Slug Initiating Notification" label="Form Slug Initiating Notification" menu="" required="false" tooltip="The slug of the Form sending the notification (ex: work-order, cleaning, etc.)"></parameter>
+                </parameters>
+                <messages></messages>
+                <dependents></dependents>
+            </task>
+            <task definition_id="system_integration_v1" id="system_integration_v1_97" name="Find next execution record" x="836.4133065857656" y="30.511701188638078">
+                <version>1</version>
+                <configured>true</configured>
+                <defers>false</defers>
+                <deferrable>false</deferrable>
+                <visible>false</visible>
+                <parameters>
+                    <parameter dependsOnId="" dependsOnValue="" id="connection" label="Connection ID" menu="" required="true" tooltip="Connection ID">1415539c-bb98-48bb-ad33-11be25189ad0</parameter>
+                    <parameter dependsOnId="" dependsOnValue="" id="operation" label="Operation ID" menu="" required="true" tooltip="Operation ID">f1973347-73eb-4cd3-8c25-80004499875a</parameter>
+                    <parameter dependsOnId="" dependsOnValue="" id="parameters.Direction" label="Direction" menu="" required="false" tooltip="">ASC</parameter>
+                    <parameter dependsOnId="" dependsOnValue="" id="parameters.Form Slug" label="Form Slug" menu="" required="false" tooltip="">robot-next-execution</parameter>
+                    <parameter dependsOnId="" dependsOnValue="" id="parameters.Include" label="Include" menu="" required="false" tooltip="">values</parameter>
+                    <parameter dependsOnId="" dependsOnValue="" id="parameters.Kapp Slug" label="Kapp Slug" menu="" required="false" tooltip="">admin-center</parameter>
+                    <parameter dependsOnId="" dependsOnValue="" id="parameters.Limit" label="Limit" menu="" required="false" tooltip="">1</parameter>
+                    <parameter dependsOnId="" dependsOnValue="" id="parameters.Order By" label="Order By" menu="" required="false" tooltip="">values[Robot ID]</parameter>
+                    <parameter dependsOnId="" dependsOnValue="" id="parameters.Query" label="Query" menu="" required="false" tooltip="">values[Robot ID]="&lt;%=@inputs['submission id']%&gt;"</parameter>
+                </parameters>
+                <messages></messages>
+                <dependents>
+                    <task label="Not found" type="Complete" value="@results['Find next execution record']['_Returned Count'].to_i == 0">system_integration_v1_98</task>
+                    <task label="Found" type="Complete" value="@results['Find next execution record']['_Returned Count'].to_i &gt; 0">system_integration_v1_111</task>
+                </dependents>
+            </task>
+            <task definition_id="system_integration_v1" id="system_integration_v1_98" name="Create next execution record" x="423.8063523380842" y="32.86098001479554">
+                <version>1</version>
+                <configured>true</configured>
+                <defers>false</defers>
+                <deferrable>false</deferrable>
+                <visible>false</visible>
+                <parameters>
+                    <parameter dependsOnId="" dependsOnValue="" id="connection" label="Connection ID" menu="" required="true" tooltip="Connection ID">1415539c-bb98-48bb-ad33-11be25189ad0</parameter>
+                    <parameter dependsOnId="" dependsOnValue="" id="operation" label="Operation ID" menu="" required="true" tooltip="Operation ID">7ceefe13-07fc-41d3-92ff-2adf9b5e3e67</parameter>
+                    <parameter dependsOnId="" dependsOnValue="" id="parameters.Completed" label="Completed" menu="" required="false" tooltip="">true</parameter>
+                    <parameter dependsOnId="" dependsOnValue="" id="parameters.body" label="body" menu="" required="false" tooltip="">&lt;%={
+  'values' =&gt; {
+    'Robot ID' =&gt; @inputs['submission id'],
+    'Next Execution' =&gt; Time.parse( @results['Determine next execution']['next_occurrence'] ).utc.iso8601
+  },
+  'parent' =&gt; {
+    'id' =&gt; @inputs['submission id']
+  }
+}.to_json%&gt;</parameter>
+                    <parameter dependsOnId="" dependsOnValue="" id="parameters.form" label="form" menu="" required="false" tooltip="">robot-next-execution</parameter>
+                    <parameter dependsOnId="" dependsOnValue="" id="parameters.kapp" label="kapp" menu="" required="false" tooltip="">admin-center</parameter>
+                </parameters>
+                <messages></messages>
+                <dependents></dependents>
+            </task>
+            <task definition_id="system_integration_v1" id="system_integration_v1_103" name="Create execution record" x="2445.627792787991" y="681.1153152736116">
+                <version>1</version>
+                <configured>true</configured>
+                <defers>false</defers>
+                <deferrable>false</deferrable>
+                <visible>false</visible>
+                <parameters>
+                    <parameter dependsOnId="" dependsOnValue="" id="connection" label="Connection ID" menu="" required="true" tooltip="Connection ID">1415539c-bb98-48bb-ad33-11be25189ad0</parameter>
+                    <parameter dependsOnId="" dependsOnValue="" id="operation" label="Operation ID" menu="" required="true" tooltip="Operation ID">7ceefe13-07fc-41d3-92ff-2adf9b5e3e67</parameter>
+                    <parameter dependsOnId="" dependsOnValue="" id="parameters.Completed" label="Completed" menu="" required="false" tooltip="">true</parameter>
+                    <parameter dependsOnId="" dependsOnValue="" id="parameters.body" label="body" menu="" required="false" tooltip="">&lt;%=
+runtime_inputs = JSON.parse(@results['Recheck submission']['Values'])['Runtime Inputs'] || "{}"
+
+{
+  'values' =&gt; {
+    "Robot ID" =&gt; @inputs['submission id'],
+    "Robot Name" =&gt; JSON.parse(@results['Recheck submission']['Values'])['Robot Name'],
+    "Start" =&gt; @results['Capture Execution Start Time']['output'],
+    "Input" =&gt; (runtime_inputs).gsub(/\\/,'\\\\\\\\').gsub(/"/,'\"'),
+    "Status" =&gt; "Queued",
+    "Deferral Token" =&gt; @results['Defer routine execution']['deferral_token']
+  }
+}.to_json%&gt;</parameter>
+                    <parameter dependsOnId="" dependsOnValue="" id="parameters.form" label="form" menu="" required="false" tooltip="">robot-executions</parameter>
+                    <parameter dependsOnId="" dependsOnValue="" id="parameters.kapp" label="kapp" menu="" required="false" tooltip="">admin-center</parameter>
+                </parameters>
+                <messages></messages>
+                <dependents>
+                    <task label="" type="Complete" value="">utilities_echo_v1_21</task>
+                </dependents>
+            </task>
+            <task definition_id="system_integration_v1" id="system_integration_v1_104" name="Retrieve previous execution" x="1668.415639809029" y="560.182472312197">
+                <version>1</version>
+                <configured>true</configured>
+                <defers>false</defers>
+                <deferrable>false</deferrable>
+                <visible>false</visible>
+                <parameters>
+                    <parameter dependsOnId="" dependsOnValue="" id="connection" label="Connection ID" menu="" required="true" tooltip="Connection ID">1415539c-bb98-48bb-ad33-11be25189ad0</parameter>
+                    <parameter dependsOnId="" dependsOnValue="" id="operation" label="Operation ID" menu="" required="true" tooltip="Operation ID">f1973347-73eb-4cd3-8c25-80004499875a</parameter>
+                    <parameter dependsOnId="" dependsOnValue="" id="parameters.Direction" label="Direction" menu="" required="false" tooltip="">DESC</parameter>
+                    <parameter dependsOnId="" dependsOnValue="" id="parameters.Form Slug" label="Form Slug" menu="" required="false" tooltip="">robot-executions</parameter>
+                    <parameter dependsOnId="" dependsOnValue="" id="parameters.Include" label="Include" menu="" required="false" tooltip="">values</parameter>
+                    <parameter dependsOnId="" dependsOnValue="" id="parameters.Kapp Slug" label="Kapp Slug" menu="" required="false" tooltip="">admin-center</parameter>
+                    <parameter dependsOnId="" dependsOnValue="" id="parameters.Limit" label="Limit" menu="" required="false" tooltip="">1</parameter>
+                    <parameter dependsOnId="" dependsOnValue="" id="parameters.Order By" label="Order By" menu="" required="false" tooltip="">values[Robot ID],values[Status],createdAt</parameter>
+                    <parameter dependsOnId="" dependsOnValue="" id="parameters.Query" label="Query" menu="" required="false" tooltip="">values[Robot ID] = "&lt;%=@results['Recheck submission']['Submission Id']%&gt;" AND values[Status] = "Completed"</parameter>
+                </parameters>
+                <messages></messages>
+                <dependents>
+                    <task label="" type="Complete" value="">utilities_defer_v1_18</task>
+                </dependents>
+            </task>
+            <task definition_id="system_integration_v1" id="system_integration_v1_106" name="Execute tree" x="3122.526910693789" y="682.0654277939606">
+                <version>1</version>
+                <configured>true</configured>
+                <defers>false</defers>
+                <deferrable>false</deferrable>
+                <visible>false</visible>
+                <parameters>
+                    <parameter dependsOnId="" dependsOnValue="" id="connection" label="Connection ID" menu="" required="true" tooltip="Connection ID">760ac7bc-7f10-4e57-848a-f747a45b476f</parameter>
+                    <parameter dependsOnId="" dependsOnValue="" id="operation" label="Operation ID" menu="" required="true" tooltip="Operation ID">69ddc037-59ad-4878-9367-429c2b10b403</parameter>
+                    <parameter dependsOnId="" dependsOnValue="" id="parameters.Body" label="Body" menu="" required="false" tooltip="">&lt;%=@results['Update runtime inputs']['output']%&gt;</parameter>
+                    <parameter dependsOnId="" dependsOnValue="" id="parameters.WebAPI Path" label="WebAPI Path" menu="" required="false" tooltip="">&lt;%= JSON.parse(@results['Get submission']['Values'])['WebAPI Path'] %&gt;/&lt;%= JSON.parse(@results['Get submission']['Values'])['WebAPI Selection'] %&gt;</parameter>
+                </parameters>
+                <messages></messages>
+                <dependents></dependents>
+            </task>
+            <task definition_id="routine_kinetic_email_template_notification_send_v1" id="routine_kinetic_email_template_notification_send_v1_109" name="Notification:  Schedule Execution" x="2107.2368245113285" y="825.16053935349">
+                <version>1</version>
+                <configured>true</configured>
+                <defers>true</defers>
+                <deferrable>true</deferrable>
+                <visible>false</visible>
+                <parameters>
+                    <parameter dependsOnId="" dependsOnValue="" id="Recipient List" label="Recipient List" menu="" required="true" tooltip="Comma or semicolon list of recipients (usernames, SMTP addresses, team names, Teams channels, or Slack channels). Teams channels use format ‘Teams:Webhook URL’. Slack channels use format ‘Slack:Channel Name’. Wrap values in double quotes if they contain separator characters.">&lt;%=JSON.parse(@results['Recheck submission']['Values'])['Run Completion Recipient']%&gt;</parameter>
+                    <parameter dependsOnId="" dependsOnValue="" id="Notification Template Name" label="Notification Template Name" menu="" required="true" tooltip="Name of the notification template to use when sending this email">&lt;%=JSON.parse(@results['Recheck submission']['Values'])['Run Completion Notification Message Template']%&gt;</parameter>
+                    <parameter dependsOnId="" dependsOnValue="" id="JSON Variables" label="JSON Variables" menu="" required="false" tooltip="JSON input of miscellaneous values.  These values are used to replace placeholder content in notification messages.">&lt;%=
+{
+  "Execution Id" =&gt; JSON.parse(@results['Create execution record']['submission'])['id']
+}.to_json%&gt;</parameter>
+                    <parameter dependsOnId="" dependsOnValue="" id="Kapp Slug Initiating Notification" label="Kapp Slug Initiating Notification" menu="" required="true" tooltip="The slug of the Kapp sending the notification (ex: services, queue, etc.)">Robot</parameter>
+                    <parameter dependsOnId="" dependsOnValue="" id="Related Submission Id" label="Related Submission Id" menu="" required="false" tooltip="Id of the submission to get values for, required if using those or attachments in the message">&lt;%=@inputs['submission id']%&gt;</parameter>
+                    <parameter dependsOnId="" dependsOnValue="" id="Form Slug Initiating Notification" label="Form Slug Initiating Notification" menu="" required="false" tooltip="The slug of the Form sending the notification (ex: work-order, cleaning, etc.)"></parameter>
+                </parameters>
+                <messages></messages>
+                <dependents></dependents>
+            </task>
+            <task definition_id="system_integration_v1" id="system_integration_v1_110" name="Update execution record" x="1666.075308066357" y="831.2989264228607">
+                <version>1</version>
+                <configured>true</configured>
+                <defers>false</defers>
+                <deferrable>false</deferrable>
+                <visible>false</visible>
+                <parameters>
+                    <parameter dependsOnId="" dependsOnValue="" id="connection" label="Connection ID" menu="" required="true" tooltip="Connection ID">1415539c-bb98-48bb-ad33-11be25189ad0</parameter>
+                    <parameter dependsOnId="" dependsOnValue="" id="operation" label="Operation ID" menu="" required="true" tooltip="Operation ID">0ef69bcb-c052-4b16-9814-166c3eef85ed</parameter>
+                    <parameter dependsOnId="" dependsOnValue="" id="parameters.Submission Id" label="Submission Id" menu="" required="false" tooltip="">&lt;%=JSON.parse(@results['Create execution record']['submission'])['id']%&gt;</parameter>
+                    <parameter dependsOnId="" dependsOnValue="" id="parameters.Values" label="Values" menu="" required="false" tooltip="">&lt;%=
+require 'time'
+now = Time.now()
+
+output = {}
+if @results['Defer routine execution'] &amp;&amp; @results['Defer routine execution'].has_key?('output') &amp;&amp; !@results['Defer routine execution']['output'].nil?
+  output = begin
+      JSON.parse(@results['Defer routine execution']['output'])
+    rescue
+      # Put the output into the expected structure
+      {"output" =&gt; @results['Defer routine execution']['output']}
+    end
+end
+
+{
+  "End" =&gt; now.utc.iso8601,
+  "Execution Duration" =&gt; now - Time.parse(@results['Capture Execution Start Time']['output']),
+  "Status" =&gt; "Completed", 
+  "Output" =&gt; output
+}.to_json %&gt;</parameter>
+                </parameters>
+                <messages></messages>
+                <dependents>
+                    <task label="" type="Complete" value="">routine_robot_execution_routine_v5_83</task>
+                    <task label="Notify" type="Complete" value="JSON.parse(@results['Recheck submission']['Values'])['Notify Upon Each Run Completion'].downcase == &quot;yes&quot;">routine_kinetic_email_template_notification_send_v1_109</task>
+                </dependents>
+            </task>
+            <task definition_id="system_integration_v1" id="system_integration_v1_111" name="Update next execution record" x="1261.8829269404464" y="31.819590708399165">
+                <version>1</version>
+                <configured>true</configured>
+                <defers>false</defers>
+                <deferrable>false</deferrable>
+                <visible>false</visible>
+                <parameters>
+                    <parameter dependsOnId="" dependsOnValue="" id="connection" label="Connection ID" menu="" required="true" tooltip="Connection ID">1415539c-bb98-48bb-ad33-11be25189ad0</parameter>
+                    <parameter dependsOnId="" dependsOnValue="" id="operation" label="Operation ID" menu="" required="true" tooltip="Operation ID">0ef69bcb-c052-4b16-9814-166c3eef85ed</parameter>
+                    <parameter dependsOnId="" dependsOnValue="" id="parameters.Submission Id" label="Submission Id" menu="" required="false" tooltip="">&lt;%= JSON.parse(@results['Find next execution record']['Submissions'])[0]['id'] %&gt;</parameter>
+                    <parameter dependsOnId="" dependsOnValue="" id="parameters.Values" label="Values" menu="" required="false" tooltip="">&lt;%={
+'Next Execution' =&gt; Time.parse( @results['Determine next execution']['next_occurrence'] ).utc.iso8601
+}.to_json%&gt;</parameter>
+                </parameters>
+                <messages></messages>
+                <dependents></dependents>
+            </task>
+            <task definition_id="system_integration_v1" id="system_integration_v1_112" name="Update next execution record - Clear" x="829.4918202981295" y="698.5132286043491">
+                <version>1</version>
+                <configured>true</configured>
+                <defers>false</defers>
+                <deferrable>false</deferrable>
+                <visible>false</visible>
+                <parameters>
+                    <parameter dependsOnId="" dependsOnValue="" id="connection" label="Connection ID" menu="" required="true" tooltip="Connection ID">1415539c-bb98-48bb-ad33-11be25189ad0</parameter>
+                    <parameter dependsOnId="" dependsOnValue="" id="operation" label="Operation ID" menu="" required="true" tooltip="Operation ID">0ef69bcb-c052-4b16-9814-166c3eef85ed</parameter>
+                    <parameter dependsOnId="" dependsOnValue="" id="parameters.Submission Id" label="Submission Id" menu="" required="false" tooltip="">&lt;%=JSON.parse( @results['Find next execution record - Clear']['Submissions'] )[0]['id']%&gt;</parameter>
+                    <parameter dependsOnId="" dependsOnValue="" id="parameters.Values" label="Values" menu="" required="false" tooltip="">&lt;%={
+  'Next Execution' =&gt; nil
+}.to_json%&gt;</parameter>
+                </parameters>
+                <messages></messages>
+                <dependents>
+                    <task label="Notify" type="Complete" value="JSON.parse(@results['Get submission']['Values'])['Notify Upon Schedule Completion'].downcase == &quot;yes&quot; &amp;&amp; !@inputs['Initial Run'].nil? &amp;&amp; @inputs['Initial Run'].downcase == &quot;false&quot;">routine_kinetic_email_template_notification_send_v1_95</task>
+                </dependents>
+            </task>
+            <task definition_id="system_integration_v1" id="system_integration_v1_113" name="Get submission" x="39.19708029197081" y="281.5844450037758">
+                <version>1</version>
+                <configured>true</configured>
+                <defers>false</defers>
+                <deferrable>false</deferrable>
+                <visible>false</visible>
+                <parameters>
+                    <parameter dependsOnId="" dependsOnValue="" id="connection" label="Connection ID" menu="" required="true" tooltip="Connection ID">1415539c-bb98-48bb-ad33-11be25189ad0</parameter>
+                    <parameter dependsOnId="" dependsOnValue="" id="operation" label="Operation ID" menu="" required="true" tooltip="Operation ID">c69716b8-f9dc-45f1-ab3f-2eed5d2a22b8</parameter>
+                    <parameter dependsOnId="" dependsOnValue="" id="parameters.Submission Id" label="Submission Id" menu="" required="false" tooltip="">&lt;%=@inputs['submission id']%&gt;</parameter>
+                </parameters>
+                <messages></messages>
+                <dependents>
+                    <task label="Active" type="Complete" value="JSON.parse(@results['Get submission']['Values'])['Status'].downcase == &quot;active&quot;">utilities_echo_v1_48</task>
+                    <task label="Inactive" type="Complete" value="JSON.parse(@results['Get submission']['Values'])['Status'].downcase != &quot;active&quot;">system_noop_v1_35</task>
+                </dependents>
+            </task>
+            <task definition_id="system_integration_v1" id="system_integration_v1_114" name="Recheck submission" x="1669.3678983729008" y="285.9888165815823">
+                <version>1</version>
+                <configured>true</configured>
+                <defers>false</defers>
+                <deferrable>false</deferrable>
+                <visible>false</visible>
+                <parameters>
+                    <parameter dependsOnId="" dependsOnValue="" id="connection" label="Connection ID" menu="" required="true" tooltip="Connection ID">1415539c-bb98-48bb-ad33-11be25189ad0</parameter>
+                    <parameter dependsOnId="" dependsOnValue="" id="operation" label="Operation ID" menu="" required="true" tooltip="Operation ID">c69716b8-f9dc-45f1-ab3f-2eed5d2a22b8</parameter>
+                    <parameter dependsOnId="" dependsOnValue="" id="parameters.Submission Id" label="Submission Id" menu="" required="false" tooltip="">&lt;%=@inputs['submission id']%&gt;</parameter>
+                </parameters>
+                <messages></messages>
+                <dependents>
+                    <task label="Not found" type="Complete" value="@results['Recheck submission']['Submission Id'].to_s.strip.empty?">system_noop_v1_70</task>
+                    <task label="Had updates" type="Complete" value="!@results['Recheck submission']['Submission Id'].to_s.strip.empty? == &quot;true&quot; &amp;&amp; @results['Recheck submission']['Updated At'] != @inputs['schedule update time']">utilities_echo_v1_39</task>
+                    <task label="No updates" type="Complete" value="!@results['Recheck submission']['Submission Id'].to_s.strip.empty? &amp;&amp; @results['Recheck submission']['Updated At'] == @inputs['schedule update time']&#10;">system_noop_v1_65</task>
+                </dependents>
+            </task>
+        </request>
+    </taskTree>
+</tree>

@@ -1,0 +1,202 @@
+{
+  "form": {
+    "anonymous": false,
+    "attributes": [],
+    "bridgedResources": [],
+    "categorizations": [],
+    "customHeadContent": null,
+    "description": "",
+    "indexDefinitions": [
+      {
+        "name": "closedBy",
+        "parts": [
+          "closedBy"
+        ],
+        "unique": false
+      },
+      {
+        "name": "createdBy",
+        "parts": [
+          "createdBy"
+        ],
+        "unique": false
+      },
+      {
+        "name": "handle",
+        "parts": [
+          "handle"
+        ],
+        "unique": false
+      },
+      {
+        "name": "submittedBy",
+        "parts": [
+          "submittedBy"
+        ],
+        "unique": false
+      },
+      {
+        "name": "updatedBy",
+        "parts": [
+          "updatedBy"
+        ],
+        "unique": false
+      },
+      {
+        "name": "values[Type]",
+        "parts": [
+          "values[Type]"
+        ],
+        "unique": false
+      }
+    ],
+    "integrations": [
+      {
+        "connectionId": "1415539c-bb98-48bb-ad33-11be25189ad0",
+        "inputMappings": {},
+        "name": "Notification Date Formats",
+        "operationId": "bb8d89b8-d63e-4fcd-b893-825ca2666c6c"
+      },
+      {
+        "connectionId": "1415539c-bb98-48bb-ad33-11be25189ad0",
+        "inputMappings": {},
+        "name": "Notification Snippets",
+        "operationId": "7152d4bc-d8d5-4122-a40d-e933a65b5fe8"
+      },
+      {
+        "connectionId": "1415539c-bb98-48bb-ad33-11be25189ad0",
+        "inputMappings": {},
+        "name": "Notification Templates",
+        "operationId": "5cac360d-317d-429e-9cec-0ea7bd8c6b0f"
+      }
+    ],
+    "name": "Notifications",
+    "notes": null,
+    "pages": [
+      {
+        "advanceCondition": null,
+        "displayCondition": null,
+        "displayPage": null,
+        "elements": [
+          {
+            "enabled": true,
+            "dataType": "string",
+            "defaultDataSource": "none",
+            "requiredMessage": null,
+            "name": "Type",
+            "choicesResourceName": null,
+            "omitWhenHidden": null,
+            "renderAttributes": {},
+            "renderType": "radio",
+            "pattern": null,
+            "defaultValue": "Template",
+            "visible": true,
+            "choices": [
+              {
+                "label": "Template",
+                "value": "Template"
+              },
+              {
+                "label": "Snippet",
+                "value": "Snippet"
+              },
+              {
+                "label": "Date Formats",
+                "value": "Date Formats"
+              }
+            ],
+            "label": "Type",
+            "choicesResourceProperty": null,
+            "choicesRunIf": null,
+            "constraints": [],
+            "choicesDataSource": "custom",
+            "events": [],
+            "defaultResourceName": null,
+            "type": "field",
+            "key": "b995c4afccdf42e791d0463fbdc416b3",
+            "required": false
+          },
+          {
+            "type": "content",
+            "renderType": "html",
+            "name": "Notification Table",
+            "text": null,
+            "visible": "values('Type') === \"Template\"",
+            "renderAttributes": {}
+          },
+          {
+            "type": "content",
+            "renderType": "html",
+            "name": "Notification Snippets Table",
+            "text": null,
+            "visible": "values('Type') === \"Snippet\"",
+            "renderAttributes": {}
+          },
+          {
+            "type": "content",
+            "renderType": "html",
+            "name": "Notification Template Dates Table",
+            "text": null,
+            "visible": "values('Type') === \"Date Formats\"",
+            "renderAttributes": {}
+          }
+        ],
+        "events": [
+          {
+            "name": "Notifications Table",
+            "code": "const tableId = 'notification-templates';\n\nif (bundle.widgets.Table.get(tableId)) {\n  bundle.widgets.Table.get(tableId).destroy();\n  return;\n}\n\nconst table = bundle.widgets.Table?.({ \n  container: K('content[Notification Table]').element(), \n  config: {\n    title: 'Templates',\n    integration: {\n      kappSlug: K('kapp').slug(),\n      formSlug: K('form').slug(),\n      integrationName: 'Notification Templates',\n      listProperty: 'submissions',\n      errorProperty: 'Error'\n    },\n    // Transform the data to a single level map\n    rowTransform: ({ Values, ...row }) => ({ ...row, ...Values }),\n    columns: [\n      {\n        label: 'Submission Id',\n        property: 'id',\n        visible: false,\n        toggleable: false,\n      },{\n        label: 'Status',\n        property: 'status',\n      },{\n        label: 'Name',\n        property: 'name',\n      }\n    ],\n    addAction: {\n      label: 'Add Template',\n      onClick: function(tableApi) {\n        tableApi.actions.subform({\n          config: {\n            kappSlug: 'admin-center',\n            formSlug: 'notification-data',\n            modalTitle: \"Add Template\",\n            saveLabel: 'Create',\n            values:{\n              \"Type\": \"Template\"\n            },\n            onSave: function(data, api){\n              api.submit(function(result){\n                // Add row to the table so it appears immediately before the table reloads\n                tableApi.addRow({\n                  'Status': result.submission.values['Status'],\n                  'Name': result.submission.values['Name'],                  \n                });\n                // Reload the table data in the background\n                tableApi.reloadData();\n                // Show toast and close subform\n                bundle.utils.toastSuccess({ title: 'Notification added successfully' });\n                api.destroy();\n              });\n            }\n          },\n        });\n      }\n    },\n    rowActions: [\n      {\n        label: 'Edit Template',\n        icon: 'pencil',\n        onClick: function(row, index, tableApi){\n          tableApi.actions.subform({\n            config: {\n              submissionId: row['id'],\n              modalTitle: \"Edit Template\",\n              saveLabel: 'Update',\n              onSave: function(data, api){\n                api.submit(function(result){\n                  // Update the row in the table so it appears immediately before the table reloads\n                  tableApi.updateRow({\n                    'Status': result.submission.values['Status'],\n                    'Name': result.submission.values['Name'],\n                  }, index);\n                  // Reload the table data in the background\n                  tableApi.reloadData();\n                  // Show toast and close subform\n                  bundle.utils.toastSuccess({ title: 'Template updated successfully' });\n                  api.destroy();\n                });\n              }\n            },\n          });\n        }\n      },{\n        label: 'Delete Template',\n        icon: 'trash',\n        onClick: function(row, index, tableApi){\n          bundle.utils.openConfirm({\n            title: 'Delete Template',\n            description: `Are you sure you want to delete the template: ${row['name']}?`,\n            acceptLabel: 'Yes',\n            accept: function(){\n              K.api('DELETE', bundle.apiLocation() + '/submissions/' + row['id'], {\n                complete: function(response){\n                  if (response.status === 200) {\n                    bundle.utils.toastSuccess({ title: 'Template was successfully deleted' });\n                    tableApi.deleteRow(index);\n                    tableApi.reloadData();\n                  } else {\n                    bundle.utils.toastError({ title: 'There was an error deleting the template' });\n                  }\n                }\n              })\n              \n            }\n          });\n        }\n      }\n    ],\n    pageSize: 100,\n    pageSizes: [10,100,0],\n    // Sort using the first column in ascending order by default\n    defaultSort: [2, 'asc'],\n    messages: {\n      loading: 'Loading templates',\n      empty: 'There are no templates',\n      noMatches: 'No templates match your filter query'\n    }\n  }, \n  id: tableId\n});",
+            "integrationResourceName": null,
+            "action": "Custom",
+            "integrationResourceProperty": "",
+            "type": "Load"
+          },
+          {
+            "name": "Notification Snippets Table",
+            "code": "const tableId = 'notification-snippets-templates';\n\n  if (bundle.widgets.Table.get(tableId)) {\n    bundle.widgets.Table.get(tableId).destroy();\n    return;\n  }\n  \n  const table = bundle.widgets.Table?.({ \n    container: K('content[Notification Snippets Table]').element(), \n    config: {\n      title: 'Snippets',\n      integration: {\n        kappSlug: K('kapp').slug(),\n        formSlug: K('form').slug(),\n        integrationName: 'Notification Snippets',\n        listProperty: 'Submissions',\n        errorProperty: 'Error'\n      },\n      // Transform the data to a single level map\n      rowTransform: ({ Values, ...row }) => ({ ...row, ...Values }),\n      columns: [\n        {\n          label: 'Submission Id',\n          property: 'Id',\n          visible: false,\n          toggleable: false,\n        },{\n          label: 'Status',\n          property: 'Status',\n        },{\n          label: 'Name',\n          property: 'Name',\n        }\n      ],\n      addAction: {\n        label: 'Add Snippet',\n        onClick: function(tableApi) {\n          tableApi.actions.subform({\n            config: {\n              kappSlug: 'admin-center',\n              formSlug: 'notification-data',\n              modalTitle: \"Add Snippet\",\n              saveLabel: 'Create',\n              values:{\n                \"Type\": \"Snippet\"\n              },\n              onSave: function(data, api){\n                api.submit(function(result){\n                  // Add row to the table so it appears immediately before the table reloads\n                  tableApi.addRow({\n                    'Status': result.submission.values['Status'],\n                    'Name': result.submission.values['Name'],                  \n                  });\n                  // Reload the table data in the background\n                  tableApi.reloadData();\n                  // Show toast and close subform\n                  bundle.utils.toastSuccess({ title: 'Snippet added successfully' });\n                  api.destroy();\n                });\n              }\n            },\n          });\n        }\n      },\n      rowActions: [\n        {\n          label: 'Edit Snippet',\n          icon: 'pencil',\n          onClick: function(row, index, tableApi){\n            tableApi.actions.subform({\n              config: {\n                submissionId: row['Id'],\n                modalTitle: \"Edit Snippet\",\n                saveLabel: 'Update',\n                onSave: function(data, api){\n                  api.submit(function(result){\n                    // Update the row in the table so it appears immediately before the table reloads\n                    tableApi.updateRow({\n                      'Status': result.submission.values['Status'],\n                      'Name': result.submission.values['Name'],\n                    }, index);\n                    // Reload the table data in the background\n                    tableApi.reloadData();\n                    // Show toast and close subform\n                    bundle.utils.toastSuccess({ title: 'Snippet updated successfully' });\n                    api.destroy();\n                  });\n                }\n              },\n            });\n          }\n        },{\n          label: 'Delete Snippet',\n          icon: 'trash',\n          onClick: function(row, index, tableApi){\n            bundle.utils.openConfirm({\n              title: 'Delete Snippet',\n              description: `Are you sure you want to delete the snippet: ${row['Name']}?`,\n              acceptLabel: 'Yes',\n              accept: function(){\n                K.api('DELETE', bundle.apiLocation() + '/submissions/' + row['Id'], {\n                  complete: function(response){\n                    if (response.status === 200) {\n                      bundle.utils.toastSuccess({ title: 'Snippet was successfully deleted' });\n                      tableApi.deleteRow(index);\n                      tableApi.reloadData();\n                    } else {\n                      bundle.utils.toastError({ title: 'There was an error deleting the snippet' });\n                    }\n                  }\n                })\n                \n              }\n            });\n          }\n        }\n      ],\n      pageSize: 100,\n      pageSizes: [10,100,0],\n      // Sort using the first column in ascending order by default\n      defaultSort: [2, 'asc'],\n      messages: {\n        loading: 'Loading snippets',\n        empty: 'There are no snippets',\n        noMatches: 'No snippets match your filter query'\n      }\n    }, \n    id: tableId\n  });",
+            "integrationResourceName": null,
+            "action": "Custom",
+            "integrationResourceProperty": "",
+            "type": "Load"
+          },
+          {
+            "name": "Notification Date Format Table",
+            "code": "const tableId = 'notification-date-formates';\n\n  if (bundle.widgets.Table.get(tableId)) {\n    bundle.widgets.Table.get(tableId).destroy();\n    return;\n  }\n  \n  const table = bundle.widgets.Table?.({ \n    container: K('content[Notification Template Dates Table]').element(), \n    config: {\n      title: 'Date Formats',\n      integration: {\n        kappSlug: K('kapp').slug(),\n        formSlug: K('form').slug(),\n        integrationName: 'Notification Date Formats',\n        listProperty: 'submissions',\n        errorProperty: 'Error'\n      },\n      // Transform the data to a single level map\n      rowTransform: ({ Values, ...row }) => ({ ...row, ...Values }),\n      columns: [\n        {\n          label: 'Submission Id',\n          property: 'id',\n          visible: false,\n          toggleable: false,\n        },{\n          label: 'Status',\n          property: 'status',\n        },{\n          label: 'Name',\n          property: 'name',\n        },{\n          label: 'Format',\n          property: 'format',\n        }\n      ],\n      addAction: {\n        label: 'Add Date Format',\n        onClick: function(tableApi) {\n          tableApi.actions.subform({\n            config: {\n              kappSlug: 'admin-center',\n              formSlug: 'notification-template-dates',\n              modalTitle: \"Add Date Format\",\n              saveLabel: 'Create',\n              onSave: function(data, api){\n                api.submit(function(result){\n                  // Add row to the table so it appears immediately before the table reloads\n                  tableApi.addRow({\n                    'Status': result.submission.values['Status'],\n                    'Name': result.submission.values['Name'],                \n                    'Format': result.submission.values['Format'],\n                  });\n                  // Reload the table data in the background\n                  tableApi.reloadData();\n                  // Show toast and close subform\n                  bundle.utils.toastSuccess({ title: 'Date Format added successfully' });\n                  api.destroy();\n                });\n              }\n            },\n          });\n        }\n      },\n      rowActions: [\n        {\n          label: 'Edit Date Format',\n          icon: 'pencil',\n          onClick: function(row, index, tableApi){\n            tableApi.actions.subform({\n              config: {\n                submissionId: row['id'],\n                modalTitle: \"Edit Date Format\",\n                saveLabel: 'Update',\n                onSave: function(data, api){\n                  api.submit(function(result){\n                    // Update the row in the table so it appears immediately before the table reloads\n                    tableApi.updateRow({\n                      'Status': result.submission.values['Status'],\n                      'Name': result.submission.values['Name'],\n                      'Format': result.submission.values['Format'],\n                    }, index);\n                    // Reload the table data in the background\n                    tableApi.reloadData();\n                    // Show toast and close subform\n                    bundle.utils.toastSuccess({ title: 'Date Format updated successfully' });\n                    api.destroy();\n                  });\n                }\n              },\n            });\n          }\n        },{\n          label: 'Delete Date Format',\n          icon: 'trash',\n          onClick: function(row, index, tableApi){\n            bundle.utils.openConfirm({\n              title: 'Delete Date Format',\n              description: `Are you sure you want to delete the date format: ${row['name']}?`,\n              acceptLabel: 'Yes',\n              accept: function(){\n                K.api('DELETE', bundle.apiLocation() + '/submissions/' + row['id'], {\n                  complete: function(response){\n                    if (response.status === 200) {\n                      bundle.utils.toastSuccess({ title: 'Date Format was successfully deleted' });\n                      tableApi.deleteRow(index);\n                      tableApi.reloadData();\n                    } else {\n                      bundle.utils.toastError({ title: 'There was an error deleting the date format' });\n                    }\n                  }\n                })\n                \n              }\n            });\n          }\n        }\n      ],\n      pageSize: 100,\n      pageSizes: [10,100,0],\n      // Sort using the first column in ascending order by default\n      defaultSort: [2, 'asc'],\n      messages: {\n        loading: 'Loading date formats',\n        empty: 'There are no date formats',\n        noMatches: 'No date formats match your filter query'\n      }\n    }, \n    id: tableId\n  });",
+            "integrationResourceName": null,
+            "action": "Custom",
+            "integrationResourceProperty": "",
+            "type": "Load"
+          },
+          {
+            "name": "Override Modal Size",
+            "code": "// Override size of modal:\nconst observer = new MutationObserver(() => {\n  const modalEl = document.querySelector(`[data-scope=\"dialog\"][data-part=\"content\"]`);\n  if (modalEl) {\n    modalEl.classList.remove('md:w-screen-sm');\n    modalEl.classList.add('md:w-screen-lg'); \n    //observer.disconnect(); // Stop watching once we found it\n  }\n});\n\nobserver.observe(document.body, { childList: true, subtree: true });",
+            "integrationResourceName": null,
+            "action": "Custom",
+            "integrationResourceProperty": "",
+            "type": "Load"
+          }
+        ],
+        "name": "Page 1",
+        "renderType": "submittable",
+        "type": "page"
+      }
+    ],
+    "securityPolicies": [
+      {
+        "endpoint": "Display",
+        "name": "Data Admins"
+      },
+      {
+        "endpoint": "Submission Access",
+        "name": "Data Admins"
+      },
+      {
+        "endpoint": "Submission Modification",
+        "name": "Data Admins"
+      }
+    ],
+    "slug": "notifications",
+    "status": "New",
+    "submissionLabelExpression": null,
+    "type": "Settings"
+  }
+}

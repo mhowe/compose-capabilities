@@ -1,5 +1,187 @@
 {
-  "slug": "datastore",
-  "name": "Datastore",
-  "_note": "Stub kapp export. Replace with a real export in Phase 4+."
+  "kapp": {
+    "afterLogoutPath": null,
+    "attributes": [],
+    "bundlePath": null,
+    "categories": [],
+    "categoryAttributeDefinitions": [],
+    "defaultFormConfirmationPage": null,
+    "defaultFormDisplayPage": null,
+    "defaultSubmissionLabelExpression": null,
+    "displayType": "Display Page",
+    "displayValue": null,
+    "fields": [],
+    "formAttributeDefinitions": [
+      {
+        "allowsMultiple": false,
+        "description": "",
+        "name": "Custom Submission Workflow"
+      },
+      {
+        "allowsMultiple": false,
+        "description": "Stores which columns are rendered within the datastore console",
+        "name": "Datastore Configuration"
+      },
+      {
+        "allowsMultiple": false,
+        "description": "If set to true / yes, this form will be hidden for the settings/datastore list view",
+        "name": "Datastore Hidden"
+      }
+    ],
+    "formTypes": [
+      {
+        "name": "Datastore"
+      }
+    ],
+    "indexDefinitions": [
+      {
+        "name": "closedBy",
+        "parts": [
+          "closedBy"
+        ],
+        "unique": false
+      },
+      {
+        "name": "createdBy",
+        "parts": [
+          "createdBy"
+        ],
+        "unique": false
+      },
+      {
+        "name": "handle",
+        "parts": [
+          "handle"
+        ],
+        "unique": false
+      },
+      {
+        "name": "submittedBy",
+        "parts": [
+          "submittedBy"
+        ],
+        "unique": false
+      },
+      {
+        "name": "updatedBy",
+        "parts": [
+          "updatedBy"
+        ],
+        "unique": false
+      }
+    ],
+    "integrations": [],
+    "kappAttributeDefinitions": [
+      {
+        "allowsMultiple": false,
+        "description": "Slug of the form rendered as the landing page for this kapp. When absent, the bundle shows the default kapp page.",
+        "name": "Default Form Slug"
+      }
+    ],
+    "loginPage": null,
+    "name": "Datastore",
+    "resetPasswordPage": null,
+    "securityPolicies": [
+      {
+        "endpoint": "Display",
+        "name": "Admins"
+      },
+      {
+        "endpoint": "Form Creation",
+        "name": "Admins"
+      },
+      {
+        "endpoint": "Modification",
+        "name": "Admins"
+      },
+      {
+        "endpoint": "Default Form Display",
+        "name": "Admins"
+      },
+      {
+        "endpoint": "Default Form Modification",
+        "name": "Admins"
+      },
+      {
+        "endpoint": "Default Submission Access",
+        "name": "Admins"
+      },
+      {
+        "endpoint": "Default Submission Modification",
+        "name": "Admins"
+      },
+      {
+        "endpoint": "Submission Support",
+        "name": "Admins"
+      }
+    ],
+    "securityPolicyDefinitions": [
+      {
+        "message": "Must be an administrator.",
+        "name": "Admins",
+        "rule": "/* \n * Space admins are allowed access regardless of the the result of security \n * policies.  Returning 'false' denies anyone but a space access. \n */\nfalse",
+        "type": "Kapp"
+      },
+      {
+        "message": "Must be authenticated.",
+        "name": "Authenticated Users",
+        "rule": "identity('authenticated')",
+        "type": "Kapp"
+      },
+      {
+        "message": "Only users with the role Data Admin have access to this resource.",
+        "name": "Data Admins",
+        "rule": "(function() {\n  // Helper method\n  var hasIntersection = function(obj1, obj2) {\n    // Ensure the objects are not empty\n    obj1 = (obj1 === null || obj1 === undefined) ? [] : obj1;\n    obj2 = (obj2 === null || obj2 === undefined) ? [] : obj2;\n    // If the parameters are not lists, wrap them in lists\n    var list1 = (obj1 instanceof Array) ? obj1 : [obj1];\n    var list2 = (obj2 instanceof Array) ? obj2 : [obj2];\n    // Find the intersection\n    var intersection = list1.filter(function(n) {\n      return list2.indexOf(n) != -1;\n    });\n    // Return whether any intersecting values were found\n    return list1.find(function(value) {return hasValue(list2, value)}) !== undefined;\n  };\n  // Helper method\n  var hasValue = function(list, value) {\n    return (list instanceof Array) && list.indexOf(value) != -1\n  };\n\n  // Data Admins\n  return hasIntersection(identity('teams'), ['Role::Data Admin']);\n})()\n",
+        "type": "Form"
+      },
+      {
+        "message": "Everyone is allowed access.",
+        "name": "Everyone",
+        "rule": "true",
+        "type": "Kapp"
+      },
+      {
+        "message": "Must be the user that created the submission.",
+        "name": "Submitter",
+        "rule": "(\n    // Submitter\n    ((submission('anonymous') && submission('sessionToken') == identity('sessionToken'))\n    || (!submission('anonymous') && submission('createdBy') == identity('username')))\n    // Submission is Draft\n    && (submission('coreState') == 'Draft')\n)",
+        "type": "Submission"
+      }
+    ],
+    "slug": "datastore",
+    "webApis": [
+      {
+        "method": "POST",
+        "securityPolicies": [
+          {
+            "endpoint": "Execution",
+            "name": "Authenticated Users"
+          }
+        ],
+        "slug": "delete-onboarding-blueprint-step"
+      }
+    ],
+    "webhooks": [
+      {
+        "event": "Deleted",
+        "filter": "form('slug')===\"bbbbbbb\"",
+        "name": "123",
+        "type": "Submission",
+        "url": "ashfo dkl;f"
+      },
+      {
+        "event": "Submitted",
+        "filter": "form('slug') === \"process-orchestration\" && values('Status') === \"New\"",
+        "name": "Submission Submitted - Orchestration - New",
+        "type": "Submission",
+        "url": "/app/api/v1/run-tree/${space('attribute:Task Source Name')}/Submissions%20%3E%20${kapp('slug')}%20%3E%20${form('slug')}/Submitted"
+      },
+      {
+        "event": "Updated",
+        "filter": "form('slug') === \"process-orchestration\" && values('Status') === \"Retry\"",
+        "name": "Submission Submitted - Orchestration - Retry",
+        "type": "Submission",
+        "url": "app/api/v1/run-tree/${space('attribute:Task Source Name')}/Submissions%20%3E%20${kapp('slug')}%20%3E%20${form('slug')}/Submitted"
+      }
+    ]
+  }
 }

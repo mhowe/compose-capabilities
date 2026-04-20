@@ -6,13 +6,12 @@
   "author": "Kinetic Data",
   "tags": ["data", "reference"],
   "kapp": {
-    "slug": "datastore",
-    "name": "Datastore",
-    "export": "./kapp.json"
+    "definition": "./kapp.json"
   },
-  "forms": [],
-  "taskHandlers": [],
-  "workflows": [],
-  "datastores": [],
-  "requires": []
+  "forms": [
+    {
+      "definition": "./general-menus.json",
+      "data": ["./general-menus-submissions.csv"]
+    }
+  ]
 }

@@ -1,18 +1,57 @@
 {
   "id": "notification-templates",
   "name": "Notification Templates",
-  "description": "Reusable notification templates for email, SMS, and Slack. Provides a Notification Templates kapp with template records, a notification-send task handler, and workflow components that other kapps invoke.",
+  "description": "Reusable notification templates for email, and Slack. Provides a Notification Templates kapp with template records, a notification-send task handler, and workflow components that other kapps invoke.",
   "version": "0.1.0",
   "author": "Kinetic Data",
   "tags": ["notifications", "communication"],
   "kapp": {
-    "slug": "notification-templates",
-    "name": "Notification Templates",
-    "export": "./kapp.json"
+    "definition": "./kapp.json"
   },
-  "forms": [],
-  "taskHandlers": [],
-  "workflows": [],
-  "datastores": [],
-  "requires": []
+  "forms": [
+    {
+      "definition": "./notifications.json"
+    },
+    {
+      "definition": "./notification-data.json"
+    },
+    {
+      "definition": "./notification-template-dates.json",
+      "data": ["./notification-template-dates-submissions.csv"]
+    }
+  ],
+  "taskHandlers": [
+    {
+      "definition": "./kinetic_request_ce_notification_template_send_v5.zip",
+      "configuration_parameters": {
+        "kapp_slug": "notification-templates",
+        "form_slug_data": "notification-data",
+        "form_slug_dates": "notification-template-dates"
+      }
+    }
+  ],
+  "workflows": {
+    "routines": [
+      "./routine_Email_Template_Notification_Send.xml"
+    ]
+  },
+  "integrations": [
+    {
+      "definition": "./integrations.json"
+    }
+  ],
+  "notes": {
+    "manual_steps": [
+      {
+        "id": "1",
+        "text":"Manual step required: The Connection plugin \"Kinetic Platform - Notifications\" was installed, but requires proper credentials to work. Follow the link provided and select the integration. From the three ellipses in the upper right select 'Edit'. Provide proper user name and password for a Space Admin user and click the Update Connection button.",
+        "link":"/app/console/#/space/plugins/connections"
+      },
+      {
+        "id": "2",
+        "text":"Manual step required: The Handler plugin \"Kinetic Request CE Notification Template Send\" was installed but requires proper configuration to work. Follow the link provided and enter the required values for your email server, and provide credentials for a Space Admin user in the api_username and api_password fields.",
+        "link":"/app/console/#/space/plugins/handlers/edit/kinetic_request_ce_notification_template_send_v5"
+      }
+    ]
+  }
 }

@@ -1,0 +1,2484 @@
+{
+  "connection": {
+    "id": "3b6ea084-4f2d-428c-930a-166cc70bf5e1",
+    "name": "Kinetic Platform - Robots",
+    "type": "http",
+    "config": {
+      "auth": {
+        "password": null,
+        "authType": "basic",
+        "username": "space-integration-user"
+      },
+      "configType": "http",
+      "caCert": null,
+      "baseUrl": "https://momentum-next-dev.kinops.io/app/api/v1",
+      "testPath": "/space"
+    },
+    "description": "",
+    "operations": [
+      {
+        "id": "018c5373-af69-48f2-9ebb-5870ec8a4e3b",
+        "name": "Get Form Attributes Map",
+        "config": {
+          "path": "/kapps/{{Kapp Slug}}/forms/{{Form Slug}}",
+          "params": {
+            "include": "attributesMap"
+          },
+          "body": {
+            "form": {},
+            "bodyType": "www_form_urlencoded"
+          },
+          "headers": {},
+          "configType": "http",
+          "method": "GET",
+          "includeEmptyParams": false,
+          "followRedirect": false,
+          "streamResponse": false
+        },
+        "outputs": {},
+        "insertedAt": "2025-05-14T19:10:32.443962Z",
+        "lockVersion": 2,
+        "documentationLink": "",
+        "updatedAt": "2025-05-14T19:10:32.443962Z",
+        "connectionId": "3b6ea084-4f2d-428c-930a-166cc70bf5e1",
+        "notes": ""
+      },
+      {
+        "id": "3ad53519-e058-48a1-b114-5745533526ad",
+        "name": "Update Submission",
+        "config": {
+          "path": "/submissions/{{Submission Id}}",
+          "params": {},
+          "body": {
+            "raw": "{   \"coreState\": \"{{Core State}}\",   \"values\":  {{{Values}}}  }",
+            "bodyType": "raw"
+          },
+          "headers": {
+            "accept": "application/json",
+            "content-type": "application/json"
+          },
+          "configType": "http",
+          "method": "PUT",
+          "includeEmptyParams": false,
+          "followRedirect": false,
+          "streamResponse": false
+        },
+        "outputs": {},
+        "insertedAt": "2025-05-14T19:10:32.281577Z",
+        "lockVersion": 2,
+        "documentationLink": "",
+        "updatedAt": "2025-05-14T19:10:32.281577Z",
+        "connectionId": "3b6ea084-4f2d-428c-930a-166cc70bf5e1",
+        "notes": ""
+      },
+      {
+        "id": "7ad51a20-8bab-422b-a0f7-247e082dccd5",
+        "name": "Get Space",
+        "config": {
+          "path": "/space",
+          "params": {
+            "include": "details,attributesMap"
+          },
+          "body": {
+            "form": {},
+            "bodyType": "www_form_urlencoded"
+          },
+          "headers": {},
+          "configType": "http",
+          "method": "GET",
+          "includeEmptyParams": false,
+          "followRedirect": false,
+          "streamResponse": false
+        },
+        "outputs": {
+          "Attributes Map": {
+            "value": "body.space['attributesMap']"
+          },
+          "Name": {
+            "value": "body.space['name']"
+          },
+          "Slug": {
+            "value": "body.space['slug']"
+          },
+          "Web Server Url": {
+            "value": "body.space['attributesMap']['Web Server Url'][0]"
+          }
+        },
+        "insertedAt": "2025-05-14T19:10:32.647234Z",
+        "lockVersion": 2,
+        "documentationLink": "",
+        "updatedAt": "2025-05-14T19:10:32.647234Z",
+        "connectionId": "3b6ea084-4f2d-428c-930a-166cc70bf5e1",
+        "notes": ""
+      },
+      {
+        "id": "92b6a327-5f5a-4377-80f7-b7223bd787ac",
+        "name": "Create Submission Activity",
+        "config": {
+          "path": "/submissions/{{Submission Id}}/activities",
+          "params": {},
+          "body": {
+            "raw": "{\n  \"description\": \"{{Description}}\",\n  \"data\": \"{{Data}}\",\n  \"label\": \"{{Label}}\",\n  \"type\": \"{{Type}}\"\n}",
+            "bodyType": "raw"
+          },
+          "headers": {
+            "content-type": "application/json"
+          },
+          "configType": "http",
+          "method": "POST",
+          "includeEmptyParams": false,
+          "followRedirect": false,
+          "streamResponse": false
+        },
+        "outputs": {
+          "Activity Id": {
+            "value": "body.activity?.id"
+          },
+          "Error": {
+            "value": "body.error"
+          },
+          "Status Code": {
+            "value": "statusCode"
+          }
+        },
+        "insertedAt": "2025-05-14T19:10:33.046316Z",
+        "lockVersion": 2,
+        "documentationLink": "",
+        "updatedAt": "2025-05-14T19:10:33.046316Z",
+        "connectionId": "3b6ea084-4f2d-428c-930a-166cc70bf5e1",
+        "notes": ""
+      },
+      {
+        "id": "e20b8b5d-da67-410b-a527-bd3ae1cfe07b",
+        "name": "Get Team",
+        "config": {
+          "path": "teams/{{Slug}}",
+          "params": {
+            "include": "details,attributesMap,memberships,memberships.user"
+          },
+          "body": {
+            "form": {},
+            "bodyType": "www_form_urlencoded"
+          },
+          "headers": {
+            "content-type": "application/json"
+          },
+          "configType": "http",
+          "method": "GET",
+          "includeEmptyParams": false,
+          "followRedirect": false,
+          "streamResponse": false
+        },
+        "outputs": {
+          "Description": {
+            "value": "body.team?.description"
+          },
+          "Manager": {
+            "value": "body.team?.attributesMap.Manager[0]"
+          },
+          "Member Email List": {
+            "value": "body.team?.memberships.map(m => m.user.email).join(',')"
+          },
+          "Memberships": {
+            "children": {
+              "User Display Name": "current.user['displayName']",
+              "User Email": "current.user['email']",
+              "User Name": "current.user['username']"
+            },
+            "value": "body.team?.memberships"
+          },
+          "Name": {
+            "value": "body.team?.name"
+          },
+          "Slug": {
+            "value": "body.team?.slug"
+          }
+        },
+        "insertedAt": "2025-05-14T19:10:33.455539Z",
+        "lockVersion": 2,
+        "documentationLink": "",
+        "updatedAt": "2025-05-14T19:10:33.455539Z",
+        "connectionId": "3b6ea084-4f2d-428c-930a-166cc70bf5e1",
+        "notes": ""
+      },
+      {
+        "id": "b5e75933-339d-4d6a-8c58-da509be53e1b",
+        "name": "Get Approval Values",
+        "config": {
+          "path": "/submissions/{{Submission Id}}",
+          "params": {
+            "include": "details,values,form"
+          },
+          "body": {
+            "form": {},
+            "bodyType": "www_form_urlencoded"
+          },
+          "headers": {
+            "content-type": "application/json"
+          },
+          "configType": "http",
+          "method": "GET",
+          "includeEmptyParams": false,
+          "followRedirect": false,
+          "streamResponse": false
+        },
+        "outputs": {
+          "Decision": {
+            "value": "body.submission['values']['Decision']"
+          },
+          "Notes for Customer": {
+            "value": "body.submission['values']['Notes for Customer']"
+          },
+          "Reason": {
+            "value": "body.submission['values']['Reason']"
+          }
+        },
+        "insertedAt": "2025-05-14T19:10:32.727792Z",
+        "lockVersion": 2,
+        "documentationLink": "",
+        "updatedAt": "2025-05-14T19:10:32.727792Z",
+        "connectionId": "3b6ea084-4f2d-428c-930a-166cc70bf5e1",
+        "notes": ""
+      },
+      {
+        "id": "16f70295-86eb-4624-b2f8-7bc2fa62de96",
+        "name": "List Users",
+        "config": {
+          "path": "/users/",
+          "params": {
+            "include": "attributesMap"
+          },
+          "body": {
+            "raw": "",
+            "bodyType": "raw"
+          },
+          "headers": {
+            "accept": "application/json",
+            "content-type": "application/json"
+          },
+          "configType": "http",
+          "method": "GET",
+          "includeEmptyParams": false,
+          "followRedirect": false,
+          "streamResponse": false
+        },
+        "outputs": {
+          "Users": {
+            "children": {
+              "Attributes": "current.attributesMap",
+              "Display Name": "current.displayName",
+              "Email": "current.email",
+              "Username": "current.username"
+            },
+            "value": "body.users"
+          }
+        },
+        "insertedAt": "2025-05-14T19:10:33.142598Z",
+        "lockVersion": 2,
+        "documentationLink": "",
+        "updatedAt": "2025-05-14T19:10:33.142598Z",
+        "connectionId": "3b6ea084-4f2d-428c-930a-166cc70bf5e1",
+        "notes": ""
+      },
+      {
+        "id": "e8f73406-d95b-44f0-b3fd-2731e7ccebf3",
+        "name": "Get User Password Reset Token",
+        "config": {
+          "path": "/users/{{User Name}}/passwordResetToken",
+          "params": {},
+          "body": {
+            "form": {},
+            "bodyType": "www_form_urlencoded"
+          },
+          "headers": {},
+          "configType": "http",
+          "method": "POST",
+          "includeEmptyParams": false,
+          "followRedirect": false,
+          "streamResponse": false
+        },
+        "outputs": {
+          "Token": {
+            "value": "body.token"
+          }
+        },
+        "insertedAt": "2025-05-14T19:10:33.531801Z",
+        "lockVersion": 2,
+        "documentationLink": "",
+        "updatedAt": "2025-05-14T19:10:33.531801Z",
+        "connectionId": "3b6ea084-4f2d-428c-930a-166cc70bf5e1",
+        "notes": ""
+      },
+      {
+        "id": "ea6546cb-e8e7-4083-85c9-cb535b81e58a",
+        "name": "Get Form Approvers by Submission Id",
+        "config": {
+          "path": "/submissions/{{Submission Id}}",
+          "params": {
+            "include": "form.attributesMap"
+          },
+          "body": {
+            "form": {
+              "body": "{}"
+            },
+            "bodyType": "www_form_urlencoded"
+          },
+          "headers": {
+            "content-type": "application/json"
+          },
+          "configType": "http",
+          "method": "GET",
+          "includeEmptyParams": false,
+          "followRedirect": false,
+          "streamResponse": false
+        },
+        "outputs": {
+          "Approvers": {
+            "value": "body.submission.form.attributesMap.Approvers[0].split(\",\")"
+          }
+        },
+        "insertedAt": "2025-05-14T19:10:32.362282Z",
+        "lockVersion": 3,
+        "documentationLink": "",
+        "updatedAt": "2025-06-17T22:10:56.176392Z",
+        "connectionId": "3b6ea084-4f2d-428c-930a-166cc70bf5e1",
+        "notes": ""
+      },
+      {
+        "id": "cee2ccc2-76d7-4ed4-8f90-b90dd6d2351b",
+        "name": "Get Test",
+        "config": {
+          "path": "/submissions/35230208-9702-11ef-85d7-534218953e47",
+          "params": {},
+          "body": {
+            "form": {
+              "body": "{}"
+            },
+            "bodyType": "www_form_urlencoded"
+          },
+          "headers": {},
+          "configType": "http",
+          "method": "GET",
+          "includeEmptyParams": false,
+          "followRedirect": false,
+          "streamResponse": false
+        },
+        "outputs": {
+          "Submission": {
+            "value": "body.submission"
+          }
+        },
+        "insertedAt": "2025-05-14T19:10:32.509189Z",
+        "lockVersion": 2,
+        "documentationLink": "",
+        "updatedAt": "2025-05-14T19:10:32.509189Z",
+        "connectionId": "3b6ea084-4f2d-428c-930a-166cc70bf5e1",
+        "notes": ""
+      },
+      {
+        "id": "023fbddc-ec6e-49dd-9729-d1f64af70deb",
+        "name": "Update Submission Activity",
+        "config": {
+          "path": "/submissions/{{Submission Id}}/activities/{{Activity Id}}",
+          "params": {},
+          "body": {
+            "raw": "{\n  \"description\": \"{{Description}}\",\n  \"data\": \"{{Data}}\",\n  \"label\": \"{{Label}}\",\n  \"type\": \"{{Type}}\"\n}",
+            "bodyType": "raw"
+          },
+          "headers": {
+            "content-type": "application/json"
+          },
+          "configType": "http",
+          "method": "PUT",
+          "includeEmptyParams": false,
+          "followRedirect": false,
+          "streamResponse": false
+        },
+        "outputs": {
+          "Error": {
+            "value": "body.error"
+          },
+          "Status Code": {
+            "value": "statusCode"
+          }
+        },
+        "insertedAt": "2025-05-14T19:10:32.865897Z",
+        "lockVersion": 2,
+        "documentationLink": "",
+        "updatedAt": "2025-05-14T19:10:32.865897Z",
+        "connectionId": "3b6ea084-4f2d-428c-930a-166cc70bf5e1",
+        "notes": ""
+      },
+      {
+        "id": "9c3a3309-536e-4e3d-a3b3-be072d652a51",
+        "name": "List Departments",
+        "config": {
+          "path": "/teams",
+          "params": {
+            "include": "attributesMap",
+            "q": "name =* \"Departments::\""
+          },
+          "body": {
+            "form": {},
+            "bodyType": "www_form_urlencoded"
+          },
+          "headers": {},
+          "configType": "http",
+          "method": "GET",
+          "includeEmptyParams": false,
+          "followRedirect": false,
+          "streamResponse": false
+        },
+        "outputs": {
+          "Departments": {
+            "children": {
+              "Full Name": "current['name']",
+              "Manager": "current['attributesMap']['Manager'][0]",
+              "Name": "current['name'].replace(\"Departments::\", \"\")",
+              "Slug": "current['slug']"
+            },
+            "value": "body.teams"
+          }
+        },
+        "insertedAt": "2025-05-14T19:10:33.296729Z",
+        "lockVersion": 2,
+        "documentationLink": "",
+        "updatedAt": "2025-05-14T19:10:33.296729Z",
+        "connectionId": "3b6ea084-4f2d-428c-930a-166cc70bf5e1",
+        "notes": ""
+      },
+      {
+        "id": "0ef69bcb-c052-4b16-9814-166c3eef85ed",
+        "name": "Update Submission - Values Only",
+        "config": {
+          "path": "/submissions/{{Submission Id}}",
+          "params": {},
+          "body": {
+            "raw": "{  \"values\":  {{{Values}}}  }",
+            "bodyType": "raw"
+          },
+          "headers": {
+            "accept": "application/json",
+            "content-type": "application/json"
+          },
+          "configType": "http",
+          "method": "PUT",
+          "includeEmptyParams": false,
+          "followRedirect": false,
+          "streamResponse": false
+        },
+        "outputs": {},
+        "insertedAt": "2025-05-14T19:10:32.575049Z",
+        "lockVersion": 2,
+        "documentationLink": "",
+        "updatedAt": "2025-05-14T19:10:32.575049Z",
+        "connectionId": "3b6ea084-4f2d-428c-930a-166cc70bf5e1",
+        "notes": ""
+      },
+      {
+        "id": "625584c3-32e0-415f-a181-4405057e5fca",
+        "name": "Search Users",
+        "config": {
+          "path": "/users",
+          "params": {
+            "include": "attributesMap,profileAttributesMap",
+            "q": "(username =* \"{{query}}\" OR email =* \"{{query}}\"  OR displayName =* \"{{query}}\")"
+          },
+          "body": {
+            "form": {},
+            "bodyType": "www_form_urlencoded"
+          },
+          "headers": {},
+          "configType": "http",
+          "method": "GET",
+          "includeEmptyParams": false,
+          "followRedirect": false,
+          "streamResponse": false
+        },
+        "outputs": {
+          "error": {
+            "value": "body.error"
+          },
+          "users": {
+            "value": "body.users"
+          }
+        },
+        "insertedAt": "2025-05-14T19:10:33.380691Z",
+        "lockVersion": 2,
+        "documentationLink": "",
+        "updatedAt": "2025-05-14T19:10:33.380691Z",
+        "connectionId": "3b6ea084-4f2d-428c-930a-166cc70bf5e1",
+        "notes": ""
+      },
+      {
+        "id": "771f279a-988d-4b91-9b8f-85861c5c13fe",
+        "name": "Get User",
+        "config": {
+          "path": "/users/{{Username}}",
+          "params": {
+            "include": "details,attributesMap,profileAttributesMap"
+          },
+          "body": {
+            "form": {},
+            "bodyType": "www_form_urlencoded"
+          },
+          "headers": {
+            "accept": "application/json",
+            "content-type": "application/json"
+          },
+          "configType": "http",
+          "method": "GET",
+          "includeEmptyParams": false,
+          "followRedirect": false,
+          "streamResponse": false
+        },
+        "outputs": {
+          "Attributes": {
+            "value": "body.user?.attributesMap"
+          },
+          "Display Name": {
+            "value": "body.user?.displayName"
+          },
+          "Email": {
+            "value": "body.user?.email"
+          },
+          "Preferred Locale": {
+            "value": "body.user?.preferredLocale"
+          },
+          "Profile Attributes": {
+            "value": "body.user?.profileAttributesMap"
+          },
+          "Username": {
+            "value": "body.user?.username"
+          }
+        },
+        "insertedAt": "2025-05-14T19:10:32.935450Z",
+        "lockVersion": 4,
+        "documentationLink": "",
+        "updatedAt": "2025-06-13T23:04:42.215361Z",
+        "connectionId": "3b6ea084-4f2d-428c-930a-166cc70bf5e1",
+        "notes": ""
+      },
+      {
+        "id": "85be2cba-ee7e-4f36-8fd9-6c383ddb5b9a",
+        "name": "Get Task Values",
+        "config": {
+          "path": "/submissions/{{Submission Id}}",
+          "params": {
+            "include": "details,values,form"
+          },
+          "body": {
+            "form": {},
+            "bodyType": "www_form_urlencoded"
+          },
+          "headers": {
+            "content-type": "application/json"
+          },
+          "configType": "http",
+          "method": "GET",
+          "includeEmptyParams": false,
+          "followRedirect": false,
+          "streamResponse": false
+        },
+        "outputs": {
+          "Notes": {
+            "value": "body.submission['values']['Notes']"
+          },
+          "Status": {
+            "value": "body.submission['values']['Status']"
+          }
+        },
+        "insertedAt": "2025-05-14T19:10:32.793341Z",
+        "lockVersion": 2,
+        "documentationLink": "",
+        "updatedAt": "2025-05-14T19:10:32.793341Z",
+        "connectionId": "3b6ea084-4f2d-428c-930a-166cc70bf5e1",
+        "notes": ""
+      },
+      {
+        "id": "ffbbe197-1247-4b77-a5a3-335f60a95b18",
+        "name": "_test",
+        "config": {
+          "path": "/users/{{Username}}",
+          "params": {
+            "include": "details,attributesMap"
+          },
+          "body": {
+            "form": {},
+            "bodyType": "www_form_urlencoded"
+          },
+          "headers": {
+            "accept": "application/json",
+            "content-type": "application/json"
+          },
+          "configType": "http",
+          "method": "GET",
+          "includeEmptyParams": false,
+          "followRedirect": false,
+          "streamResponse": false
+        },
+        "outputs": {
+          "Attributes": {
+            "value": "body.user?.attributesMap"
+          },
+          "Display Name": {
+            "value": "body.user?.displayName"
+          },
+          "Email": {
+            "value": "body.user?.email"
+          },
+          "Username": {
+            "value": "body.user?.username"
+          }
+        },
+        "insertedAt": "2025-05-14T19:10:33.220217Z",
+        "lockVersion": 2,
+        "documentationLink": "",
+        "updatedAt": "2025-05-14T19:10:33.220217Z",
+        "connectionId": "3b6ea084-4f2d-428c-930a-166cc70bf5e1",
+        "notes": ""
+      },
+      {
+        "id": "bb8d89b8-d63e-4fcd-b893-825ca2666c6c",
+        "name": "Get Notification Dates",
+        "config": {
+          "path": "/kapps/admin-center/forms/notification-template-dates/submissions",
+          "params": {
+            "direction": "ASC",
+            "include": "values",
+            "limit": "1000",
+            "orderBy": "values[Name]"
+          },
+          "body": {
+            "form": {},
+            "bodyType": "www_form_urlencoded"
+          },
+          "headers": {},
+          "configType": "http",
+          "method": "GET",
+          "includeEmptyParams": false,
+          "followRedirect": false,
+          "streamResponse": false
+        },
+        "outputs": {
+          "submissions": {
+            "children": {
+              "format": "current.values['Format']",
+              "id": "current.id",
+              "name": "current.values['Name']",
+              "status": "current.values['Status']"
+            },
+            "value": "body.submissions"
+          }
+        },
+        "insertedAt": "2025-06-09T18:33:04.604796Z",
+        "lockVersion": 2,
+        "documentationLink": "",
+        "updatedAt": "2025-06-09T18:33:04.604796Z",
+        "connectionId": "3b6ea084-4f2d-428c-930a-166cc70bf5e1",
+        "notes": ""
+      },
+      {
+        "id": "5cac360d-317d-429e-9cec-0ea7bd8c6b0f",
+        "name": "Get Notification Templates",
+        "config": {
+          "path": "/kapps/admin-center/forms/notification-data/submissions",
+          "params": {
+            "direction": "ASC",
+            "include": "values",
+            "limit": "1000",
+            "orderBy": "values[Name]",
+            "q": "values[Type]=\"Template\""
+          },
+          "body": {
+            "form": {},
+            "bodyType": "www_form_urlencoded"
+          },
+          "headers": {},
+          "configType": "http",
+          "method": "GET",
+          "includeEmptyParams": false,
+          "followRedirect": false,
+          "streamResponse": false
+        },
+        "outputs": {
+          "submissions": {
+            "children": {
+              "format": "current.values['HTML Content']",
+              "id": "current.id",
+              "name": "current.values['Name']",
+              "status": "current.values['Status']",
+              "subject": "current.values['Subject']",
+              "type": "current.values['Type']"
+            },
+            "value": "body.submissions"
+          }
+        },
+        "insertedAt": "2025-06-09T18:36:07.150803Z",
+        "lockVersion": 2,
+        "documentationLink": "",
+        "updatedAt": "2025-06-09T18:36:07.150803Z",
+        "connectionId": "3b6ea084-4f2d-428c-930a-166cc70bf5e1",
+        "notes": ""
+      },
+      {
+        "id": "4a171dbd-0ff3-4842-a328-052e40b20808",
+        "name": "Get AD Username Configurations",
+        "config": {
+          "path": "/kapps/admin-center/forms/ad-username-config/submissions",
+          "params": {
+            "direction": "ASC",
+            "include": "values",
+            "limit": "1000",
+            "orderBy": "values[Name]",
+            "q": "values[Status]=\"Active\""
+          },
+          "body": {
+            "form": {},
+            "bodyType": "www_form_urlencoded"
+          },
+          "headers": {},
+          "configType": "http",
+          "method": "GET",
+          "includeEmptyParams": false,
+          "followRedirect": false,
+          "streamResponse": false
+        },
+        "outputs": {
+          "error": {
+            "value": "body.error"
+          },
+          "statusCode": {
+            "value": "statusCode"
+          },
+          "submissions": {
+            "children": {
+              "example": "current.values['Example']",
+              "id": "current.id",
+              "name": "current.values['Name']",
+              "pattern": "current.values['Pattern']"
+            },
+            "value": "body.submissions"
+          }
+        },
+        "insertedAt": "2025-06-11T14:34:35.173084Z",
+        "lockVersion": 2,
+        "documentationLink": "",
+        "updatedAt": "2025-06-11T14:34:35.173084Z",
+        "connectionId": "3b6ea084-4f2d-428c-930a-166cc70bf5e1",
+        "notes": ""
+      },
+      {
+        "id": "2a31c439-f42f-45a9-9396-2f65c676ea6c",
+        "name": "Get Client Configuration POCs - By CID",
+        "config": {
+          "path": "/kapps/admin-center/forms/client-configuration-pocs/submissions",
+          "params": {
+            "direction": "ASC",
+            "include": "values",
+            "limit": "1000",
+            "orderBy": "values[POC Type]",
+            "q": "values[CID]=\"{{CID}}\""
+          },
+          "body": {
+            "form": {},
+            "bodyType": "www_form_urlencoded"
+          },
+          "headers": {},
+          "configType": "http",
+          "method": "GET",
+          "includeEmptyParams": false,
+          "followRedirect": false,
+          "streamResponse": false
+        },
+        "outputs": {
+          "error": {
+            "value": "body.error"
+          },
+          "statusCode": {
+            "value": "statusCode"
+          },
+          "submissions": {
+            "children": {
+              "additional details": "current.values['Additional Details']",
+              "email": "current.values['Email']",
+              "id": "current.id",
+              "name": "current.values['Name']",
+              "phone": "current.values['Phone']",
+              "poc type": "current.values['POC Type']"
+            },
+            "value": "body.submissions"
+          }
+        },
+        "insertedAt": "2025-06-11T14:53:42.920857Z",
+        "lockVersion": 2,
+        "documentationLink": "",
+        "updatedAt": "2025-06-11T14:53:42.920857Z",
+        "connectionId": "3b6ea084-4f2d-428c-930a-166cc70bf5e1",
+        "notes": ""
+      },
+      {
+        "id": "8f36dafb-d6d8-403e-afa4-790359375959",
+        "name": "Get Kapp Forms - By Type",
+        "config": {
+          "path": "/kapps/{{kapp}}/forms",
+          "params": {
+            "include": "attributesMap[Form Permission Id],securityPolicies",
+            "q": "type=\"{{type}}\" AND status IN (\"New\",\"Active\")"
+          },
+          "body": {
+            "form": {},
+            "bodyType": "www_form_urlencoded"
+          },
+          "headers": {},
+          "configType": "http",
+          "method": "GET",
+          "includeEmptyParams": false,
+          "followRedirect": false,
+          "streamResponse": false
+        },
+        "outputs": {
+          "error": {
+            "value": "body.error"
+          },
+          "forms": {
+            "children": {
+              "Form Display Policy": "current.securityPolicies.find(policy => policy.endpoint === \"Display\")?.name || null",
+              "Form Permission Id": "current.attributesMap['Form Permission Id'][0]",
+              "Name": "current.name",
+              "Slug": "current.slug",
+              "Status": "current.status"
+            },
+            "value": "body.forms"
+          },
+          "statusCode": {
+            "value": "statusCode"
+          }
+        },
+        "insertedAt": "2025-06-11T14:56:58.346374Z",
+        "lockVersion": 2,
+        "documentationLink": "",
+        "updatedAt": "2025-06-11T14:56:58.346374Z",
+        "connectionId": "3b6ea084-4f2d-428c-930a-166cc70bf5e1",
+        "notes": ""
+      },
+      {
+        "id": "7152d4bc-d8d5-4122-a40d-e933a65b5fe8",
+        "name": "Get Notification Snippets",
+        "config": {
+          "path": "/kapps/admin-center/forms/notification-data/submissions",
+          "params": {
+            "direction": "ASC",
+            "include": "values",
+            "limit": "1000",
+            "orderBy": "values[Name]",
+            "q": "values[Type]=\"Snippet\""
+          },
+          "body": {
+            "form": {},
+            "bodyType": "www_form_urlencoded"
+          },
+          "headers": {},
+          "configType": "http",
+          "method": "GET",
+          "includeEmptyParams": false,
+          "followRedirect": false,
+          "streamResponse": false
+        },
+        "outputs": {
+          "Submissions": {
+            "children": {
+              "HTML Content": "current.values['HTML Content']",
+              "Id": "current.id",
+              "Name": "current.values['Name']",
+              "Status": "current.values['Status']",
+              "Text Content": "current.values['Text Content']",
+              "Type": "current.values['Type']"
+            },
+            "value": "body.submissions"
+          }
+        },
+        "insertedAt": "2025-06-09T18:34:56.819611Z",
+        "lockVersion": 8,
+        "documentationLink": "",
+        "updatedAt": "2025-06-17T20:02:04.027324Z",
+        "connectionId": "3b6ea084-4f2d-428c-930a-166cc70bf5e1",
+        "notes": ""
+      },
+      {
+        "id": "e4a2b585-8da1-4852-a537-71c313525361",
+        "name": "Get Client Configurations",
+        "config": {
+          "path": "/kapps/admin-center/forms/client-configuration/submissions",
+          "params": {
+            "count": "true",
+            "direction": "ASC",
+            "include": "values,children,children.form,children.values",
+            "limit": "1000",
+            "orderBy": "values[Client Name]",
+            "q": "values[Status]=\"Active\""
+          },
+          "body": {
+            "form": {},
+            "bodyType": "www_form_urlencoded"
+          },
+          "headers": {},
+          "configType": "http",
+          "method": "GET",
+          "includeEmptyParams": false,
+          "followRedirect": false,
+          "streamResponse": false
+        },
+        "outputs": {
+          "_Count Returned": {
+            "value": "body.submissions?.length"
+          },
+          "_Count Total": {
+            "value": "body.count"
+          },
+          "_Error": {
+            "value": "body.error"
+          },
+          "_Status Code": {
+            "value": "statusCode"
+          },
+          "submissions": {
+            "children": {
+              "children": "current.children",
+              "cid": "current.values['CID']",
+              "client name": "current.values['Client Name']",
+              "id": "current.id"
+            },
+            "value": "body.submissions"
+          }
+        },
+        "insertedAt": "2025-06-11T19:18:04.379121Z",
+        "lockVersion": 2,
+        "documentationLink": "",
+        "updatedAt": "2025-06-11T19:18:04.379121Z",
+        "connectionId": "3b6ea084-4f2d-428c-930a-166cc70bf5e1",
+        "notes": ""
+      },
+      {
+        "id": "1b0cbec1-70af-49fc-95aa-43cc1e28245c",
+        "name": "Get Blueprint Steps - by CID and Process",
+        "config": {
+          "path": "/kapps/admin-center/forms/blueprint-step/submissions",
+          "params": {
+            "count": "true",
+            "direction": "ASC",
+            "include": "values",
+            "limit": "1000",
+            "orderBy": "values[Sequence]",
+            "q": "values[Company]=\"{{CID}}\" AND values[Process]=\"{{Process}}\""
+          },
+          "body": {
+            "form": {},
+            "bodyType": "www_form_urlencoded"
+          },
+          "headers": {},
+          "configType": "http",
+          "method": "GET",
+          "includeEmptyParams": false,
+          "followRedirect": false,
+          "streamResponse": false
+        },
+        "outputs": {
+          "_Count Returned": {
+            "value": "body.submissions?.length"
+          },
+          "_Count Total": {
+            "value": "body.count"
+          },
+          "_Error": {
+            "value": "body.error"
+          },
+          "_Status Code": {
+            "value": "statusCode"
+          },
+          "submissions": {
+            "children": {
+              "action": "current.values['Action']",
+              "configured inputs": "current.values['Configured Inputs JSON']",
+              "id": "current.id",
+              "outputs": "current.values['Outputs']",
+              "routine name": "current.values['Routine']",
+              "sequence": "current.values['Sequence']",
+              "status": "current.values['Status']",
+              "step name": "current.values['Step Name']"
+            },
+            "value": "body.submissions"
+          }
+        },
+        "insertedAt": "2025-06-11T19:22:52.081603Z",
+        "lockVersion": 2,
+        "documentationLink": "",
+        "updatedAt": "2025-06-11T19:22:52.081603Z",
+        "connectionId": "3b6ea084-4f2d-428c-930a-166cc70bf5e1",
+        "notes": ""
+      },
+      {
+        "id": "13e2a406-3bf7-44e6-aabf-95dd87726588",
+        "name": "Get ServicePortal Submissions - By CID and Process",
+        "config": {
+          "path": "/kapps/service-portal/submissions",
+          "params": {
+            "count": "true",
+            "direction": "DESC",
+            "include": "values,details",
+            "limit": "1000",
+            "orderBy": "createdAt",
+            "q": "values[CID]=\"{{CID}}\" AND values[Process]=\"{{Process}}\""
+          },
+          "body": {
+            "form": {},
+            "bodyType": "www_form_urlencoded"
+          },
+          "headers": {},
+          "configType": "http",
+          "method": "GET",
+          "includeEmptyParams": false,
+          "followRedirect": false,
+          "streamResponse": false
+        },
+        "outputs": {
+          "Submissions": {
+            "children": {
+              "Core State": "current.coreState",
+              "Created At": "current.createdAt",
+              "Created By": "current.createdBy",
+              "Handle": "current.handle",
+              "Id": "current.id",
+              "Label": "current.label",
+              "Requested By": "current['values']['Requested By']",
+              "Requested By Display Name": "current['values']['Requested By Display Name']",
+              "Status": "current['values']['Status']",
+              "Submitted At": "current.submittedAt",
+              "Submitted By": "current.submittedBy"
+            },
+            "value": "body.submissions"
+          },
+          "_Error": {
+            "value": "body.error"
+          },
+          "_Returned Count": {
+            "value": "body.submissions?.length"
+          },
+          "_Status Code": {
+            "value": "statusCode"
+          },
+          "_Total Count": {
+            "value": "body.count"
+          }
+        },
+        "insertedAt": "2025-06-11T21:24:59.799012Z",
+        "lockVersion": 3,
+        "documentationLink": "",
+        "updatedAt": "2025-06-11T21:25:10.608882Z",
+        "connectionId": "3b6ea084-4f2d-428c-930a-166cc70bf5e1",
+        "notes": ""
+      },
+      {
+        "id": "93ad9e5c-2ee2-4510-bc1f-f2693ff698d7",
+        "name": "Get Blueprints - By CID",
+        "config": {
+          "path": "/kapps/admin-center/forms/blueprint/submissions",
+          "params": {
+            "count": "true",
+            "direction": "ASC",
+            "include": "values",
+            "limit": "1000",
+            "orderBy": "values[Process Name]",
+            "q": "values[Status]=\"Active\" AND values[Client]=\"{{CID}}\""
+          },
+          "body": {
+            "form": {},
+            "bodyType": "www_form_urlencoded"
+          },
+          "headers": {},
+          "configType": "http",
+          "method": "GET",
+          "includeEmptyParams": false,
+          "followRedirect": false,
+          "streamResponse": false
+        },
+        "outputs": {
+          "_Error": {
+            "value": "body.error"
+          },
+          "_Returned Count": {
+            "value": "body.submissions?.length"
+          },
+          "_Status Code": {
+            "value": "statusCode"
+          },
+          "_Total Count": {
+            "value": "body.count"
+          },
+          "submissions": {
+            "children": {
+              "client": "current.values['Client']",
+              "id": "current.id",
+              "process name": "current.values['Process Name']"
+            },
+            "value": "body.submissions"
+          }
+        },
+        "insertedAt": "2025-06-11T21:19:42.694805Z",
+        "lockVersion": 3,
+        "documentationLink": "",
+        "updatedAt": "2025-06-11T21:42:47.434662Z",
+        "connectionId": "3b6ea084-4f2d-428c-930a-166cc70bf5e1",
+        "notes": ""
+      },
+      {
+        "id": "b1caa763-4805-4750-b81b-e1535d46402a",
+        "name": "Get Process Action - By Submission Id",
+        "config": {
+          "path": "/kapps/admin-center/forms/process-actions/submissions",
+          "params": {
+            "count": "true",
+            "direction": "ASC",
+            "include": "values",
+            "limit": "1000",
+            "orderBy": "values[Sequence]",
+            "q": "values[Submission Id]=\"{{Submission Id}}\""
+          },
+          "body": {
+            "form": {},
+            "bodyType": "www_form_urlencoded"
+          },
+          "headers": {},
+          "configType": "http",
+          "method": "GET",
+          "includeEmptyParams": false,
+          "followRedirect": false,
+          "streamResponse": false
+        },
+        "outputs": {
+          "_Error": {
+            "value": "body.error"
+          },
+          "_Returned Count": {
+            "value": "body.submissions?.length"
+          },
+          "_Status Code": {
+            "value": "statusCode"
+          },
+          "_Total Count": {
+            "value": "body.count"
+          },
+          "submissions": {
+            "children": {
+              "action": "current.values['Action Name']",
+              "configured inputs": "current.values['Configured Inputs JSON']",
+              "id": "current.id",
+              "inputs": "current.values['Inputs']",
+              "outputs": "current.values['Outputs']",
+              "progress": "current.values['Progress']",
+              "routine name": "current.values['Routine Name']",
+              "sequence": "current.values['Sequence']",
+              "status": "current.values['Status']"
+            },
+            "value": "body.submissions"
+          }
+        },
+        "insertedAt": "2025-06-11T21:55:02.875065Z",
+        "lockVersion": 2,
+        "documentationLink": "",
+        "updatedAt": "2025-06-11T21:55:02.875065Z",
+        "connectionId": "3b6ea084-4f2d-428c-930a-166cc70bf5e1",
+        "notes": ""
+      },
+      {
+        "id": "8b834d13-3c2e-44b6-a714-f9cf8170217c",
+        "name": "Get Blueprint Step Library Items - By Id",
+        "config": {
+          "path": "/submissions/{{Submission Id}}",
+          "params": {
+            "include": "values"
+          },
+          "body": {
+            "form": {},
+            "bodyType": "www_form_urlencoded"
+          },
+          "headers": {},
+          "configType": "http",
+          "method": "GET",
+          "includeEmptyParams": false,
+          "followRedirect": false,
+          "streamResponse": false
+        },
+        "outputs": {
+          "description": {
+            "value": "body.submission.values['Description']"
+          },
+          "execution type": {
+            "value": "body.submission.values['Execution Type']"
+          },
+          "name": {
+            "value": "body.submission.values['Name']"
+          },
+          "routine name": {
+            "value": "body.submission.values['Routine Name']"
+          },
+          "support contact": {
+            "value": "body.submission.values['Support Contact']"
+          }
+        },
+        "insertedAt": "2025-06-11T19:49:20.375309Z",
+        "lockVersion": 2,
+        "documentationLink": "",
+        "updatedAt": "2025-06-11T19:49:20.375309Z",
+        "connectionId": "3b6ea084-4f2d-428c-930a-166cc70bf5e1",
+        "notes": ""
+      },
+      {
+        "id": "369c0998-08f0-4d06-b326-077c3c74105c",
+        "name": "Get Blueprint Step Library Items",
+        "config": {
+          "path": "/kapps/admin-center/forms/blueprint-step-library/submissions",
+          "params": {
+            "count": "true",
+            "direction": "ASC",
+            "include": "values",
+            "limit": "1000",
+            "orderBy": "values[Name]",
+            "q": "values[Status]=\"Active\""
+          },
+          "body": {
+            "form": {},
+            "bodyType": "www_form_urlencoded"
+          },
+          "headers": {},
+          "configType": "http",
+          "method": "GET",
+          "includeEmptyParams": false,
+          "followRedirect": false,
+          "streamResponse": false
+        },
+        "outputs": {
+          "_Error": {
+            "value": "body.error"
+          },
+          "_Returned Count": {
+            "value": "body.submissions?.length"
+          },
+          "_Status Code": {
+            "value": "statusCode"
+          },
+          "_Total Count": {
+            "value": "body.count"
+          },
+          "submissions": {
+            "children": {
+              "description": "current.values['Description']",
+              "execution type": "current.values['Execution Type']",
+              "id": "current.id",
+              "name": "current.values['Name']",
+              "routine name": "current.values['Routine Name']",
+              "support contact": "current.values['Support Contact']"
+            },
+            "value": "body.submissions"
+          }
+        },
+        "insertedAt": "2025-06-11T19:53:24.215781Z",
+        "lockVersion": 3,
+        "documentationLink": "",
+        "updatedAt": "2025-06-11T21:41:21.028718Z",
+        "connectionId": "3b6ea084-4f2d-428c-930a-166cc70bf5e1",
+        "notes": ""
+      },
+      {
+        "id": "cad383f7-9ac3-4fb4-a040-e837065a5fd6",
+        "name": "Create Process Action Note",
+        "config": {
+          "path": "/kapps/admin-center/forms/process-action-notes/submissions",
+          "params": {
+            "include": "values"
+          },
+          "body": {
+            "raw": "{\"coreState\":\"Submitted\",\"values\":{\"Note\":\"{{Note in Markdown}}\",\"Submitted By\":\"{{Submitted By}}\",\"Submitted By Display Name\":\"{{Submitted By Display Name}}\",\"Submitted By Team\":null,\"Submitted At\":\"{{Submitted At}}\",\"Originating Id\":\"{{Originating Id}}\",\"Parent Id\":\"{{Parent Id}}\"}}",
+            "bodyType": "raw"
+          },
+          "headers": {},
+          "configType": "http",
+          "method": "POST",
+          "includeEmptyParams": false,
+          "followRedirect": false,
+          "streamResponse": false
+        },
+        "outputs": {
+          "_Error": {
+            "value": "body.error"
+          },
+          "_Status Code": {
+            "value": "statusCode"
+          },
+          "submission": {
+            "value": "body.submission"
+          }
+        },
+        "insertedAt": "2025-06-16T17:20:13.518695Z",
+        "lockVersion": 2,
+        "documentationLink": "",
+        "updatedAt": "2025-06-16T17:20:13.518695Z",
+        "connectionId": "3b6ea084-4f2d-428c-930a-166cc70bf5e1",
+        "notes": ""
+      },
+      {
+        "id": "5ef573c3-186c-4077-bf89-0c018771e14e",
+        "name": "Agents",
+        "config": {
+          "path": "platformComponents/agents",
+          "params": {},
+          "body": {
+            "form": {},
+            "bodyType": "www_form_urlencoded"
+          },
+          "headers": {},
+          "configType": "http",
+          "method": "GET",
+          "includeEmptyParams": false,
+          "followRedirect": false,
+          "streamResponse": false
+        },
+        "outputs": {
+          "Agents": {
+            "children": {
+              "Slug": "current.slug",
+              "URL": "current.url"
+            },
+            "value": "body.agents"
+          },
+          "_Error": {
+            "value": "body.error"
+          },
+          "_Returned Count": {
+            "value": "body.agents?.length"
+          },
+          "_Status Code": {
+            "value": "statusCode"
+          }
+        },
+        "insertedAt": "2025-06-17T16:01:47.393013Z",
+        "lockVersion": 2,
+        "documentationLink": "",
+        "updatedAt": "2025-06-17T16:01:47.393013Z",
+        "connectionId": "3b6ea084-4f2d-428c-930a-166cc70bf5e1",
+        "notes": ""
+      },
+      {
+        "id": "5a5da035-b670-4683-9895-7fb1f63cc29e",
+        "name": "Get Team - By Name",
+        "config": {
+          "path": "teams",
+          "params": {
+            "include": "details,attributesMap,memberships,memberships.user,memberships.user.details,memberships.user.profileAttributesMap",
+            "limit": "1",
+            "q": "name=\"{{Name}}\""
+          },
+          "body": {
+            "form": {},
+            "bodyType": "www_form_urlencoded"
+          },
+          "headers": {
+            "content-type": "application/json"
+          },
+          "configType": "http",
+          "method": "GET",
+          "includeEmptyParams": false,
+          "followRedirect": false,
+          "streamResponse": false
+        },
+        "outputs": {
+          "CID": {
+            "value": "body.teams[0]?.attributesMap['CID']"
+          },
+          "Description": {
+            "value": "body.teams[0]?.description"
+          },
+          "Manager": {
+            "value": "body.teams[0]?.attributesMap.Manager[0]"
+          },
+          "Member Email List": {
+            "value": "body.teams[0]?.memberships.map(m => m.user.email).join(',')"
+          },
+          "Memberships": {
+            "children": {
+              "Profile Attributes Map": "current.user['profileAttributesMap']",
+              "User Display Name": "current.user['displayName']",
+              "User Email": "current.user['email']",
+              "User Name": "current.user['username']",
+              "User Preferred Locale": "current.user['preferredLocale']"
+            },
+            "value": "body.teams[0]?.memberships"
+          },
+          "Name": {
+            "value": "body.teams[0]?.name"
+          },
+          "Notification Delivery Method": {
+            "value": "body.teams[0]?.attributesMap['Notification Delivery Method'][0]"
+          },
+          "Notification Delivery Target": {
+            "value": "body.teams[0]?.attributesMap['Notification Delivery Target']"
+          },
+          "Slug": {
+            "value": "body.teams[0]?.slug"
+          },
+          "_Total Count": {
+            "value": "body.count"
+          }
+        },
+        "insertedAt": "2025-06-10T17:49:32.033952Z",
+        "lockVersion": 8,
+        "documentationLink": "",
+        "updatedAt": "2025-06-17T14:28:16.135403Z",
+        "connectionId": "3b6ea084-4f2d-428c-930a-166cc70bf5e1",
+        "notes": ""
+      },
+      {
+        "id": "0bdd7f17-abe8-4eba-82a7-6270076f3232",
+        "name": "Update Submission - Body",
+        "config": {
+          "path": "/submissions/{{Submission Id}}",
+          "params": {
+            "include": "values"
+          },
+          "body": {
+            "raw": "{{body}}",
+            "bodyType": "raw"
+          },
+          "headers": {},
+          "configType": "http",
+          "method": "PUT",
+          "includeEmptyParams": false,
+          "followRedirect": false,
+          "streamResponse": false
+        },
+        "outputs": {
+          "_Error": {
+            "value": "body.error"
+          },
+          "_Status Code": {
+            "value": "statusCode"
+          },
+          "submission": {
+            "value": "body.submission"
+          }
+        },
+        "insertedAt": "2025-06-16T16:47:52.509403Z",
+        "lockVersion": 5,
+        "documentationLink": "",
+        "updatedAt": "2025-06-16T17:50:04.190965Z",
+        "connectionId": "3b6ea084-4f2d-428c-930a-166cc70bf5e1",
+        "notes": ""
+      },
+      {
+        "id": "242102d7-abfc-4bc8-a507-a1e01ad8b294",
+        "name": "Create Service Portal Task Submission",
+        "config": {
+          "path": "/kapps/service-portal/forms/task/submissions",
+          "params": {
+            "include": "values"
+          },
+          "body": {
+            "raw": "{\"coreState\":\"Draft\", {{#Origin Id}}\"origin\":{\"id\":\"{{Origin Id}}\"}{{/Origin Id}}, {{#Parent Id}}\"parent\":{\"id\":\"{{Parent Id}}\"}{{/Parent Id}}, \"values\":{\"Status\": \"Open\",\"Assigned Individual\":\"{{Assigned Individual}}\",\"Assigned Individual Display Name\":\"{{Assigned Individual Display Name}}\",\"Assigned Team\":\"{{Assigned Team}}\",\"Assigned Team Display Name\":\"{{Assigned Team}}\",\"Deferral Token\":\"{{Deferral Token}}\",\"Details\":\"{{Details}}\",\"Due Date\":\"{{Due Date}}\",\"Summary\":\"{{Summary}}\"}}",
+            "bodyType": "raw"
+          },
+          "headers": {},
+          "configType": "http",
+          "method": "POST",
+          "includeEmptyParams": false,
+          "followRedirect": false,
+          "streamResponse": false
+        },
+        "outputs": {
+          "_Error": {
+            "value": "body.error"
+          },
+          "_Status Code": {
+            "value": "body.statusCode"
+          },
+          "submission": {
+            "children": {
+              "id": "current.id",
+              "values": "current.values"
+            },
+            "value": "body.submission"
+          }
+        },
+        "insertedAt": "2025-06-16T17:22:47.467676Z",
+        "lockVersion": 3,
+        "documentationLink": "",
+        "updatedAt": "2025-07-31T21:28:29.843857Z",
+        "connectionId": "3b6ea084-4f2d-428c-930a-166cc70bf5e1",
+        "notes": ""
+      },
+      {
+        "id": "c09e9e4d-5747-4882-9298-ad1a71a75997",
+        "name": "Get Notification Template - By Name",
+        "config": {
+          "path": "/kapps/admin-center/forms/notification-data/submissions",
+          "params": {
+            "direction": "ASC",
+            "include": "values",
+            "limit": "1000",
+            "orderBy": "values[Name]",
+            "q": "values[Type]=\"Template\" AND values[Name]=\"{{Template Name}}\""
+          },
+          "body": {
+            "form": {},
+            "bodyType": "www_form_urlencoded"
+          },
+          "headers": {},
+          "configType": "http",
+          "method": "GET",
+          "includeEmptyParams": false,
+          "followRedirect": false,
+          "streamResponse": false
+        },
+        "outputs": {
+          "Submissions": {
+            "children": {
+              "HTML Content": "current.values['HTML Content']",
+              "Id": "current.id",
+              "Name": "current.values['Name']",
+              "Status": "current.values['Status']",
+              "Subject": "current.values['Subject']",
+              "Text Content": "current.values['Text Content']",
+              "Type": "current.values['Type']"
+            },
+            "value": "body.submissions"
+          },
+          "_Error": {
+            "value": "body.error"
+          },
+          "_Returned Count": {
+            "value": "body.submissions?.length"
+          },
+          "_Status Code": {
+            "value": "statusCode"
+          }
+        },
+        "insertedAt": "2025-06-17T19:05:27.974241Z",
+        "lockVersion": 3,
+        "documentationLink": "",
+        "updatedAt": "2025-06-17T20:09:37.135584Z",
+        "connectionId": "3b6ea084-4f2d-428c-930a-166cc70bf5e1",
+        "notes": ""
+      },
+      {
+        "id": "53cea1d4-bc09-47a8-ba7f-e39fee4657af",
+        "name": "Get Form by Slug",
+        "config": {
+          "path": "/kapps/{{kapp-slug}}/forms/{{form-slug}}",
+          "params": {
+            "include": "fields,attributesMap,details"
+          },
+          "body": {
+            "form": {},
+            "bodyType": "www_form_urlencoded"
+          },
+          "headers": {},
+          "configType": "http",
+          "method": "GET",
+          "includeEmptyParams": false,
+          "followRedirect": false,
+          "streamResponse": false
+        },
+        "outputs": {
+          "Attributes Map": {
+            "value": "body.form?.attributesMap"
+          },
+          "Description": {
+            "value": "body.form?.description"
+          },
+          "Fields": {
+            "children": {
+              "Field Name": "current.name"
+            },
+            "value": "body.form?.fields"
+          },
+          "Name": {
+            "value": "body.form?.name"
+          },
+          "Notes": {
+            "value": "body.form?.notes"
+          },
+          "Slug": {
+            "value": "body.form?.slug"
+          },
+          "Status": {
+            "value": "body.form?.status"
+          },
+          "Type": {
+            "value": "body.form?.type"
+          },
+          "Updated At": {
+            "value": "body.form?.updatedAt"
+          },
+          "_Error": {
+            "value": "body.error"
+          },
+          "_Status Code": {
+            "value": "statusCode"
+          }
+        },
+        "insertedAt": "2025-06-17T22:18:04.083481Z",
+        "lockVersion": 7,
+        "documentationLink": "",
+        "updatedAt": "2025-07-30T16:38:04.907581Z",
+        "connectionId": "3b6ea084-4f2d-428c-930a-166cc70bf5e1",
+        "notes": ""
+      },
+      {
+        "id": "1326290a-d758-48e2-aed8-2d9c9d00766e",
+        "name": "Get Forms By Kapp",
+        "config": {
+          "path": "/kapps/{{Kapp Slug}}/forms",
+          "params": {},
+          "body": {
+            "form": {},
+            "bodyType": "www_form_urlencoded"
+          },
+          "headers": {},
+          "configType": "http",
+          "method": "GET",
+          "includeEmptyParams": false,
+          "followRedirect": false,
+          "streamResponse": false
+        },
+        "outputs": {
+          "Forms": {
+            "children": {
+              "Name": "current.name",
+              "Slug": "current.slug"
+            },
+            "value": "body.forms"
+          },
+          "_Error": {
+            "value": "body.error"
+          },
+          "_Returned Count": {
+            "value": "body.forms?.length"
+          },
+          "_Status Code": {
+            "value": "statusCode"
+          }
+        },
+        "insertedAt": "2025-06-17T22:08:24.263176Z",
+        "lockVersion": 3,
+        "documentationLink": "",
+        "updatedAt": "2025-06-17T22:10:28.679442Z",
+        "connectionId": "3b6ea084-4f2d-428c-930a-166cc70bf5e1",
+        "notes": ""
+      },
+      {
+        "id": "58d43eea-3459-4d60-920d-93ddde9031e3",
+        "name": "Get Kapps",
+        "config": {
+          "path": "/kapps",
+          "params": {
+            "include": "attributesMap"
+          },
+          "body": {
+            "form": {},
+            "bodyType": "www_form_urlencoded"
+          },
+          "headers": {},
+          "configType": "http",
+          "method": "GET",
+          "includeEmptyParams": false,
+          "followRedirect": false,
+          "streamResponse": false
+        },
+        "outputs": {
+          "Kapps": {
+            "children": {
+              "Attributes Map": "current.attributesMap",
+              "Name": "current.name",
+              "Slug": "current.slug"
+            },
+            "value": "body.kapps"
+          },
+          "_Error": {
+            "value": "body.error"
+          },
+          "_Returned Count": {
+            "value": "body.kapps?.length"
+          },
+          "_Status Code": {
+            "value": "statusCode"
+          }
+        },
+        "insertedAt": "2025-06-17T22:03:25.993871Z",
+        "lockVersion": 4,
+        "documentationLink": "",
+        "updatedAt": "2025-06-17T22:55:40.856960Z",
+        "connectionId": "3b6ea084-4f2d-428c-930a-166cc70bf5e1",
+        "notes": ""
+      },
+      {
+        "id": "7ceefe13-07fc-41d3-92ff-2adf9b5e3e67",
+        "name": "Create Submission - Body",
+        "config": {
+          "path": "/kapps/{{kapp}}/forms/{{form}}/submissions",
+          "params": {
+            "completed": "{{Completed}}",
+            "include": "values"
+          },
+          "body": {
+            "raw": "{{body}}",
+            "bodyType": "raw"
+          },
+          "headers": {},
+          "configType": "http",
+          "method": "POST",
+          "includeEmptyParams": false,
+          "followRedirect": false,
+          "streamResponse": false
+        },
+        "outputs": {
+          "error": {
+            "value": "body.error"
+          },
+          "statusCode": {
+            "value": "statusCode"
+          },
+          "submission": {
+            "value": "body.submission"
+          }
+        },
+        "insertedAt": "2025-06-25T15:08:40.473690Z",
+        "lockVersion": 4,
+        "documentationLink": "",
+        "updatedAt": "2025-08-01T21:43:21.871805Z",
+        "connectionId": "3b6ea084-4f2d-428c-930a-166cc70bf5e1",
+        "notes": ""
+      },
+      {
+        "id": "b74bca04-e4bd-4e4b-9563-c4af54325c6c",
+        "name": "Get Submission - Include",
+        "config": {
+          "path": "/submissions/{{Submission Id}}",
+          "params": {
+            "include": "{{include}}"
+          },
+          "body": {
+            "form": {},
+            "bodyType": "www_form_urlencoded"
+          },
+          "headers": {},
+          "configType": "http",
+          "method": "GET",
+          "includeEmptyParams": false,
+          "followRedirect": false,
+          "streamResponse": false
+        },
+        "outputs": {
+          "Created At": {
+            "value": "body.submission['createdAt']"
+          },
+          "Created By": {
+            "value": "body.submission['createdBy']"
+          },
+          "Form": {
+            "value": "body.submission['form'] || {}"
+          },
+          "Handle": {
+            "value": "body.submission['handle']"
+          },
+          "Id": {
+            "value": "body.submission['id']"
+          },
+          "Label": {
+            "value": "body.submission['label']"
+          },
+          "Submission": {
+            "value": "body.submission"
+          },
+          "Submitted At": {
+            "value": "body.submission['submittedAt']"
+          },
+          "Submitted By": {
+            "value": "body.submission['submittedBy']"
+          },
+          "Values": {
+            "value": "body.submission['values']"
+          }
+        },
+        "insertedAt": "2025-06-25T15:14:32.188903Z",
+        "lockVersion": 2,
+        "documentationLink": "",
+        "updatedAt": "2025-06-25T15:14:32.188903Z",
+        "connectionId": "3b6ea084-4f2d-428c-930a-166cc70bf5e1",
+        "notes": ""
+      },
+      {
+        "id": "f63d0d29-be60-4a47-995f-1daaa95eddaf",
+        "name": "Get Usets - Space Admins",
+        "config": {
+          "path": "/users",
+          "params": {
+            "include": "details,attributesMap",
+            "q": "spaceAdmin = \"true\""
+          },
+          "body": {
+            "form": {},
+            "bodyType": "www_form_urlencoded"
+          },
+          "headers": {},
+          "configType": "http",
+          "method": "GET",
+          "includeEmptyParams": false,
+          "followRedirect": false,
+          "streamResponse": false
+        },
+        "outputs": {
+          "Users": {
+            "children": {
+              "Display Name": "current.displayName",
+              "Email": "current.email",
+              "Username": "current.username"
+            },
+            "value": "body.users"
+          },
+          "_Error": {
+            "value": "body.error"
+          },
+          "_Status Code": {
+            "value": "statusCode"
+          }
+        },
+        "insertedAt": "2025-06-30T19:08:34.114451Z",
+        "lockVersion": 2,
+        "documentationLink": "",
+        "updatedAt": "2025-06-30T19:08:34.114451Z",
+        "connectionId": "3b6ea084-4f2d-428c-930a-166cc70bf5e1",
+        "notes": ""
+      },
+      {
+        "id": "e8e539c4-4c31-469a-9bfc-9de5aaf4d384",
+        "name": "Get Client Configurations - by CID",
+        "config": {
+          "path": "/kapps/admin-center/forms/client-configuration/submissions",
+          "params": {
+            "count": "true",
+            "include": "values",
+            "limit": "1000",
+            "q": "values[CID]=\"{{CID}}\""
+          },
+          "body": {
+            "form": {},
+            "bodyType": "www_form_urlencoded"
+          },
+          "headers": {},
+          "configType": "http",
+          "method": "GET",
+          "includeEmptyParams": false,
+          "followRedirect": false,
+          "streamResponse": false
+        },
+        "outputs": {
+          "_Error": {
+            "value": "body.error"
+          },
+          "_Returned Count": {
+            "value": "body.submissions?.length"
+          },
+          "_Status Code": {
+            "value": "statusCode"
+          },
+          "_Total Count": {
+            "value": "body.count"
+          },
+          "submissions": {
+            "children": {
+              "ad username configuration": "current.values['Username Pattern']",
+              "agent handler": "current.values['Agent Handler']",
+              "agent handler slack": "current.values['Agent Handler - Slack']",
+              "agent server": "current.values['Agent Server']",
+              "azure app id": "current.values['Azure App Id']",
+              "cid": "current.values['CID']",
+              "client name": "current.values['Client Name']",
+              "domain name": "current.values['Domain Name']",
+              "id": "current.id"
+            },
+            "value": "body.submissions"
+          }
+        },
+        "insertedAt": "2025-06-16T16:34:27.507667Z",
+        "lockVersion": 5,
+        "documentationLink": "",
+        "updatedAt": "2025-07-01T18:12:34.588865Z",
+        "connectionId": "3b6ea084-4f2d-428c-930a-166cc70bf5e1",
+        "notes": ""
+      },
+      {
+        "id": "6d60054b-fc32-4135-bbb8-ed943cb2b2f5",
+        "name": "Get Kapp by Slug",
+        "config": {
+          "path": "/kapps/{{Kapp Slug}}",
+          "params": {
+            "include": "attributesMap"
+          },
+          "body": {
+            "form": {},
+            "bodyType": "www_form_urlencoded"
+          },
+          "headers": {},
+          "configType": "http",
+          "method": "GET",
+          "includeEmptyParams": false,
+          "followRedirect": false,
+          "streamResponse": false
+        },
+        "outputs": {
+          "Attributes Map": {
+            "value": "body.kapp?.attributesMap"
+          },
+          "Name": {
+            "value": "body.kapp?.name"
+          },
+          "Slug": {
+            "value": "body.kapp?.slug"
+          }
+        },
+        "insertedAt": "2025-06-30T22:12:34.153155Z",
+        "lockVersion": 3,
+        "documentationLink": "",
+        "updatedAt": "2025-07-01T18:14:51.006420Z",
+        "connectionId": "3b6ea084-4f2d-428c-930a-166cc70bf5e1",
+        "notes": ""
+      },
+      {
+        "id": "af9b4e18-6f16-4510-9302-34e65a01ea0d",
+        "name": "General Menus - Active by Menu Name",
+        "config": {
+          "path": "/kapps/admin-center/forms/general-menus/submissions",
+          "params": {
+            "count": "true",
+            "direction": "ASC",
+            "include": "values",
+            "limit": "1000",
+            "orderBy": "values[Order],values[Label],values[Value]",
+            "q": "values[Status]=\"Active\" AND values[Menu Name]=\"{{Menu Name}}\""
+          },
+          "body": {
+            "form": {},
+            "bodyType": "www_form_urlencoded"
+          },
+          "headers": {},
+          "configType": "http",
+          "method": "GET",
+          "includeEmptyParams": false,
+          "followRedirect": false,
+          "streamResponse": false
+        },
+        "outputs": {
+          "Submissions": {
+            "children": {
+              "Category 1": "current.values['Category 1']",
+              "Category 2": "current.values['Category 2']",
+              "Category 3": "current.values['Category 3']",
+              "Label": "current.values['Label']",
+              "Value": "current.values['Value']"
+            },
+            "value": "body.submissions"
+          },
+          "_Error": {
+            "value": "body.error"
+          },
+          "_Returned Count": {
+            "value": "body.submissions?.length"
+          },
+          "_Status Code": {
+            "value": "statusCode"
+          },
+          "_Total Count": {
+            "value": "body.count"
+          }
+        },
+        "insertedAt": "2025-07-11T22:41:09.925910Z",
+        "lockVersion": 2,
+        "documentationLink": "",
+        "updatedAt": "2025-07-11T22:41:09.925910Z",
+        "connectionId": "3b6ea084-4f2d-428c-930a-166cc70bf5e1",
+        "notes": ""
+      },
+      {
+        "id": "c69716b8-f9dc-45f1-ab3f-2eed5d2a22b8",
+        "name": "Get Submission",
+        "config": {
+          "path": "/submissions/{{Submission Id}}",
+          "params": {
+            "include": "details,values,form"
+          },
+          "body": {
+            "form": {},
+            "bodyType": "www_form_urlencoded"
+          },
+          "headers": {
+            "content-type": "application/json"
+          },
+          "configType": "http",
+          "method": "GET",
+          "includeEmptyParams": false,
+          "followRedirect": false,
+          "streamResponse": false
+        },
+        "outputs": {
+          "Core State": {
+            "value": "body.submission['coreState']"
+          },
+          "Created At": {
+            "value": "body.submission['createdAt']"
+          },
+          "Created By": {
+            "value": "body.submission['createdBy']"
+          },
+          "Form Name": {
+            "value": "body.submission['form']['name']"
+          },
+          "Form Slug": {
+            "value": "body.submission['form']['slug']"
+          },
+          "Handle": {
+            "value": "body.submission['handle']"
+          },
+          "Label": {
+            "value": "body.submission['label']"
+          },
+          "Submission Id": {
+            "value": "body.submission['id']"
+          },
+          "Updated At": {
+            "value": "body.submission['updatedAt']"
+          },
+          "Updated By": {
+            "value": "body.submission['updatedBy']"
+          },
+          "Values": {
+            "value": "body.submission['values']"
+          }
+        },
+        "insertedAt": "2025-05-14T19:10:32.200137Z",
+        "lockVersion": 4,
+        "documentationLink": "",
+        "updatedAt": "2025-07-09T15:08:08.109385Z",
+        "connectionId": "3b6ea084-4f2d-428c-930a-166cc70bf5e1",
+        "notes": ""
+      },
+      {
+        "id": "f1973347-73eb-4cd3-8c25-80004499875a",
+        "name": "Search Form Submissions",
+        "config": {
+          "path": "/kapps/{{Kapp Slug}}/forms/{{Form Slug}}/submissions",
+          "params": {
+            "count": "true",
+            "direction": "{{Direction}}",
+            "include": "{{Include}}",
+            "limit": "{{Limit}}",
+            "orderBy": "{{Order By}}",
+            "q": "{{Query}}"
+          },
+          "body": {
+            "form": {},
+            "bodyType": "www_form_urlencoded"
+          },
+          "headers": {},
+          "configType": "http",
+          "method": "GET",
+          "includeEmptyParams": false,
+          "followRedirect": false,
+          "streamResponse": false
+        },
+        "outputs": {
+          "Submissions": {
+            "children": {
+              "Values": "current.values"
+            },
+            "value": "body.submissions"
+          },
+          "_Error Message": {
+            "value": "body.error"
+          },
+          "_Returned Count": {
+            "value": "body.submissions?.length"
+          },
+          "_Status Code": {
+            "value": "statusCode"
+          },
+          "_Total Count": {
+            "value": "body.count"
+          }
+        },
+        "insertedAt": "2025-07-09T17:59:33.809949Z",
+        "lockVersion": 5,
+        "documentationLink": "",
+        "updatedAt": "2025-07-09T18:33:31.999083Z",
+        "connectionId": "3b6ea084-4f2d-428c-930a-166cc70bf5e1",
+        "notes": ""
+      },
+      {
+        "id": "f4de00c3-ea98-4af7-b063-f77470f46acb",
+        "name": "Get Robot Definitions",
+        "config": {
+          "path": "/kapps/admin-center/forms/robot-definitions/submissions",
+          "params": {
+            "count": "true",
+            "include": "values,children.values",
+            "limit": "1000",
+            "orderBy": "values[Robot Name]"
+          },
+          "body": {
+            "form": {},
+            "bodyType": "www_form_urlencoded"
+          },
+          "headers": {},
+          "configType": "http",
+          "method": "GET",
+          "includeEmptyParams": false,
+          "followRedirect": false,
+          "streamResponse": false
+        },
+        "outputs": {
+          "Submissions": {
+            "children": {
+              "Category": "current.values['Category']",
+              "Description": "current.values['Description']",
+              "Id": "current.id",
+              "Next Execution": "current.children[0]?.values?.['Next Execution']",
+              "Recurrence Description": "current.values['Recurrence Description']",
+              "Robot Name": "current.values['Robot Name']",
+              "Status": "current.values['Status']",
+              "WebAPI": "`${current.values['WebAPI Path']}/${current.values['WebAPI Selection']}`"
+            },
+            "value": "body.submissions"
+          },
+          "_Error Message": {
+            "value": "body.error"
+          },
+          "_Status Code": {
+            "value": "statusCode"
+          },
+          "_Total Count": {
+            "value": "body.count"
+          }
+        },
+        "insertedAt": "2025-07-07T23:22:48.467743Z",
+        "lockVersion": 5,
+        "documentationLink": "",
+        "updatedAt": "2025-07-11T21:11:14.773186Z",
+        "connectionId": "3b6ea084-4f2d-428c-930a-166cc70bf5e1",
+        "notes": ""
+      },
+      {
+        "id": "b36f3dd1-0e18-4475-a366-95ff70ed0f90",
+        "name": "General Menus - Active by Menu Name by Category 1 and Category 2 and Category 3",
+        "config": {
+          "path": "/kapps/admin-center/forms/general-menus/submissions",
+          "params": {
+            "count": "true",
+            "direction": "ASC",
+            "include": "values",
+            "limit": "1000",
+            "orderBy": "values[Order],values[Label],values[Value]",
+            "q": "values[Status]=\"Active\" AND values[Menu Name]=\"{{Menu Name}}\" AND  values[Category 1] = \"{{Category 1}}\" AND values[Category 2] = \"{{Category 2}}\" AND values[Category 3] = \"{{Category 3}}\""
+          },
+          "body": {
+            "form": {},
+            "bodyType": "www_form_urlencoded"
+          },
+          "headers": {},
+          "configType": "http",
+          "method": "GET",
+          "includeEmptyParams": false,
+          "followRedirect": false,
+          "streamResponse": false
+        },
+        "outputs": {
+          "Submissions": {
+            "children": {
+              "Category 1": "current.values['Category 1']",
+              "Category 2": "current.values['Category 2']",
+              "Category 3": "current.values['Category 3']",
+              "Label": "current.values['Label']",
+              "Value": "current.values['Value']"
+            },
+            "value": "body.submissions"
+          },
+          "_Error": {
+            "value": "body.error"
+          },
+          "_Returned Count": {
+            "value": "body.submissions?.length"
+          },
+          "_Status Code": {
+            "value": "statusCode"
+          },
+          "_Total Count": {
+            "value": "body.count"
+          }
+        },
+        "insertedAt": "2025-07-11T22:42:45.444711Z",
+        "lockVersion": 2,
+        "documentationLink": "",
+        "updatedAt": "2025-07-11T22:42:45.444711Z",
+        "connectionId": "3b6ea084-4f2d-428c-930a-166cc70bf5e1",
+        "notes": ""
+      },
+      {
+        "id": "edd05ec6-0177-47a1-8416-93b9d9fe3f77",
+        "name": "General Menus - Active by Menu Name by Category 1",
+        "config": {
+          "path": "/kapps/admin-center/forms/general-menus/submissions",
+          "params": {
+            "count": "true",
+            "direction": "ASC",
+            "include": "values",
+            "limit": "1000",
+            "orderBy": "values[Order],values[Label],values[Value]",
+            "q": "values[Status]=\"Active\" AND values[Menu Name]=\"{{Menu Name}}\""
+          },
+          "body": {
+            "form": {},
+            "bodyType": "www_form_urlencoded"
+          },
+          "headers": {},
+          "configType": "http",
+          "method": "GET",
+          "includeEmptyParams": false,
+          "followRedirect": false,
+          "streamResponse": false
+        },
+        "outputs": {
+          "Submissions": {
+            "children": {
+              "Category 1": "current.values['Category 1']",
+              "Category 2": "current.values['Category 2']",
+              "Category 3": "current.values['Category 3']",
+              "Label": "current.values['Label']",
+              "Value": "current.values['Value']"
+            },
+            "value": "body.submissions"
+          },
+          "_Error": {
+            "value": "body.error"
+          },
+          "_Returned Count": {
+            "value": "body.submissions?.length"
+          },
+          "_Status Code": {
+            "value": "statusCode"
+          },
+          "_Total Count": {
+            "value": "body.count"
+          }
+        },
+        "insertedAt": "2025-07-11T22:41:46.660198Z",
+        "lockVersion": 2,
+        "documentationLink": "",
+        "updatedAt": "2025-07-11T22:41:46.660198Z",
+        "connectionId": "3b6ea084-4f2d-428c-930a-166cc70bf5e1",
+        "notes": ""
+      },
+      {
+        "id": "2088fc50-4ef5-4a3c-82f4-609c62aed908",
+        "name": "General Menus - Active by Menu Name by Category 1 and Category 2",
+        "config": {
+          "path": "/kapps/admin-center/forms/general-menus/submissions",
+          "params": {
+            "count": "true",
+            "direction": "ASC",
+            "include": "values",
+            "limit": "1000",
+            "orderBy": "values[Order],values[Label],values[Value]",
+            "q": "values[Status]=\"Active\" AND values[Menu Name]=\"{{Menu Name}}\" AND  values[Category 1] = \"{{Category 1}}\" AND values[Category 2] = \"{{Category 2}}\""
+          },
+          "body": {
+            "form": {},
+            "bodyType": "www_form_urlencoded"
+          },
+          "headers": {},
+          "configType": "http",
+          "method": "GET",
+          "includeEmptyParams": false,
+          "followRedirect": false,
+          "streamResponse": false
+        },
+        "outputs": {
+          "Submissions": {
+            "children": {
+              "Category 1": "current.values['Category 1']",
+              "Category 2": "current.values['Category 2']",
+              "Category 3": "current.values['Category 3']",
+              "Label": "current.values['Label']",
+              "Value": "current.values['Value']"
+            },
+            "value": "body.submissions"
+          },
+          "_Error": {
+            "value": "body.error"
+          },
+          "_Returned Count": {
+            "value": "body.submissions?.length"
+          },
+          "_Status Code": {
+            "value": "statusCode"
+          },
+          "_Total Count": {
+            "value": "body.count"
+          }
+        },
+        "insertedAt": "2025-07-11T22:42:18.205602Z",
+        "lockVersion": 2,
+        "documentationLink": "",
+        "updatedAt": "2025-07-11T22:42:18.205602Z",
+        "connectionId": "3b6ea084-4f2d-428c-930a-166cc70bf5e1",
+        "notes": ""
+      },
+      {
+        "id": "1f41e8e3-3ce6-4ac6-a0b5-3cf03d348304",
+        "name": "Get Robot Executions by Robot Submission Id",
+        "config": {
+          "path": "/kapps/admin-center/forms/robot-executions/submissions",
+          "params": {
+            "count": "true",
+            "direction": "DESC",
+            "include": "values",
+            "limit": "1000",
+            "orderBy": "createdAt",
+            "q": "values[Robot ID] = \"{{Robot Id}}\""
+          },
+          "body": {
+            "form": {},
+            "bodyType": "www_form_urlencoded"
+          },
+          "headers": {},
+          "configType": "http",
+          "method": "GET",
+          "includeEmptyParams": false,
+          "followRedirect": false,
+          "streamResponse": false
+        },
+        "outputs": {
+          "Submissions": {
+            "children": {
+              "Category": "current.values['Category']",
+              "End": "current.values['End']",
+              "Execution Duration": "current.values['Execution Duration']",
+              "Id": "current.id",
+              "Run Id": "current.values['Run Id']",
+              "Start": "current.values['Start']",
+              "Status": "current.values['Status']"
+            },
+            "value": "body.submissions"
+          },
+          "_Error Message": {
+            "value": "body.error"
+          },
+          "_Returned Cunt": {
+            "value": "body.submissions?.length"
+          },
+          "_Status Code": {
+            "value": "statusCode"
+          },
+          "_Total Count": {
+            "value": "body.count"
+          }
+        },
+        "insertedAt": "2025-07-15T17:58:35.278185Z",
+        "lockVersion": 2,
+        "documentationLink": "",
+        "updatedAt": "2025-07-15T17:58:35.278185Z",
+        "connectionId": "3b6ea084-4f2d-428c-930a-166cc70bf5e1",
+        "notes": ""
+      },
+      {
+        "id": "7408392a-a0a0-4060-b8f5-65b2576b966c",
+        "name": "Update Form",
+        "config": {
+          "path": "/kapps/{{kappSlug}}/forms/{{formSlug}}",
+          "params": {
+            "include": "{{include}}"
+          },
+          "body": {
+            "raw": "{{body}}",
+            "bodyType": "raw"
+          },
+          "headers": {},
+          "configType": "http",
+          "method": "PUT",
+          "includeEmptyParams": false,
+          "followRedirect": false,
+          "streamResponse": false
+        },
+        "outputs": {
+          "Form": {
+            "value": "body.form"
+          },
+          "_Error": {
+            "value": "body.error"
+          },
+          "_Status Code": {
+            "value": "statusCode"
+          }
+        },
+        "insertedAt": "2025-07-30T23:49:00.430080Z",
+        "lockVersion": 5,
+        "documentationLink": "",
+        "updatedAt": "2025-07-31T02:18:05.950465Z",
+        "connectionId": "3b6ea084-4f2d-428c-930a-166cc70bf5e1",
+        "notes": ""
+      },
+      {
+        "id": "dde7de40-c109-48ab-b2d0-dab51c2a479a",
+        "name": "Create Service Portal Approval Submission",
+        "config": {
+          "path": "/kapps/service-portal/forms/approval/submissions",
+          "params": {
+            "include": "values"
+          },
+          "body": {
+            "raw": "{\"coreState\":\"Draft\", {{#Origin Id}}\"origin\":{\"id\":\"{{Origin Id}}\"}{{/Origin Id}}, {{#Parent Id}}\"parent\":{\"id\":\"{{Parent Id}}\"}{{/Parent Id}}, \"values\":{\"Status\": \"Open\",\"Assigned Individual\":\"{{Assigned Individual}}\",\"Assigned Individual Display Name\":\"{{Assigned Individual Display Name}}\",\"Assigned Team\":\"{{Assigned Team}}\",\"Assigned Team Display Name\":\"{{Assigned Team}}\",\"Deferral Token\":\"{{Deferral Token}}\",\"Details\":\"{{Details}}\",\"Due Date\":\"{{Due Date}}\",\"Summary\":\"{{Summary}}\"}}",
+            "bodyType": "raw"
+          },
+          "headers": {},
+          "configType": "http",
+          "method": "POST",
+          "includeEmptyParams": false,
+          "followRedirect": false,
+          "streamResponse": false
+        },
+        "outputs": {
+          "_Error": {
+            "value": "body.error"
+          },
+          "_Status Code": {
+            "value": "statusCode"
+          },
+          "submission": {
+            "children": {
+              "id": "current.id",
+              "values": "current.values"
+            },
+            "value": "body.submission"
+          }
+        },
+        "insertedAt": "2025-06-16T17:56:24.853841Z",
+        "lockVersion": 4,
+        "documentationLink": "",
+        "updatedAt": "2025-07-31T21:29:03.922241Z",
+        "connectionId": "3b6ea084-4f2d-428c-930a-166cc70bf5e1",
+        "notes": ""
+      }
+    ],
+    "documentationLink": "",
+    "insertedAt": "2025-05-14T19:10:32.122077Z",
+    "lockVersion": 3,
+    "secrets": {},
+    "updatedAt": "2025-05-14T19:10:33.679841Z"
+  }
+}

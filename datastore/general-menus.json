@@ -1,0 +1,485 @@
+{
+  "form": {
+    "anonymous": false,
+    "attributes": [
+      {
+        "name": "Datastore Configuration",
+        "values": [
+          "{\"columns\":[{\"name\":\"Status\",\"label\":\"Status\",\"type\":\"value\",\"visible\":true},{\"name\":\"Menu Name\",\"label\":\"Menu Name\",\"type\":\"value\",\"visible\":true},{\"name\":\"Order\",\"label\":\"Order\",\"type\":\"value\",\"visible\":true},{\"name\":\"Category 1\",\"label\":\"Category 1\",\"type\":\"value\",\"visible\":true},{\"name\":\"Category 2\",\"label\":\"Category 2\",\"type\":\"value\",\"visible\":true},{\"name\":\"Category 3\",\"label\":\"Category 3\",\"type\":\"value\",\"visible\":true},{\"name\":\"Value\",\"label\":\"Value\",\"type\":\"value\",\"visible\":true},{\"name\":\"Label\",\"label\":\"Label\",\"type\":\"value\",\"visible\":true},{\"name\":\"handle\",\"label\":\"Handle\",\"type\":\"system\",\"visible\":false},{\"name\":\"label\",\"label\":\"Label\",\"type\":\"system\",\"visible\":false},{\"name\":\"createdAt\",\"label\":\"Created At\",\"type\":\"system\",\"visible\":false},{\"name\":\"createdBy\",\"label\":\"Created By\",\"type\":\"system\",\"visible\":false},{\"name\":\"updatedAt\",\"label\":\"Updated At\",\"type\":\"system\",\"visible\":false},{\"name\":\"updatedBy\",\"label\":\"Updated By\",\"type\":\"system\",\"visible\":false},{\"name\":\"id\",\"label\":\"Id\",\"type\":\"system\",\"visible\":false},{\"name\":\"Notes\",\"label\":\"Notes\",\"type\":\"value\",\"visible\":false}],\"defaultSearchIndex\":{\"index\":\"values[Menu Name],values[Order],values[Label],values[Value]\",\"direction\":\"ASC\"}}"
+        ]
+      }
+    ],
+    "bridgedResources": [],
+    "categorizations": [],
+    "customHeadContent": null,
+    "description": "A table for defining a list of general menus",
+    "indexDefinitions": [
+      {
+        "name": "closedBy",
+        "parts": [
+          "closedBy"
+        ],
+        "unique": false
+      },
+      {
+        "name": "createdBy",
+        "parts": [
+          "createdBy"
+        ],
+        "unique": false
+      },
+      {
+        "name": "handle",
+        "parts": [
+          "handle"
+        ],
+        "unique": false
+      },
+      {
+        "name": "submittedBy",
+        "parts": [
+          "submittedBy"
+        ],
+        "unique": false
+      },
+      {
+        "name": "updatedBy",
+        "parts": [
+          "updatedBy"
+        ],
+        "unique": false
+      },
+      {
+        "name": "values[Category 1]",
+        "parts": [
+          "values[Category 1]"
+        ],
+        "unique": false
+      },
+      {
+        "name": "values[Category 2]",
+        "parts": [
+          "values[Category 2]"
+        ],
+        "unique": false
+      },
+      {
+        "name": "values[Category 3]",
+        "parts": [
+          "values[Category 3]"
+        ],
+        "unique": false
+      },
+      {
+        "name": "values[Label]",
+        "parts": [
+          "values[Label]"
+        ],
+        "unique": false
+      },
+      {
+        "name": "values[Menu Name]",
+        "parts": [
+          "values[Menu Name]"
+        ],
+        "unique": false
+      },
+      {
+        "name": "values[Menu Name],values[Order],values[Label],values[Value]",
+        "parts": [
+          "values[Menu Name]",
+          "values[Order]",
+          "values[Label]",
+          "values[Value]"
+        ],
+        "unique": false
+      },
+      {
+        "name": "values[Notes]",
+        "parts": [
+          "values[Notes]"
+        ],
+        "unique": false
+      },
+      {
+        "name": "values[Order]",
+        "parts": [
+          "values[Order]"
+        ],
+        "unique": false
+      },
+      {
+        "name": "values[Status]",
+        "parts": [
+          "values[Status]"
+        ],
+        "unique": false
+      },
+      {
+        "name": "values[Status],values[Menu Name],values[Category 1],values[Category 2],values[Category 3],values[Label]",
+        "parts": [
+          "values[Status]",
+          "values[Menu Name]",
+          "values[Category 1]",
+          "values[Category 2]",
+          "values[Category 3]",
+          "values[Label]"
+        ],
+        "unique": false
+      },
+      {
+        "name": "values[Status],values[Menu Name],values[Category 1],values[Category 2],values[Category 3],values[Order],values[Label],values[Value]",
+        "parts": [
+          "values[Status]",
+          "values[Menu Name]",
+          "values[Category 1]",
+          "values[Category 2]",
+          "values[Category 3]",
+          "values[Order]",
+          "values[Label]",
+          "values[Value]"
+        ],
+        "unique": false
+      },
+      {
+        "name": "values[Status],values[Menu Name],values[Category 1],values[Category 2],values[Order],values[Label],values[Value]",
+        "parts": [
+          "values[Status]",
+          "values[Menu Name]",
+          "values[Category 1]",
+          "values[Category 2]",
+          "values[Order]",
+          "values[Label]",
+          "values[Value]"
+        ],
+        "unique": false
+      },
+      {
+        "name": "values[Status],values[Menu Name],values[Category 1],values[Category 2],values[Value]",
+        "parts": [
+          "values[Status]",
+          "values[Menu Name]",
+          "values[Category 1]",
+          "values[Category 2]",
+          "values[Value]"
+        ],
+        "unique": false
+      },
+      {
+        "name": "values[Status],values[Menu Name],values[Category 1],values[Order],values[Label],values[Value]",
+        "parts": [
+          "values[Status]",
+          "values[Menu Name]",
+          "values[Category 1]",
+          "values[Order]",
+          "values[Label]",
+          "values[Value]"
+        ],
+        "unique": false
+      },
+      {
+        "name": "values[Status],values[Menu Name],values[Category 1],values[Value]",
+        "parts": [
+          "values[Status]",
+          "values[Menu Name]",
+          "values[Category 1]",
+          "values[Value]"
+        ],
+        "unique": false
+      },
+      {
+        "name": "values[Status],values[Menu Name],values[Order],values[Label],values[Value]",
+        "parts": [
+          "values[Status]",
+          "values[Menu Name]",
+          "values[Order]",
+          "values[Label]",
+          "values[Value]"
+        ],
+        "unique": false
+      },
+      {
+        "name": "values[Status],values[Menu Name],values[Value]",
+        "parts": [
+          "values[Status]",
+          "values[Menu Name]",
+          "values[Value]"
+        ],
+        "unique": false
+      },
+      {
+        "name": "values[Value]",
+        "parts": [
+          "values[Value]"
+        ],
+        "unique": false
+      }
+    ],
+    "integrations": [
+      {
+        "connectionId": "1415539c-bb98-48bb-ad33-11be25189ad0",
+        "inputMappings": {
+          "Menu Name": "Menu Name"
+        },
+        "name": "Menu Names",
+        "operationId": "af9b4e18-6f16-4510-9302-34e65a01ea0d"
+      }
+    ],
+    "name": "General Menus",
+    "notes": null,
+    "pages": [
+      {
+        "advanceCondition": null,
+        "displayCondition": null,
+        "displayPage": null,
+        "elements": [
+          {
+            "enabled": true,
+            "dataType": "string",
+            "defaultDataSource": "none",
+            "requiredMessage": null,
+            "name": "Status",
+            "choicesResourceName": null,
+            "omitWhenHidden": null,
+            "renderAttributes": {},
+            "renderType": "radio",
+            "pattern": null,
+            "defaultValue": null,
+            "visible": true,
+            "choices": [
+              {
+                "label": "Active",
+                "value": "Active"
+              },
+              {
+                "label": "Inactive",
+                "value": "Inactive"
+              }
+            ],
+            "label": "Status",
+            "choicesRunIf": null,
+            "constraints": [],
+            "choicesDataSource": "custom",
+            "events": [],
+            "defaultResourceName": null,
+            "type": "field",
+            "key": "f1",
+            "required": true
+          },
+          {
+            "enabled": true,
+            "dataType": "string",
+            "defaultDataSource": "none",
+            "requiredMessage": null,
+            "name": "Menu Name",
+            "choicesResourceName": "Menu Names",
+            "omitWhenHidden": null,
+            "renderAttributes": {},
+            "renderType": "dropdown",
+            "pattern": null,
+            "defaultValue": null,
+            "visible": true,
+            "choices": {
+              "label": "${integration('Label')}",
+              "value": "${integration('Value')}"
+            },
+            "label": "Menu Name",
+            "choicesResourceProperty": "Submissions",
+            "choicesRunIf": null,
+            "constraints": [],
+            "choicesDataSource": "integration",
+            "events": [],
+            "defaultResourceName": null,
+            "type": "field",
+            "key": "f2",
+            "required": true
+          },
+          {
+            "enabled": true,
+            "dataType": "string",
+            "defaultDataSource": "none",
+            "requiredMessage": null,
+            "name": "Order",
+            "omitWhenHidden": null,
+            "renderAttributes": {},
+            "renderType": "text",
+            "pattern": null,
+            "defaultValue": "100",
+            "visible": true,
+            "label": "Order",
+            "constraints": [],
+            "events": [],
+            "rows": 1,
+            "defaultResourceName": null,
+            "type": "field",
+            "key": "f3",
+            "required": false
+          },
+          {
+            "enabled": true,
+            "dataType": "string",
+            "defaultDataSource": "none",
+            "requiredMessage": null,
+            "name": "Category 1",
+            "omitWhenHidden": null,
+            "renderAttributes": {},
+            "renderType": "text",
+            "pattern": null,
+            "defaultValue": null,
+            "visible": true,
+            "label": "Category 1",
+            "constraints": [],
+            "events": [],
+            "rows": 1,
+            "defaultResourceName": null,
+            "type": "field",
+            "key": "f4",
+            "required": false
+          },
+          {
+            "enabled": true,
+            "dataType": "string",
+            "defaultDataSource": "none",
+            "requiredMessage": null,
+            "name": "Category 2",
+            "omitWhenHidden": null,
+            "renderAttributes": {},
+            "renderType": "text",
+            "pattern": null,
+            "defaultValue": null,
+            "visible": true,
+            "label": "Category 2",
+            "constraints": [],
+            "events": [],
+            "rows": 1,
+            "defaultResourceName": null,
+            "type": "field",
+            "key": "f5",
+            "required": false
+          },
+          {
+            "enabled": true,
+            "dataType": "string",
+            "defaultDataSource": "none",
+            "requiredMessage": null,
+            "name": "Category 3",
+            "omitWhenHidden": null,
+            "renderAttributes": {},
+            "renderType": "text",
+            "pattern": null,
+            "defaultValue": null,
+            "visible": true,
+            "label": "Category 3",
+            "constraints": [],
+            "events": [],
+            "rows": 1,
+            "defaultResourceName": null,
+            "type": "field",
+            "key": "f6",
+            "required": false
+          },
+          {
+            "enabled": true,
+            "dataType": "string",
+            "defaultDataSource": "none",
+            "requiredMessage": null,
+            "name": "Value",
+            "omitWhenHidden": null,
+            "renderAttributes": {},
+            "renderType": "text",
+            "pattern": null,
+            "defaultValue": null,
+            "visible": true,
+            "label": "Value",
+            "constraints": [],
+            "events": [
+              {
+                "name": "Set Label",
+                "type": "Change",
+                "action": "Set Fields",
+                "mappings": [
+                  {
+                    "field": "Label",
+                    "value": "${values('Value')}",
+                    "visible": null
+                  }
+                ],
+                "runIf": "values('Label') === null"
+              }
+            ],
+            "rows": 1,
+            "defaultResourceName": null,
+            "type": "field",
+            "key": "f7",
+            "required": true
+          },
+          {
+            "enabled": true,
+            "dataType": "string",
+            "defaultDataSource": "none",
+            "requiredMessage": null,
+            "name": "Label",
+            "omitWhenHidden": null,
+            "renderAttributes": {},
+            "renderType": "text",
+            "pattern": null,
+            "defaultValue": null,
+            "visible": true,
+            "label": "Label",
+            "constraints": [],
+            "events": [],
+            "rows": 1,
+            "defaultResourceName": null,
+            "type": "field",
+            "key": "f9",
+            "required": true
+          },
+          {
+            "enabled": true,
+            "dataType": "string",
+            "defaultDataSource": "none",
+            "requiredMessage": null,
+            "name": "Notes",
+            "omitWhenHidden": null,
+            "renderAttributes": {},
+            "renderType": "text",
+            "pattern": null,
+            "defaultValue": null,
+            "visible": true,
+            "label": "Notes",
+            "constraints": [],
+            "events": [],
+            "rows": 2,
+            "defaultResourceName": null,
+            "type": "field",
+            "key": "f8",
+            "required": false
+          },
+          {
+            "type": "button",
+            "label": "Submit",
+            "name": "Submit Button",
+            "visible": true,
+            "enabled": true,
+            "renderType": "submit-page",
+            "renderAttributes": {}
+          }
+        ],
+        "events": [],
+        "name": "Page 1",
+        "renderType": "submittable",
+        "type": "page"
+      }
+    ],
+    "securityPolicies": [
+      {
+        "endpoint": "Submission Access",
+        "name": "Authenticated Users"
+      }
+    ],
+    "slug": "general-menus",
+    "status": "Active",
+    "submissionLabelExpression": "${values('Menu Name')}: ${values('Label')} (${values('Value')})",
+    "type": "Data"
+  }
+}

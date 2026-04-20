@@ -1,0 +1,643 @@
+{
+  "form": {
+    "anonymous": false,
+    "attributes": [
+      {
+        "name": "Datastore Hidden",
+        "values": [
+          "True"
+        ]
+      }
+    ],
+    "bridgedResources": [],
+    "categorizations": [],
+    "customHeadContent": "<style>\n.hierarchical-dropdown {\n  position: relative;\n  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;\n  font-size: 14px;\n  z-index: 1000;\n}\n\n.hierarchical-dropdown.always-visible {\n  border: 1px solid #ddd;\n  border-radius: 6px;\n  background: white;\n  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);\n  min-width: 250px;\n  max-width: 400px;\n}\n\n.dropdown-status {\n  padding: 8px 12px;\n  background: #f8f9fa;\n  border-bottom: 1px solid #e9ecef;\n  border-radius: 6px 6px 0 0;\n  font-size: 12px;\n  color: #6c757d;\n  text-align: center;\n}\n\n.hierarchical-dropdown.field-targeted .dropdown-status {\n  background: #d4edda;\n  color: #155724;\n  border-bottom-color: #c3e6cb;\n}\n\n.dropdown-main-menu {\n  background: white;\n  min-width: 150px;\n  max-height: 300px;\n  overflow-y: auto;\n}\n\n.dropdown-flyout {\n  position: absolute;\n  background: white;\n  border: 1px solid #ccc;\n  border-radius: 4px;\n  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);\n  /*min-width: 200px;*/\n  min-width: 400px;\n  max-height: 400px;\n  overflow-y: auto;\n  z-index: 1001;\n}\n\n.dropdown-item {\n  padding: 8px 12px;\n  cursor: pointer;\n  border-bottom: 1px solid #f0f0f0;\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n  line-height: 1.4;\n  color: #333; /* Ensure text is visible */\n  background-color: white; /* Ensure background is set */\n  min-height: 32px; /* Ensure items have height */\n}\n\n.dropdown-item:last-child {\n  border-bottom: none;\n}\n\n.dropdown-item:hover:not(.disabled):not(.section-title) {\n  background-color: #f5f5f5;\n}\n\n.dropdown-item.main-item {\n  background-color: #fafafa;\n  font-weight: 500;\n}\n\n.dropdown-item.main-item:hover {\n  background-color: #e8e8e8;\n}\n\n.dropdown-item.main-item .arrow {\n  color: #666;\n  font-size: 12px;\n}\n\n.dropdown-item.selectable-item {\n  background-color: white;\n  font-weight: normal;\n}\n\n.dropdown-item.selectable-item:hover {\n  background-color: #e8f4fd;\n  color: #0066cc;\n}\n\n.dropdown-item.disabled {\n  color: #999;\n  cursor: not-allowed;\n  font-style: italic;\n}\n\n.dropdown-item.section-title {\n  background-color: #f8f9fa;\n  color: #495057;\n  font-weight: 600;\n  font-size: 12px;\n  text-transform: uppercase;\n  letter-spacing: 0.5px;\n  cursor: default;\n  padding: 6px 12px;\n}\n\n.dropdown-separator {\n  height: 1px;\n  background-color: #e0e0e0;\n  margin: 4px 0;\n}\n\n/* Styling for different item types */\n.dropdown-item.date-format-item {\n  font-family: 'Courier New', monospace;\n  font-size: 13px;\n}\n\n/* Scrollbar styling for webkit browsers */\n.dropdown-main-menu::-webkit-scrollbar,\n.dropdown-flyout::-webkit-scrollbar {\n  width: 6px;\n}\n\n.dropdown-main-menu::-webkit-scrollbar-track,\n.dropdown-flyout::-webkit-scrollbar-track {\n  background: #f1f1f1;\n  border-radius: 3px;\n}\n\n.dropdown-main-menu::-webkit-scrollbar-thumb,\n.dropdown-flyout::-webkit-scrollbar-thumb {\n  background: #c1c1c1;\n  border-radius: 3px;\n}\n\n.dropdown-main-menu::-webkit-scrollbar-thumb:hover,\n.dropdown-flyout::-webkit-scrollbar-thumb:hover {\n  background: #a8a8a8;\n}\n\n/* Animation for smooth transitions - only for flyouts, not always-visible main menu */\n.dropdown-flyout {\n  opacity: 0;\n  transform: translateY(-10px);\n  transition: opacity 0.15s ease, transform 0.15s ease;\n}\n\n.dropdown-flyout[style*=\"block\"] {\n  opacity: 1;\n  transform: translateY(0);\n}\n\n/* Responsive adjustments */\n@media (max-width: 768px) {\n  .dropdown-main-menu,\n  .dropdown-flyout {\n    min-width: 120px;\n    font-size: 13px;\n  }\n  \n  .dropdown-item {\n    padding: 10px 12px;\n  }\n}\n</style>",
+    "description": "",
+    "indexDefinitions": [
+      {
+        "name": "closedBy",
+        "parts": [
+          "closedBy"
+        ],
+        "unique": false
+      },
+      {
+        "name": "createdBy",
+        "parts": [
+          "createdBy"
+        ],
+        "unique": false
+      },
+      {
+        "name": "handle",
+        "parts": [
+          "handle"
+        ],
+        "unique": false
+      },
+      {
+        "name": "submittedBy",
+        "parts": [
+          "submittedBy"
+        ],
+        "unique": false
+      },
+      {
+        "name": "updatedBy",
+        "parts": [
+          "updatedBy"
+        ],
+        "unique": false
+      },
+      {
+        "name": "values[Attachments]",
+        "parts": [
+          "values[Attachments]"
+        ],
+        "unique": false
+      },
+      {
+        "name": "values[Form]",
+        "parts": [
+          "values[Form]"
+        ],
+        "unique": false
+      },
+      {
+        "name": "values[HTML Content]",
+        "parts": [
+          "values[HTML Content]"
+        ],
+        "unique": false
+      },
+      {
+        "name": "values[Kapp]",
+        "parts": [
+          "values[Kapp]"
+        ],
+        "unique": false
+      },
+      {
+        "name": "values[Language]",
+        "parts": [
+          "values[Language]"
+        ],
+        "unique": false
+      },
+      {
+        "name": "values[Name]",
+        "parts": [
+          "values[Name]"
+        ],
+        "unique": false
+      },
+      {
+        "name": "values[Name],values[Status]:UNIQUE",
+        "parts": [
+          "values[Name]",
+          "values[Status]"
+        ],
+        "unique": true
+      },
+      {
+        "name": "values[Region]",
+        "parts": [
+          "values[Region]"
+        ],
+        "unique": false
+      },
+      {
+        "name": "values[Status]",
+        "parts": [
+          "values[Status]"
+        ],
+        "unique": false
+      },
+      {
+        "name": "values[Subject]",
+        "parts": [
+          "values[Subject]"
+        ],
+        "unique": false
+      },
+      {
+        "name": "values[Text Content]",
+        "parts": [
+          "values[Text Content]"
+        ],
+        "unique": false
+      },
+      {
+        "name": "values[Type]",
+        "parts": [
+          "values[Type]"
+        ],
+        "unique": false
+      },
+      {
+        "name": "values[Type],values[Name]",
+        "parts": [
+          "values[Type]",
+          "values[Name]"
+        ],
+        "unique": false
+      }
+    ],
+    "integrations": [
+      {
+        "connectionId": "7f1f8282-4603-4552-a006-30553d2466c8",
+        "inputMappings": {
+          "form-slug": "${values('Form')}",
+          "kapp-slug": "${values('Kapp')}"
+        },
+        "name": "Form by Slug",
+        "operationId": "5f4eeb23-838a-4a06-a87f-798c8be3259f"
+      },
+      {
+        "connectionId": "7f1f8282-4603-4552-a006-30553d2466c8",
+        "inputMappings": {
+          "Kapp Slug": "${values('Kapp')}"
+        },
+        "name": "Forms by Kapp",
+        "operationId": "88472916-9e91-4508-85bd-b88fbcf40433"
+      },
+      {
+        "connectionId": "7f1f8282-4603-4552-a006-30553d2466c8",
+        "inputMappings": {},
+        "name": "Get Notification Date Formats",
+        "operationId": "20914f71-72de-4e58-93f0-6ce50ae850a2"
+      },
+      {
+        "connectionId": "7f1f8282-4603-4552-a006-30553d2466c8",
+        "inputMappings": {},
+        "name": "Get Notification Snippets",
+        "operationId": "1ab9e768-20b3-4bcd-9824-9d8527597d2b"
+      },
+      {
+        "connectionId": "7f1f8282-4603-4552-a006-30553d2466c8",
+        "inputMappings": {
+          "Kapp Slug": "${values('Kapp')}"
+        },
+        "name": "Kapp by Kapp Slug",
+        "operationId": "4e21f169-b8ac-40f7-aa03-6b3350a47cc2"
+      },
+      {
+        "connectionId": "7f1f8282-4603-4552-a006-30553d2466c8",
+        "inputMappings": {},
+        "name": "Kapps",
+        "operationId": "7cf02631-6804-4e32-86c2-832b3e8d9c85"
+      },
+      {
+        "connectionId": "7f1f8282-4603-4552-a006-30553d2466c8",
+        "inputMappings": {},
+        "name": "Space",
+        "operationId": "740626de-7ca1-4a3f-b100-32561d8b4dd1"
+      }
+    ],
+    "name": "Notification Data",
+    "notes": "",
+    "pages": [
+      {
+        "advanceCondition": null,
+        "displayCondition": null,
+        "displayPage": null,
+        "elements": [
+          {
+            "type": "section",
+            "renderType": null,
+            "name": "Dynamic References Section",
+            "title": "Dynamic References",
+            "visible": true,
+            "omitWhenHidden": null,
+            "renderAttributes": {
+              "class": "rounded-box md:border md:p-8 bg-base-200"
+            },
+            "elements": [
+              {
+                "type": "section",
+                "renderType": null,
+                "name": "Dynamic Reference Columns",
+                "title": null,
+                "visible": true,
+                "omitWhenHidden": null,
+                "renderAttributes": {
+                  "class": "cols-2"
+                },
+                "elements": [
+                  {
+                    "enabled": true,
+                    "dataType": "string",
+                    "defaultDataSource": "none",
+                    "requiredMessage": null,
+                    "name": "Kapp",
+                    "choicesResourceName": "Kapps",
+                    "omitWhenHidden": null,
+                    "renderAttributes": {},
+                    "renderType": "dropdown",
+                    "pattern": null,
+                    "defaultValue": null,
+                    "visible": true,
+                    "choices": {
+                      "label": "${integration('Name')}",
+                      "value": "${integration('Slug')}"
+                    },
+                    "label": "Kapp",
+                    "choicesResourceProperty": "Kapps",
+                    "choicesRunIf": null,
+                    "constraints": [],
+                    "choicesDataSource": "integration",
+                    "events": [
+                      {
+                        "name": "Get Kapp Details",
+                        "code": "const customCode = bundle.ext.forms[K('form').slug()];\nif (values('Kapp') !== null) {\n  customCode.getKappDetails();\n} else {\n  customCode.setKappDetailsDefault();\n}",
+                        "integrationResourceName": null,
+                        "action": "Custom",
+                        "integrationResourceProperty": "",
+                        "type": "Change"
+                      }
+                    ],
+                    "defaultResourceName": null,
+                    "type": "field",
+                    "key": "6e081b507d16435e967f9fba909a529b",
+                    "required": false
+                  },
+                  {
+                    "enabled": true,
+                    "dataType": "string",
+                    "defaultDataSource": "none",
+                    "requiredMessage": null,
+                    "name": "Form",
+                    "choicesResourceName": "Forms by Kapp",
+                    "omitWhenHidden": null,
+                    "renderAttributes": {},
+                    "renderType": "dropdown",
+                    "pattern": null,
+                    "defaultValue": null,
+                    "visible": true,
+                    "choices": {
+                      "label": "${integration('Name')}",
+                      "value": "${integration('Slug')}"
+                    },
+                    "label": "Form",
+                    "choicesResourceProperty": "Forms",
+                    "choicesRunIf": null,
+                    "constraints": [],
+                    "choicesDataSource": "integration",
+                    "events": [
+                      {
+                        "name": "Get Form Details",
+                        "code": "const customCode = bundle.ext.forms[K('form').slug()];\nif (values('Form') !== null) {\n  customCode.getFormDetails();\n} else {\n  customCode.setFormDetailsDefault();\n  customCode.setSubmissionsDetailsDefault();\n}",
+                        "integrationResourceName": null,
+                        "action": "Custom",
+                        "integrationResourceProperty": "",
+                        "type": "Change"
+                      }
+                    ],
+                    "defaultResourceName": null,
+                    "type": "field",
+                    "key": "276c325043b4428ba352b6f0c935219b",
+                    "required": false
+                  },
+                  {
+                    "type": "content",
+                    "renderType": "html",
+                    "name": "Custom Selection",
+                    "text": null,
+                    "visible": true,
+                    "renderAttributes": {
+                      "id": "dropdown-container"
+                    }
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "enabled": true,
+            "dataType": "string",
+            "defaultDataSource": "none",
+            "requiredMessage": null,
+            "name": "Type",
+            "choicesResourceName": null,
+            "omitWhenHidden": false,
+            "renderAttributes": {},
+            "renderType": "radio",
+            "pattern": null,
+            "defaultValue": null,
+            "visible": false,
+            "choices": [
+              {
+                "label": "Snippet",
+                "value": "Snippet"
+              },
+              {
+                "label": "Template",
+                "value": "Template"
+              }
+            ],
+            "label": "Type",
+            "choicesResourceProperty": null,
+            "choicesRunIf": null,
+            "constraints": [],
+            "choicesDataSource": "custom",
+            "events": [],
+            "defaultResourceName": null,
+            "type": "field",
+            "key": "2372792b4613424aad35cdc0ae0aee9f",
+            "required": true
+          },
+          {
+            "enabled": true,
+            "dataType": "string",
+            "defaultDataSource": "none",
+            "requiredMessage": null,
+            "name": "Status",
+            "choicesResourceName": null,
+            "omitWhenHidden": null,
+            "renderAttributes": {},
+            "renderType": "radio",
+            "pattern": null,
+            "defaultValue": "Active",
+            "visible": true,
+            "choices": [
+              {
+                "label": "Active",
+                "value": "Active"
+              },
+              {
+                "label": "Inactive",
+                "value": "Inactive"
+              }
+            ],
+            "label": "Status",
+            "choicesResourceProperty": null,
+            "choicesRunIf": null,
+            "constraints": [],
+            "choicesDataSource": "custom",
+            "events": [],
+            "defaultResourceName": null,
+            "type": "field",
+            "key": "fea1ebea7d0f4160909d683c1af9b5e4",
+            "required": true
+          },
+          {
+            "enabled": true,
+            "dataType": "string",
+            "defaultDataSource": "none",
+            "requiredMessage": null,
+            "name": "Name",
+            "omitWhenHidden": null,
+            "renderAttributes": {},
+            "renderType": "text",
+            "pattern": null,
+            "defaultValue": null,
+            "visible": true,
+            "label": "Name",
+            "constraints": [],
+            "events": [],
+            "rows": 1,
+            "defaultResourceName": null,
+            "type": "field",
+            "key": "f2",
+            "required": true
+          },
+          {
+            "enabled": true,
+            "dataType": "string",
+            "defaultDataSource": "none",
+            "requiredMessage": null,
+            "name": "Language",
+            "omitWhenHidden": false,
+            "renderAttributes": {},
+            "renderType": "text",
+            "pattern": null,
+            "defaultValue": null,
+            "visible": false,
+            "label": "Language",
+            "constraints": [],
+            "events": [],
+            "rows": 1,
+            "defaultResourceName": null,
+            "type": "field",
+            "key": "f9",
+            "required": false
+          },
+          {
+            "enabled": true,
+            "dataType": "string",
+            "defaultDataSource": "none",
+            "requiredMessage": null,
+            "name": "Region",
+            "omitWhenHidden": false,
+            "renderAttributes": {},
+            "renderType": "text",
+            "pattern": null,
+            "defaultValue": null,
+            "visible": false,
+            "label": "Region",
+            "constraints": [],
+            "events": [],
+            "rows": 1,
+            "defaultResourceName": null,
+            "type": "field",
+            "key": "f8",
+            "required": false
+          },
+          {
+            "enabled": true,
+            "dataType": "string",
+            "defaultDataSource": "none",
+            "requiredMessage": null,
+            "name": "Subject",
+            "omitWhenHidden": true,
+            "renderAttributes": {
+              "class": "dropdown-enabled"
+            },
+            "renderType": "text",
+            "pattern": null,
+            "defaultValue": null,
+            "visible": "values('Type') !== \"Snippet\"",
+            "label": "Subject",
+            "constraints": [],
+            "events": [],
+            "rows": 1,
+            "defaultResourceName": null,
+            "type": "field",
+            "key": "f7",
+            "required": "values('Type') !== \"Snippet\""
+          },
+          {
+            "enabled": true,
+            "dataType": "string",
+            "defaultDataSource": "none",
+            "requiredMessage": null,
+            "name": "HTML Content",
+            "omitWhenHidden": null,
+            "renderAttributes": {
+              "class": "dropdown-enabled"
+            },
+            "renderType": "text",
+            "pattern": null,
+            "defaultValue": null,
+            "visible": true,
+            "label": "HTML Content",
+            "constraints": [],
+            "events": [],
+            "rows": 10,
+            "defaultResourceName": null,
+            "type": "field",
+            "key": "f6",
+            "required": true
+          },
+          {
+            "enabled": true,
+            "dataType": "string",
+            "defaultDataSource": "none",
+            "requiredMessage": null,
+            "name": "Text Content",
+            "omitWhenHidden": null,
+            "renderAttributes": {
+              "class": "dropdown-enabled"
+            },
+            "renderType": "text",
+            "pattern": null,
+            "defaultValue": null,
+            "visible": true,
+            "label": "Text Content",
+            "constraints": [],
+            "events": [],
+            "rows": 5,
+            "defaultResourceName": null,
+            "type": "field",
+            "key": "f5",
+            "required": true
+          },
+          {
+            "type": "section",
+            "renderType": null,
+            "name": "Attachments",
+            "title": "Attachments",
+            "visible": "values('Type') === \"Template\"",
+            "omitWhenHidden": false,
+            "renderAttributes": {},
+            "elements": [
+              {
+                "type": "content",
+                "renderType": "html",
+                "name": "Note",
+                "text": "Only one type of attachment may be used on a template:  Either attachments from a submission, or attachments stored as part of the template.",
+                "visible": true,
+                "renderAttributes": {}
+              },
+              {
+                "enabled": true,
+                "dataType": "string",
+                "defaultDataSource": "none",
+                "requiredMessage": null,
+                "name": "Attachments",
+                "omitWhenHidden": null,
+                "renderAttributes": {},
+                "renderType": "text",
+                "pattern": null,
+                "defaultValue": null,
+                "visible": true,
+                "label": "Attachments (the <strong>name</strong> of a field from a form that contains attachments to be included with an email)",
+                "constraints": [],
+                "events": [],
+                "rows": 1,
+                "defaultResourceName": null,
+                "type": "field",
+                "key": "841d6e5f46164d88a132740c448185dc",
+                "required": false
+              },
+              {
+                "enabled": true,
+                "dataType": "file",
+                "defaultDataSource": "none",
+                "requiredMessage": null,
+                "name": "Email Template Attachments",
+                "omitWhenHidden": null,
+                "renderAttributes": {},
+                "renderType": "attachment",
+                "pattern": null,
+                "defaultValue": null,
+                "visible": true,
+                "label": "Email Template Attachments (File attachments to be attached every time this template is used)",
+                "constraints": [],
+                "allowMultiple": false,
+                "events": [],
+                "defaultResourceName": null,
+                "type": "field",
+                "key": "ad9691f3e38049469d6e680b998c664c",
+                "required": false
+              }
+            ]
+          },
+          {
+            "type": "button",
+            "label": "Submit",
+            "name": "Submit Button",
+            "visible": false,
+            "enabled": true,
+            "renderType": "submit-page",
+            "renderAttributes": {}
+          }
+        ],
+        "events": [
+          {
+            "name": "Populate Replacement Selection Container",
+            "code": "const formSlug = K('form').slug();\nconst kappSlug = K('kapp').slug();\n// Confirm bundle.ext exists, or create it\nbundle.ext = bundle.ext || {};\n// Confirm bundle.ext.forms.<form_slug> exists, or create it\nbundle.ext.forms = bundle.ext.forms || {};\nbundle.ext.forms[formSlug] = bundle.ext.forms[formSlug] || {};\n// Create variable to make defining functions easier\nlet customCode = bundle.ext.forms[formSlug];\n\nclass HierarchicalDropdown {\n  constructor(containerElement, options = {}) {\n    this.container = containerElement;\n    this.options = options;\n    this.activeFlyout = null;\n    this.currentTarget = null; // Currently focused eligible field\n    this.eligibleFieldClass = options.eligibleFieldClass || 'dropdown-enabled';\n    this.isVisible = false; // Track dropdown visibility\n\n    // Data structure for menu items\n    this.menuData = {\n      'Snippets': [],\n      'Space': [],\n      'Kapp': [],\n      'Form': [],\n      'Submission': [],\n      'Variables': [],\n      'Date Formats': []\n    };\n\n    this.init();\n  }\n\n  init() {\n    this.createStructure();\n    this.bindFieldEvents();\n    this.bindMenuEvents();\n    this.bindButtonEvents();\n  }\n\n  createStructure() {\n    this.container.innerHTML = `\n      <div class=\"hierarchical-dropdown-wrapper\">\n        <button type=\"button\" class=\"kbtn kbtn-lg dynamic-refs-toggle bg-primary\">\n          Insert Dynamic References\n        </button>\n        <div class=\"hierarchical-dropdown\" style=\"display: none; position: absolute; z-index: 1000; background: white; border: 1px solid #ddd; border-radius: 6px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); min-width: 250px; max-width: 400px;\">\n          <div class=\"dropdown-status\">\n            <span class=\"status-text\">Select a template field to insert variables</span>\n          </div>\n          <div class=\"dropdown-main-menu\">\n            ${this.createMainMenuItems()}\n          </div>\n          <div class=\"dropdown-flyout\" style=\"display: none;\"></div>\n        </div>\n      </div>\n    `;\n\n    this.toggleBtn = this.container.querySelector('.dynamic-refs-toggle');\n    this.dropdownWrapper = this.container.querySelector('.hierarchical-dropdown');\n    this.statusElement = this.container.querySelector('.status-text');\n    this.mainMenu = this.container.querySelector('.dropdown-main-menu');\n    this.flyoutMenu = this.container.querySelector('.dropdown-flyout');\n\n    // Add custom styling\n    this.addCustomStyles();\n  }\n\n  addCustomStyles() {\n    if (!document.getElementById('hierarchical-dropdown-styles')) {\n      const styleSheet = document.createElement('style');\n      styleSheet.id = 'hierarchical-dropdown-styles';\n      styleSheet.textContent = `\n        .hierarchical-dropdown-wrapper {\n          position: relative;\n          width: 100%;\n          margin-bottom: 1.25rem;\n        }\n        \n        .hierarchical-dropdown {\n          margin-top: 0.5rem;\n        }\n        \n        .dropdown-status {\n          padding: 8px 12px;\n          background: #f8f9fa;\n          border-bottom: 1px solid #e9ecef;\n          border-radius: 6px 6px 0 0;\n          font-size: 12px;\n          color: #6c757d;\n          text-align: center;\n        }\n        \n        .hierarchical-dropdown-wrapper.field-targeted .dropdown-status {\n          background: #d4edda;\n          color: #155724;\n          border-bottom-color: #c3e6cb;\n        }\n        \n        .dropdown-main-menu {\n          background: white;\n          min-width: 150px;\n          max-height: 300px;\n          overflow-y: auto;\n        }\n        \n        .dropdown-flyout {\n          position: absolute;\n          background: white;\n          border: 1px solid #ccc;\n          border-radius: 4px;\n          box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);\n          min-width: 400px;\n          max-height: 400px;\n          overflow-y: auto;\n          z-index: 1001;\n        }\n        \n        .dropdown-item {\n          padding: 8px 12px;\n          cursor: pointer;\n          border-bottom: 1px solid #f0f0f0;\n          display: flex;\n          justify-content: space-between;\n          align-items: center;\n          line-height: 1.4;\n          color: #333;\n          background-color: white;\n          min-height: 32px;\n        }\n        \n        .dropdown-item:last-child {\n          border-bottom: none;\n        }\n        \n        .dropdown-item:hover:not(.disabled):not(.section-title) {\n          background-color: #f5f5f5;\n        }\n        \n        .dropdown-item.main-item {\n          background-color: #fafafa;\n          font-weight: 500;\n        }\n        \n        .dropdown-item.main-item:hover {\n          background-color: #e8e8e8;\n        }\n        \n        .dropdown-item.main-item .arrow {\n          color: #666;\n          font-size: 12px;\n        }\n        \n        .dropdown-item.selectable-item {\n          background-color: white;\n          font-weight: normal;\n        }\n        \n        .dropdown-item.selectable-item:hover {\n          background-color: #e8f4fd;\n          color: #0066cc;\n        }\n        \n        .dropdown-item.disabled {\n          color: #999;\n          cursor: not-allowed;\n          font-style: italic;\n        }\n        \n        .dropdown-item.section-title {\n          background-color: #f8f9fa;\n          color: #495057;\n          font-weight: 600;\n          font-size: 12px;\n          text-transform: uppercase;\n          letter-spacing: 0.5px;\n          cursor: default;\n          padding: 6px 12px;\n        }\n        \n        .dropdown-separator {\n          height: 1px;\n          background-color: #e0e0e0;\n          margin: 4px 0;\n        }\n        \n        .dropdown-item.date-format-item {\n          font-family: 'Courier New', monospace;\n          font-size: 13px;\n        }\n        \n        .dropdown-main-menu::-webkit-scrollbar,\n        .dropdown-flyout::-webkit-scrollbar {\n          width: 6px;\n        }\n        \n        .dropdown-main-menu::-webkit-scrollbar-track,\n        .dropdown-flyout::-webkit-scrollbar-track {\n          background: #f1f1f1;\n          border-radius: 3px;\n        }\n        \n        .dropdown-main-menu::-webkit-scrollbar-thumb,\n        .dropdown-flyout::-webkit-scrollbar-thumb {\n          background: #c1c1c1;\n          border-radius: 3px;\n        }\n        \n        .dropdown-main-menu::-webkit-scrollbar-thumb:hover,\n        .dropdown-flyout::-webkit-scrollbar-thumb:hover {\n          background: #a8a8a8;\n        }\n      `;\n      document.head.appendChild(styleSheet);\n    }\n  }\n\n  bindButtonEvents() {\n    this.toggleBtn.addEventListener('click', (e) => {\n      e.preventDefault();\n      this.toggleDropdown();\n    });\n\n    // Close when clicking outside\n    document.addEventListener('click', (e) => {\n      if (this.isVisible && !this.container.contains(e.target)) {\n        this.hide();\n      }\n    });\n  }\n\n  toggleDropdown() {\n    if (this.isVisible) {\n      this.hide();\n    } else {\n      this.show();\n    }\n  }\n\n  show() {\n    this.isVisible = true;\n    this.dropdownWrapper.style.display = 'block';\n  }\n\n  hide() {\n    this.isVisible = false;\n    this.dropdownWrapper.style.display = 'none';\n    this.hideFlyout();\n  }\n\n  createMainMenuItems() {\n    const mainItems = ['Snippets', 'Space', 'Kapp', 'Form', 'Submission', 'Variables', 'Date Formats'];\n    return mainItems.map(item =>\n        `<div class=\"dropdown-item main-item\" data-category=\"${item}\">\n        <span>${item}</span>\n        <span class=\"arrow\">▶</span>\n      </div>`\n    ).join('');\n  }\n\n  bindFieldEvents() {\n    // Listen for focus/blur on all form fields\n    document.addEventListener('focusin', (e) => {\n      this.handleFieldFocus(e.target);\n    });\n\n    document.addEventListener('focusout', (e) => {\n      // Small delay to handle rapid focus changes\n      setTimeout(() => {\n        if (!document.activeElement || !this.isEligibleField(document.activeElement)) {\n          this.handleFieldBlur();\n        }\n      }, 50);\n    });\n  }\n\n  bindMenuEvents() {\n    // Use event delegation for better event handling\n    this.mainMenu.addEventListener('mouseover', (e) => {\n      // Find the closest main-item (in case we're hovering over a child element)\n      const mainItem = e.target.closest('.main-item');\n      if (mainItem) {\n        this.showFlyout(mainItem.dataset.category, mainItem);\n      }\n    });\n\n    this.mainMenu.addEventListener('mouseleave', (e) => {\n      setTimeout(() => {\n        if (!this.flyoutMenu.matches(':hover') && !this.mainMenu.matches(':hover')) {\n          this.hideFlyout();\n        }\n      }, 100);\n    });\n\n    // Flyout menu events\n    this.flyoutMenu.addEventListener('mouseleave', () => {\n      setTimeout(() => {\n        if (!this.flyoutMenu.matches(':hover') && !this.mainMenu.matches(':hover')) {\n          this.hideFlyout();\n        }\n      }, 100);\n    });\n\n    this.flyoutMenu.addEventListener('click', (e) => {\n      if (e.target.classList.contains('selectable-item')) {\n        this.handleSelection(e.target);\n      }\n    });\n\n    // Prevent menu clicks from changing focus\n    this.container.addEventListener('mousedown', (e) => {\n      e.preventDefault();\n    });\n  }\n\n  isEligibleField(element) {\n    return element &&\n        (element.tagName.toLowerCase() === 'input' || element.tagName.toLowerCase() === 'textarea') &&\n        element.classList.contains(this.eligibleFieldClass);\n  }\n\n  handleFieldFocus(element) {\n    if (this.isEligibleField(element)) {\n      this.currentTarget = element;\n      this.updateStatus(`Ready to insert into: ${this.getFieldDisplayName(element)}`);\n      this.container.classList.add('field-targeted');\n    }\n  }\n\n  handleFieldBlur() {\n    this.currentTarget = null;\n    this.updateStatus('Select a template field to insert variables');\n    this.container.classList.remove('field-targeted');\n  }\n\n  getFieldDisplayName(element) {\n    // Try to get a friendly name for the field\n    const label = element.getAttribute('aria-label') ||\n        element.getAttribute('placeholder') ||\n        element.getAttribute('name') ||\n        element.getAttribute('id') ||\n        'field';\n    return label;\n  }\n\n  updateStatus(message) {\n    this.statusElement.textContent = message;\n  }\n\n  showFlyout(category, triggerElement) {\n    // Don't show flyout if no field is targeted\n    if (!this.currentTarget) {\n      this.updateStatus('Please focus on a template field first');\n      return;\n    }\n\n    this.activeFlyout = category;\n    const flyoutContent = this.generateFlyoutContent(category);\n    this.flyoutMenu.innerHTML = flyoutContent;\n\n    // Position flyout next to trigger element\n    const rect = triggerElement.getBoundingClientRect();\n    const dropdownRect = this.dropdownWrapper.getBoundingClientRect();\n\n    this.flyoutMenu.style.display = 'block';\n    this.flyoutMenu.style.left = `${rect.width}px`;\n    this.flyoutMenu.style.top = `${rect.top - dropdownRect.top}px`;\n  }\n\n  hideFlyout() {\n    this.flyoutMenu.style.display = 'none';\n    this.activeFlyout = null;\n  }\n\n  generateFlyoutContent(category) {\n    const data = this.menuData[category] || [];\n\n    switch (category) {\n      case 'Snippets':\n        return this.generateSimpleList(data);\n\n      case 'Space':\n        return this.generateStandardPlusCustomList(data, 'Space Attributes');\n\n      case 'Kapp':\n        return this.generateStandardPlusCustomList(data, 'Kapp Attributes');\n\n      case 'Form':\n        return this.generateStandardPlusCustomList(data, 'Form Attributes');\n\n      case 'Submission':\n        return this.generateStandardPlusCustomList(data, 'Submission Fields');\n\n      case 'Variables':\n        return this.generateVariablesList(data);\n\n      case 'Date Formats':\n        return this.generateDateFormatsList(data);\n\n      default:\n        return '<div class=\"dropdown-item\">No items available</div>';\n    }\n  }\n\n  generateSimpleList(items) {\n    if (!items.length) {\n      return '<div class=\"dropdown-item disabled\">No items available</div>';\n    }\n\n    return items.map(item =>\n        `<div class=\"dropdown-item selectable-item\" data-value=\"${item.value}\">\n        ${item.label}\n      </div>`\n    ).join('');\n  }\n\n  generateStandardPlusCustomList(items, customTitle) {\n    if (!items.length) {\n      return '<div class=\"dropdown-item disabled\">No items available</div>';\n    }\n\n    const standardItems = items.filter(item => item.isStandard);\n    const customItems = items.filter(item => !item.isStandard);\n\n    let html = '';\n\n    // Standard items first\n    if (standardItems.length) {\n      html += standardItems.map(item =>\n          `<div class=\"dropdown-item selectable-item\" data-value=\"${item.value}\">\n          ${item.label}\n        </div>`\n      ).join('');\n    }\n\n    // Separator and custom items\n    if (customItems.length) {\n      if (standardItems.length) {\n        html += '<div class=\"dropdown-separator\"></div>';\n      }\n      html += `<div class=\"dropdown-item section-title\">${customTitle}</div>`;\n      html += customItems.map(item =>\n          `<div class=\"dropdown-item selectable-item\" data-value=\"${item.value}\">\n          ${item.label}\n        </div>`\n      ).join('');\n    }\n\n    return html || '<div class=\"dropdown-item disabled\">No items available</div>';\n  }\n\n  generateVariablesList(items) {\n    //let html = '<div class=\"dropdown-item section-title\">Available Variables</div>';\n    let html = '<div class=\"dropdown-item section-title\">Provided at run-time to the Task Engine. Select the placeholder below and manually enter the variable name.</div>';\n\n    if (!items.length) {\n      html += '<div class=\"dropdown-item disabled\">No variables defined</div>';\n    } else {\n      html += items.map(item =>\n          `<div class=\"dropdown-item selectable-item\" data-value=\"${item.value}\">\n          ${item.label}\n        </div>`\n      ).join('');\n    }\n\n    return html;\n  }\n\n  generateDateFormatsList(items) {\n    const selectedElement = this.getSelectedDateElement();\n\n    if (!selectedElement) {\n      return '<div class=\"dropdown-item disabled\">Please select a date element first</div>';\n    }\n\n    let html = `<div class=\"dropdown-item section-title\">Formatting ${selectedElement}</div>`;\n    html += '<div class=\"dropdown-separator\"></div>';\n\n    if (!items.length) {\n      html += '<div class=\"dropdown-item disabled\">No date formats available</div>';\n    } else {\n      html += items.map(item =>\n          `<div class=\"dropdown-item selectable-item date-format-item\" data-value=\"${item.value}\" data-element=\"${selectedElement}\">\n          ${item.label}\n        </div>`\n      ).join('');\n    }\n\n    return html;\n  }\n\n  handleSelection(element) {\n    if (!this.currentTarget) {\n      this.updateStatus('No field selected - please focus on a template field first');\n      return;\n    }\n\n    const value = element.dataset.value;\n    const isDateFormat = element.classList.contains('date-format-item');\n\n    if (isDateFormat) {\n      const selectedElement = element.dataset.element;\n      this.handleDateFormatSelection(selectedElement, value);\n    } else {\n      this.insertAtCursor(value);\n    }\n\n    this.hideFlyout();\n    this.hide(); // Close the entire dropdown\n\n    // Update status to show what was inserted\n    this.updateStatus(`Inserted: ${value.substring(0, 30)}${value.length > 30 ? '...' : ''}`);\n\n    // Return focus to the target field\n    setTimeout(() => {\n      if (this.currentTarget) {\n        this.currentTarget.focus();\n      }\n    }, 100);\n  }\n\n  handleDateFormatSelection(element, format) {\n    if (typeof this.options.onDateFormatSelect === 'function') {\n      const formattedValue = this.options.onDateFormatSelect(element, format);\n      this.insertAtCursor(formattedValue);\n    } else {\n      this.insertAtCursor(`${element} ${format}`);\n    }\n  }\n\n  insertAtCursor(value) {\n    if (!this.currentTarget) return;\n\n    const start = this.currentTarget.selectionStart || 0;\n    const end = this.currentTarget.selectionEnd || 0;\n    const text = this.currentTarget.value || '';\n\n    this.currentTarget.value = text.substring(0, start) + value + text.substring(end);\n    const newPosition = start + value.length;\n    this.currentTarget.setSelectionRange(newPosition, newPosition);\n  }\n\n  // Data management methods\n  updateMenuData(category, items) {\n    this.menuData[category] = items;\n\n    // If this category's flyout is currently open, refresh it\n    if (this.activeFlyout === category) {\n      const flyoutContent = this.generateFlyoutContent(category);\n      this.flyoutMenu.innerHTML = flyoutContent;\n    }\n\n    // Optional: Trigger a visual indicator that data was updated\n    this.updateStatus(`${category} data updated - ${items.length} items available`);\n  }\n\n  getSelectedDateElement() {\n    if (!this.currentTarget) return null;\n\n    const start = this.currentTarget.selectionStart;\n    const end = this.currentTarget.selectionEnd;\n\n    // If nothing is selected, return null\n    if (start === end) return null;\n\n    const selectedText = this.currentTarget.value.substring(start, end);\n\n    // Check if the selected text matches ${...} pattern\n    const match = selectedText.match(/^\\$\\{(.+)\\}$/);\n\n    if (match) {\n      // Return the content inside the ${} - this will be used in the status message\n      //return match[1];\n      return match[0];\n    }\n\n    return null;\n  }\n\n  // Integration with existing API calls\n  refreshSpaceData() {\n    if (typeof customCode !== 'undefined' && customCode.getSpaceDetails) {\n      customCode.getSpaceDetails();\n    }\n  }\n\n  refreshKappData() {\n    if (typeof customCode !== 'undefined' && customCode.getKappDetails) {\n      customCode.getKappDetails();\n    }\n  }\n\n  refreshFormData() {\n    if (typeof customCode !== 'undefined' && customCode.getFormDetails) {\n      customCode.getFormDetails();\n    }\n  }\n\n  refreshSnippetData() {\n    if (typeof customCode !== 'undefined' && customCode.getSnippetDetails) {\n      customCode.getSnippetDetails();\n    }\n  }\n\n  refreshDateFormatData() {\n    if (typeof customCode !== 'undefined' && customCode.getDateFormatDetails) {\n      customCode.getDateFormatDetails();\n    }\n  }\n}\n\ncustomCode.getSpaceDetails = function(){\n  K('integration[Space]').load({\n    values: {},\n    success: function(data) {\n      console.log('Space API response:', data);\n\n      const items = [\n        { label: \"${space('Space Name')}\", value: \"${space('Space Name')}\", isStandard: true },\n        { label: \"${space('Space Slug')}\", value: \"${space('Space Slug')}\", isStandard: true }\n      ];\n\n      // Check if Attributes Map exists and is not null\n      if (data && data['Attributes Map']) {\n        Object.keys(data['Attributes Map']).forEach((attr) => {\n          items.push({\n            label: `\\${spaceAttributes('${attr}')}`,\n            value: `\\${spaceAttributes('${attr}')}`,\n            isStandard: false\n          });\n        });\n      }\n\n      // Update the dropdown\n      if (customCode.dropdown) {\n        customCode.dropdown.updateMenuData('Space', items);\n      }\n    },\n    error: function(error) {\n      console.error('Error loading space details:', error);\n    }\n  })\n}\n\ncustomCode.getSnippetDetails = function(){\n  K('integration[Get Notification Snippets]').load({\n    values: {},\n    success: function(data) {\n      console.log('Snippets API response:', data);\n\n      const items = []\n\n      // Check if Submissions exists and is an array\n      if (data && data['Submissions'] && Array.isArray(data['Submissions'])) {\n        data['Submissions'].forEach((snippet) => {\n          items.push({\n            label: `\\${snippet('${snippet['Name']}')}`,\n            value: `\\${snippet('${snippet['Name']}')}`,\n            isStandard: true\n          });\n        });\n      }\n\n      // Update the dropdown\n      if (customCode.dropdown) {\n        customCode.dropdown.updateMenuData('Snippets', items);\n      }\n    },\n    error: function(error) {\n      console.error('Error loading snippets:', error);\n    }\n  })\n}\n\ncustomCode.getDateFormatDetails = function(){\n  K('integration[Get Notification Date Formats]').load({\n    values: {},\n    success: function(data) {\n      console.log('Date Formats API response:', data);\n\n      const items = [];\n\n      // Check if submissions exists and is an array\n      if (data && data['submissions'] && Array.isArray(data['submissions'])) {\n        data['submissions'].forEach((format) => {\n          items.push({\n            label: `${format['name']}`,\n            value: `${format['name']}`,\n            isStandard: false\n          });\n        });\n      }\n\n      // Update the dropdown\n      if (customCode.dropdown) {\n        customCode.dropdown.updateMenuData('Date Formats', items);\n      }\n    },\n    error: function(error) {\n      console.error('Error loading date formats:', error);\n    }\n  })\n}\n\ncustomCode.getVariableDetails = function(){\n  const items = [{\n    label: `\\${vars('##Replace with variable name##')}`,\n    value: `\\${vars('##Replace with variable name##')}`,\n    isStandard: false\n  }];\n\n  // Update the dropdown\n  if (customCode.dropdown) {\n    customCode.dropdown.updateMenuData('Variables', items);\n  }\n}\n\ncustomCode.setKappDetailsDefault = function(){\n  const items = [\n    { label: \"${kapp('Kapp Name')}\", value: \"${kapp('Kapp Name')}\", isStandard: true },\n    { label: \"${kapp('Kapp Slug')}\", value: \"${kapp('Kapp Slug')}\", isStandard: true },\n    { label: \"${kappAttributes('##Replace with attribute name##')}\", value: \"${kappAttributes('##Replace with attribute name##')}\", isStandard: false },\n  ];\n\n  // Update the dropdown\n  if (customCode.dropdown) {\n    customCode.dropdown.updateMenuData('Kapp', items);\n  }\n}\n\ncustomCode.getKappDetails = function(){\n  debugger;\n  K('integration[Kapp by Kapp Slug]').load({\n    values: {\n      'Kapp Slug': kappSlug\n    },\n    success: function(data) {\n      console.log('Kapp API response:', data);\n\n      const items = [\n        { label: \"${kapp('Kapp Name')}\", value: \"${kapp('Kapp Name')}\", isStandard: true },\n        { label: \"${kapp('Kapp Slug')}\", value: \"${kapp('Kapp Slug')}\", isStandard: true }\n      ];\n\n      // Check if Attributes Map exists and is not null\n      if (data && data['Attributes Map']) {\n        Object.keys(data['Attributes Map']).forEach((attr) => {\n          items.push({\n            label: `\\${kappAttributes('${attr}')}`,\n            value: `\\${kappAttributes('${attr}')}`,\n            isStandard: false\n          });\n        });\n      }\n\n      // Update the dropdown\n      if (customCode.dropdown) {\n        customCode.dropdown.updateMenuData('Kapp', items);\n      }\n    },\n    error: function(error) {\n      console.error('Error loading kapp details:', error);\n    }\n  })\n}\n\ncustomCode.setFormDetailsDefault = function() {\n  const items = [];\n  const standards = ['Form Name', 'Form Slug', 'Form Description', 'Form Status', 'Form Notes', 'Form Type'];\n  standards.forEach((item) =>{\n    items.push({\n      label: `\\${form('${item}')}`,\n      value: `\\${form('${item}')}`,\n      isStandard: true\n    });\n  });\n  items.push({ label: \"${formAttributes('##Replace with attribute name##')}\", value: \"${formAttributes('##Replace with attribute name##')}\", isStandard: false })\n\n  // Update the dropdown\n  if (customCode.dropdown) {\n    customCode.dropdown.updateMenuData('Form', items);\n  }\n}\n\ncustomCode.setSubmissionDetailsDefault = function() {\n  const items = [];\n  const standards = ['handle', 'id', 'closedAt', 'closedBy', 'coreState', 'createAt', 'createdBy', 'label', 'submittedAt', 'submittedBy', 'type', 'updatedAt', 'updatedBy'];\n  standards.forEach((item) =>{\n    items.push({\n      label: `\\${submission('${item}')}`,\n      value: `\\${submission('${item}')}`,\n      isStandard: true\n    });\n  });\n  items.push({ label: \"${values('##Field Name Here##')}\", value: \"${values('##Field Name Here##')}\", isStandard: false })\n\n  // Update the dropdown\n  if (customCode.dropdown) {\n    customCode.dropdown.updateMenuData('Submission', items);\n  }\n}\n\ncustomCode.getFormDetails = function() {\n  K('integration[Form by Slug]').load({\n    values: {},\n    success: function(data) {\n      console.log('Form API response:', data);\n\n      const items = [];\n      const standards = ['Form Name', 'Form Slug', 'Form Description', 'Form Status', 'Form Notes', 'Form Type'];\n      standards.forEach((item) =>{\n        items.push({\n          label: `\\${form('${item}')}`,\n          value: `\\${form('${item}')}`,\n          isStandard: true\n        });\n      });\n\n      // Check if Attributes Map exists and is not null\n      if (data && data['Attributes Map']) {\n        Object.keys(data['Attributes Map']).forEach((attr) => {\n          items.push({\n            label: `\\${formAttributes('${attr}')}`,\n            value: `\\${formAttributes('${attr}')}`,\n            isStandard: false\n          });\n        });\n      }\n\n      // Update the dropdown\n      if (customCode.dropdown) {\n        customCode.dropdown.updateMenuData('Form', items);\n      }\n\n      const submissionItems = [];\n      const submissionStandards = ['handle', 'id', 'closedAt', 'closedBy', 'coreState', 'createAt', 'createdBy', 'label', 'submittedAt', 'submittedBy', 'type', 'updatedAt', 'updatedBy'];\n      submissionStandards.forEach((item) =>{\n        submissionItems.push({\n          label: `\\${submission('${item}')}`,\n          value: `\\${submission('${item}')}`,\n          isStandard: true\n        });\n      });\n\n      // Check if Fields exists and is an array\n      if (data && data['Fields'] && Array.isArray(data['Fields'])) {\n        data['Fields'].forEach((field) => {\n          submissionItems.push({\n            label: `\\${values('${field['Field Name']}')}`,\n            value: `\\${values('${field['Field Name']}')}`,\n            isStandard: false\n          });\n        });\n      }\n\n      // Update the dropdown\n      if (customCode.dropdown) {\n        customCode.dropdown.updateMenuData('Submission', submissionItems);\n      }\n    },\n    error: function(error) {\n      console.error('Error loading form details:', error);\n    }\n  })\n}\n\n// Initialize the always-visible dropdown\nconst dropdownContainer = document.getElementById('dropdown-container');\ncustomCode.dropdown = new HierarchicalDropdown(dropdownContainer, {\n  eligibleFieldClass: 'dropdown-enabled', // Fields that can receive insertions\n  onDateFormatSelect: function(element, format) {\n    return `\\${appearance('${element}\\${format('${format}')}')}`\n  }\n});\n\n// Initialize with defaults first (these show immediately)\ncustomCode.setKappDetailsDefault();\ncustomCode.setFormDetailsDefault();\ncustomCode.setSubmissionDetailsDefault();\n\n// Fetch initial data (these will replace defaults when loaded)\ncustomCode.getVariableDetails();\ncustomCode.getSpaceDetails();\ncustomCode.getSnippetDetails();\ncustomCode.getDateFormatDetails();\n\n// Listen for changes to the Form dropdown field and refresh form data when a form is selected\nK('field[Form]').on('change', function() {\n  const formSlug = K('field[Form]').value();\n  console.log('Form changed:', formSlug);\n  if (formSlug) {\n    customCode.getFormDetails();\n  } else {\n    // If no form selected, reset to defaults\n    customCode.setFormDetailsDefault();\n    customCode.setSubmissionDetailsDefault();\n  }\n});\n\n// Also try to load form details on initial page load if a form is already selected\nsetTimeout(function() {\n  const formSlug = K('field[Form]').value();\n  if (formSlug) {\n    console.log('Form already selected on load:', formSlug);\n    customCode.getFormDetails();\n  }\n}, 500);",
+            "integrationResourceName": null,
+            "action": "Custom",
+            "integrationResourceProperty": "",
+            "type": "Load"
+          },
+          {
+            "mappings": [
+              {
+                "field": "Kapp",
+                "value": "${ null }",
+                "visible": null
+              },
+              {
+                "field": "Kapp",
+                "value": "${ null }",
+                "visible": null
+              }
+            ],
+            "name": "Clear Kapp and Form Fields",
+            "integrationResourceName": null,
+            "action": "Set Fields",
+            "integrationResourceProperty": "",
+            "type": "Submit"
+          }
+        ],
+        "name": "One",
+        "renderType": "submittable",
+        "type": "page"
+      }
+    ],
+    "securityPolicies": [
+      {
+        "endpoint": "Display",
+        "name": "Admins"
+      },
+      {
+        "endpoint": "Modification",
+        "name": "Admins"
+      },
+      {
+        "endpoint": "Submission Access",
+        "name": "Admins"
+      },
+      {
+        "endpoint": "Submission Modification",
+        "name": "Admins"
+      }
+    ],
+    "slug": "notification-data",
+    "status": "Active",
+    "submissionLabelExpression": "${values('Type')}: ${values('Name')}",
+    "type": "Datastore"
+  }
+}

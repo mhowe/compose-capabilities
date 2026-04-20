@@ -1,0 +1,241 @@
+{
+  "form": {
+    "anonymous": false,
+    "attributes": [
+      {
+        "name": "Datastore Hidden",
+        "values": [
+          "True"
+        ]
+      }
+    ],
+    "bridgedResources": [],
+    "categorizations": [],
+    "customHeadContent": null,
+    "description": "Store of date formats for Notifications",
+    "indexDefinitions": [
+      {
+        "name": "closedBy",
+        "parts": [
+          "closedBy"
+        ],
+        "unique": false
+      },
+      {
+        "name": "createdBy",
+        "parts": [
+          "createdBy"
+        ],
+        "unique": false
+      },
+      {
+        "name": "handle",
+        "parts": [
+          "handle"
+        ],
+        "unique": false
+      },
+      {
+        "name": "submittedBy",
+        "parts": [
+          "submittedBy"
+        ],
+        "unique": false
+      },
+      {
+        "name": "updatedBy",
+        "parts": [
+          "updatedBy"
+        ],
+        "unique": false
+      },
+      {
+        "name": "values[Format]",
+        "parts": [
+          "values[Format]"
+        ],
+        "unique": false
+      },
+      {
+        "name": "values[Name]",
+        "parts": [
+          "values[Name]"
+        ],
+        "unique": false
+      },
+      {
+        "name": "values[Status]",
+        "parts": [
+          "values[Status]"
+        ],
+        "unique": false
+      }
+    ],
+    "integrations": [],
+    "name": "Notification Template Dates",
+    "notes": null,
+    "pages": [
+      {
+        "advanceCondition": "false",
+        "displayCondition": null,
+        "displayPage": "",
+        "elements": [
+          {
+            "enabled": true,
+            "dataType": "string",
+            "defaultDataSource": "none",
+            "requiredMessage": null,
+            "name": "Status",
+            "choicesResourceName": null,
+            "omitWhenHidden": null,
+            "renderAttributes": {},
+            "renderType": "radio",
+            "pattern": null,
+            "defaultValue": "Active",
+            "visible": true,
+            "choices": [
+              {
+                "label": "Active",
+                "value": "Active"
+              },
+              {
+                "label": "Inactive",
+                "value": "Inactive"
+              }
+            ],
+            "label": "Status",
+            "choicesRunIf": null,
+            "constraints": [],
+            "choicesDataSource": "custom",
+            "events": [],
+            "defaultResourceName": null,
+            "type": "field",
+            "key": "f901",
+            "required": true
+          },
+          {
+            "enabled": true,
+            "dataType": "string",
+            "defaultDataSource": "none",
+            "requiredMessage": null,
+            "name": "Name",
+            "omitWhenHidden": null,
+            "renderAttributes": {},
+            "renderType": "text",
+            "pattern": null,
+            "defaultValue": null,
+            "visible": true,
+            "label": "Date Format Name",
+            "constraints": [],
+            "events": [],
+            "rows": 1,
+            "defaultResourceName": null,
+            "type": "field",
+            "key": "f1",
+            "required": true
+          },
+          {
+            "type": "content",
+            "renderType": "text",
+            "name": "Name Explanation",
+            "text": "The Name of the date format is the name you will be including in your message templates inside the ${\"${format('DateName')}\"} tag. It should likely be something human readable and short but descriptive, like ShortDatewithTime.",
+            "visible": true,
+            "renderAttributes": {}
+          },
+          {
+            "type": "section",
+            "renderType": null,
+            "name": "Format Group",
+            "title": null,
+            "visible": true,
+            "omitWhenHidden": null,
+            "renderAttributes": {
+              "class": "form-group"
+            },
+            "elements": [
+              {
+                "enabled": true,
+                "dataType": "string",
+                "defaultDataSource": "none",
+                "requiredMessage": null,
+                "name": "Format",
+                "omitWhenHidden": null,
+                "renderAttributes": {},
+                "renderType": "text",
+                "pattern": null,
+                "defaultValue": null,
+                "visible": true,
+                "label": "Format",
+                "constraints": [],
+                "events": [],
+                "rows": 1,
+                "defaultResourceName": null,
+                "type": "field",
+                "key": "f2",
+                "required": true
+              },
+              {
+                "type": "content",
+                "renderType": "html",
+                "name": "Format Explanation",
+                "text": "The date format should be a ruby date format such as %m-%e-%y %H:%M for 03-17-16 15:19. Examples and explanation can be found at <a href=\"http://www.foragoodstrftime.com/\" target=\"_blank\">http://www.foragoodstrftime.com/</a>",
+                "visible": true,
+                "renderAttributes": {}
+              }
+            ]
+          },
+          {
+            "type": "section",
+            "renderType": null,
+            "name": "Buttons",
+            "title": null,
+            "visible": false,
+            "omitWhenHidden": false,
+            "renderAttributes": {
+              "class": "form-group"
+            },
+            "elements": [
+              {
+                "type": "button",
+                "label": "Save",
+                "name": "Save",
+                "visible": true,
+                "enabled": true,
+                "renderType": "submit-page",
+                "renderAttributes": {
+                  "class": "btn btn-primary"
+                }
+              }
+            ]
+          }
+        ],
+        "events": [],
+        "name": "Datastore",
+        "renderType": "submittable",
+        "type": "page"
+      }
+    ],
+    "securityPolicies": [
+      {
+        "endpoint": "Display",
+        "name": "Data Admins"
+      },
+      {
+        "endpoint": "Modification",
+        "name": "Admins"
+      },
+      {
+        "endpoint": "Submission Access",
+        "name": "Data Admins"
+      },
+      {
+        "endpoint": "Submission Modification",
+        "name": "Data Admins"
+      }
+    ],
+    "slug": "notification-template-dates",
+    "status": "Active",
+    "submissionLabelExpression": "${values('Name')}",
+    "type": null
+  }
+}

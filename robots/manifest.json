@@ -1,18 +1,42 @@
 {
   "id": "robots",
   "name": "Robots",
-  "description": "Time-based workflow execution. Define robots (cron-like schedules) that trigger workflows on a recurring or one-shot basis. Useful for reminders, SLA timers, batch updates, and periodic integrations.",
+  "description": "Time-based workflow execution. Define robots (cron-like schedules) that trigger workflows on a recurring basis. Useful for reminders, SLA timers, batch updates, periodic integrations, etc.",
   "version": "0.1.0",
   "author": "Kinetic Data",
   "tags": ["automation", "scheduling"],
   "kapp": {
-    "slug": "robots",
-    "name": "Robots",
-    "export": "./kapp.json"
+    "definition": "./kapp.json"
   },
-  "forms": [],
-  "taskHandlers": [],
-  "workflows": [],
-  "datastores": [],
-  "requires": []
+  "forms": [
+    {
+      "definition": "./robot-definitions.json"
+    },
+    {
+      "definition": "./robot-executions.json"
+    },
+    {
+      "definition": "./robot-next-execution.json"
+    }
+  ],
+  "taskHandlers": [
+    {
+      "definition": "./kinetic_determine_next_occurrence_v2.zip"
+    }
+  ],
+  "workflows": {
+    "trees": [
+      {
+        "definition": "./tree_Saved.xml"
+      }
+    ],
+    "routines": [
+      "./routine_Robot_Execution_Routine_V5.xml"
+    ]
+  },
+  "integrations": [
+    {
+      "definition": "./integrations.json"
+    }
+  ]
 }

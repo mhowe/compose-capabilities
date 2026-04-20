@@ -1,0 +1,2817 @@
+{
+  "form": {
+    "anonymous": false,
+    "attributes": [
+      {
+        "name": "Datastore Hidden",
+        "values": [
+          "True"
+        ]
+      }
+    ],
+    "bridgedResources": [],
+    "categorizations": [],
+    "customHeadContent": "<style>\n/* Medium Devices, Desktops */\n@media only screen and (min-width : 768px) {\n  #start-date-utc-display, #end-date-utc-display {\n    margin-top:25px;\n  }\n}\n</style>",
+    "description": "",
+    "indexDefinitions": [
+      {
+        "name": "closedBy",
+        "parts": [
+          "closedBy"
+        ],
+        "unique": false
+      },
+      {
+        "name": "createdBy",
+        "parts": [
+          "createdBy"
+        ],
+        "unique": false
+      },
+      {
+        "name": "handle",
+        "parts": [
+          "handle"
+        ],
+        "unique": false
+      },
+      {
+        "name": "submittedBy",
+        "parts": [
+          "submittedBy"
+        ],
+        "unique": false
+      },
+      {
+        "name": "updatedBy",
+        "parts": [
+          "updatedBy"
+        ],
+        "unique": false
+      },
+      {
+        "name": "values[Category]",
+        "parts": [
+          "values[Category]"
+        ],
+        "unique": false
+      },
+      {
+        "name": "values[Days]",
+        "parts": [
+          "values[Days]"
+        ],
+        "unique": false
+      },
+      {
+        "name": "values[Description]",
+        "parts": [
+          "values[Description]"
+        ],
+        "unique": false
+      },
+      {
+        "name": "values[Embedded Display Mode]",
+        "parts": [
+          "values[Embedded Display Mode]"
+        ],
+        "unique": false
+      },
+      {
+        "name": "values[Embedded]",
+        "parts": [
+          "values[Embedded]"
+        ],
+        "unique": false
+      },
+      {
+        "name": "values[End Date Original]",
+        "parts": [
+          "values[End Date Original]"
+        ],
+        "unique": false
+      },
+      {
+        "name": "values[End Date]",
+        "parts": [
+          "values[End Date]"
+        ],
+        "unique": false
+      },
+      {
+        "name": "values[Execution Hour]",
+        "parts": [
+          "values[Execution Hour]"
+        ],
+        "unique": false
+      },
+      {
+        "name": "values[Execution Minute]",
+        "parts": [
+          "values[Execution Minute]"
+        ],
+        "unique": false
+      },
+      {
+        "name": "values[Friday Index]",
+        "parts": [
+          "values[Friday Index]"
+        ],
+        "unique": false
+      },
+      {
+        "name": "values[Interval]",
+        "parts": [
+          "values[Interval]"
+        ],
+        "unique": false
+      },
+      {
+        "name": "values[Kapp Selection]",
+        "parts": [
+          "values[Kapp Selection]"
+        ],
+        "unique": false
+      },
+      {
+        "name": "values[Monday Index]",
+        "parts": [
+          "values[Monday Index]"
+        ],
+        "unique": false
+      },
+      {
+        "name": "values[Months]",
+        "parts": [
+          "values[Months]"
+        ],
+        "unique": false
+      },
+      {
+        "name": "values[Notify Upon Each Run Completion]",
+        "parts": [
+          "values[Notify Upon Each Run Completion]"
+        ],
+        "unique": false
+      },
+      {
+        "name": "values[Notify Upon Schedule Completion]",
+        "parts": [
+          "values[Notify Upon Schedule Completion]"
+        ],
+        "unique": false
+      },
+      {
+        "name": "values[Recurrence Description]",
+        "parts": [
+          "values[Recurrence Description]"
+        ],
+        "unique": false
+      },
+      {
+        "name": "values[Recurrence Label]",
+        "parts": [
+          "values[Recurrence Label]"
+        ],
+        "unique": false
+      },
+      {
+        "name": "values[Recurrence]",
+        "parts": [
+          "values[Recurrence]"
+        ],
+        "unique": false
+      },
+      {
+        "name": "values[Robot Name]",
+        "parts": [
+          "values[Robot Name]"
+        ],
+        "unique": false
+      },
+      {
+        "name": "values[Run Completion Notification Message Template]",
+        "parts": [
+          "values[Run Completion Notification Message Template]"
+        ],
+        "unique": false
+      },
+      {
+        "name": "values[Run Completion Recipient]",
+        "parts": [
+          "values[Run Completion Recipient]"
+        ],
+        "unique": false
+      },
+      {
+        "name": "values[Runtime Inputs]",
+        "parts": [
+          "values[Runtime Inputs]"
+        ],
+        "unique": false
+      },
+      {
+        "name": "values[Saturday Index]",
+        "parts": [
+          "values[Saturday Index]"
+        ],
+        "unique": false
+      },
+      {
+        "name": "values[Schedule Completion Notification Message Template]",
+        "parts": [
+          "values[Schedule Completion Notification Message Template]"
+        ],
+        "unique": false
+      },
+      {
+        "name": "values[Schedule Completion Recipient]",
+        "parts": [
+          "values[Schedule Completion Recipient]"
+        ],
+        "unique": false
+      },
+      {
+        "name": "values[Space or Kapp]",
+        "parts": [
+          "values[Space or Kapp]"
+        ],
+        "unique": false
+      },
+      {
+        "name": "values[Start Date]",
+        "parts": [
+          "values[Start Date]"
+        ],
+        "unique": false
+      },
+      {
+        "name": "values[Status]",
+        "parts": [
+          "values[Status]"
+        ],
+        "unique": false
+      },
+      {
+        "name": "values[Sunday Index]",
+        "parts": [
+          "values[Sunday Index]"
+        ],
+        "unique": false
+      },
+      {
+        "name": "values[Thursday Index]",
+        "parts": [
+          "values[Thursday Index]"
+        ],
+        "unique": false
+      },
+      {
+        "name": "values[Timing]",
+        "parts": [
+          "values[Timing]"
+        ],
+        "unique": false
+      },
+      {
+        "name": "values[Tuesday Index]",
+        "parts": [
+          "values[Tuesday Index]"
+        ],
+        "unique": false
+      },
+      {
+        "name": "values[WebAPI Path]",
+        "parts": [
+          "values[WebAPI Path]"
+        ],
+        "unique": false
+      },
+      {
+        "name": "values[WebAPI Selection]",
+        "parts": [
+          "values[WebAPI Selection]"
+        ],
+        "unique": false
+      },
+      {
+        "name": "values[WebAPI URL]",
+        "parts": [
+          "values[WebAPI URL]"
+        ],
+        "unique": false
+      },
+      {
+        "name": "values[Wednesday Index]",
+        "parts": [
+          "values[Wednesday Index]"
+        ],
+        "unique": false
+      },
+      {
+        "name": "values[Weekdays]",
+        "parts": [
+          "values[Weekdays]"
+        ],
+        "unique": false
+      }
+    ],
+    "integrations": [
+      {
+        "connectionId": "1415539c-bb98-48bb-ad33-11be25189ad0",
+        "inputMappings": {},
+        "name": "Kapps",
+        "operationId": "58d43eea-3459-4d60-920d-93ddde9031e3"
+      }
+    ],
+    "name": "Robot Definitions",
+    "notes": null,
+    "pages": [
+      {
+        "advanceCondition": null,
+        "displayCondition": null,
+        "displayPage": null,
+        "elements": [
+          {
+            "type": "section",
+            "renderType": null,
+            "name": "Processing",
+            "title": null,
+            "visible": true,
+            "omitWhenHidden": null,
+            "renderAttributes": {},
+            "elements": [
+              {
+                "enabled": true,
+                "dataType": "string",
+                "defaultDataSource": "none",
+                "requiredMessage": null,
+                "name": "End Date Original",
+                "omitWhenHidden": true,
+                "renderAttributes": {},
+                "renderType": "datetime",
+                "pattern": null,
+                "defaultValue": null,
+                "visible": false,
+                "label": "End Date Original",
+                "constraints": [],
+                "events": [],
+                "defaultResourceName": null,
+                "type": "field",
+                "key": "f35",
+                "required": false
+              },
+              {
+                "enabled": true,
+                "dataType": "string",
+                "defaultDataSource": "none",
+                "requiredMessage": null,
+                "name": "Recurrence Description",
+                "omitWhenHidden": false,
+                "renderAttributes": {},
+                "renderType": "text",
+                "pattern": null,
+                "defaultValue": null,
+                "visible": false,
+                "label": "Recurrence Description",
+                "constraints": [],
+                "events": [],
+                "rows": 1,
+                "defaultResourceName": null,
+                "type": "field",
+                "key": "f41",
+                "required": false
+              },
+              {
+                "enabled": true,
+                "dataType": "string",
+                "defaultDataSource": "none",
+                "requiredMessage": null,
+                "name": "Embedded",
+                "omitWhenHidden": true,
+                "renderAttributes": {},
+                "renderType": "text",
+                "pattern": null,
+                "defaultValue": null,
+                "visible": false,
+                "label": "Embedded",
+                "constraints": [],
+                "events": [],
+                "rows": 1,
+                "defaultResourceName": null,
+                "type": "field",
+                "key": "f42",
+                "required": false
+              },
+              {
+                "enabled": true,
+                "dataType": "string",
+                "defaultDataSource": "none",
+                "requiredMessage": null,
+                "name": "Embedded Display Mode",
+                "omitWhenHidden": true,
+                "renderAttributes": {},
+                "renderType": "text",
+                "pattern": null,
+                "defaultValue": null,
+                "visible": false,
+                "label": "Embedded Display Mode ('Advanced' or blank/any other value)",
+                "constraints": [],
+                "events": [],
+                "rows": 1,
+                "defaultResourceName": null,
+                "type": "field",
+                "key": "f40",
+                "required": false
+              }
+            ]
+          },
+          {
+            "type": "button",
+            "label": "Advanced",
+            "name": "Advanced Embedded Mode Button",
+            "visible": "values('Embedded') !== null && values('Embedded Display Mode') !== \"Advanced\"",
+            "enabled": true,
+            "renderType": "custom",
+            "renderAttributes": {},
+            "events": [
+              {
+                "name": "Set Embedded Display Mode",
+                "type": "Click",
+                "action": "Set Fields",
+                "mappings": [
+                  {
+                    "field": "Embedded Display Mode",
+                    "value": "Advanced",
+                    "visible": null
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "section",
+            "renderType": null,
+            "name": "General",
+            "title": null,
+            "visible": true,
+            "omitWhenHidden": null,
+            "renderAttributes": {},
+            "elements": [
+              {
+                "enabled": true,
+                "dataType": "string",
+                "defaultDataSource": "none",
+                "requiredMessage": null,
+                "name": "Robot Name",
+                "omitWhenHidden": false,
+                "renderAttributes": {},
+                "renderType": "text",
+                "pattern": null,
+                "defaultValue": null,
+                "visible": "values('Embedded') === null  || (values('Embedded') !== null && values('Embedded Display Mode') === \"Advanced\") ",
+                "label": "Robot Name",
+                "constraints": [],
+                "events": [],
+                "rows": 1,
+                "defaultResourceName": null,
+                "type": "field",
+                "key": "f18",
+                "required": true
+              },
+              {
+                "enabled": true,
+                "dataType": "string",
+                "defaultDataSource": "none",
+                "requiredMessage": null,
+                "name": "Description",
+                "omitWhenHidden": false,
+                "renderAttributes": {},
+                "renderType": "text",
+                "pattern": null,
+                "defaultValue": null,
+                "visible": "values('Embedded') === null  || (values('Embedded') !== null && values('Embedded Display Mode') === \"Advanced\") ",
+                "label": "Description",
+                "constraints": [],
+                "events": [],
+                "rows": 3,
+                "defaultResourceName": null,
+                "type": "field",
+                "key": "f19",
+                "required": false
+              },
+              {
+                "enabled": true,
+                "dataType": "string",
+                "defaultDataSource": "none",
+                "requiredMessage": null,
+                "name": "Category",
+                "omitWhenHidden": false,
+                "renderAttributes": {},
+                "renderType": "text",
+                "pattern": null,
+                "defaultValue": null,
+                "visible": "values('Embedded') === null  || (values('Embedded') !== null && values('Embedded Display Mode') === \"Advanced\") ",
+                "label": "Category",
+                "constraints": [],
+                "events": [],
+                "rows": 1,
+                "defaultResourceName": null,
+                "type": "field",
+                "key": "f37",
+                "required": false
+              },
+              {
+                "enabled": true,
+                "dataType": "string",
+                "defaultDataSource": "none",
+                "requiredMessage": null,
+                "name": "Status",
+                "choicesResourceName": null,
+                "omitWhenHidden": null,
+                "renderAttributes": {},
+                "renderType": "radio",
+                "pattern": null,
+                "defaultValue": "active",
+                "visible": true,
+                "choices": [
+                  {
+                    "label": "Active",
+                    "value": "Active"
+                  },
+                  {
+                    "label": "Inactive",
+                    "value": "Inactive"
+                  }
+                ],
+                "label": "Status",
+                "choicesRunIf": null,
+                "constraints": [],
+                "choicesDataSource": "custom",
+                "events": [],
+                "defaultResourceName": null,
+                "type": "field",
+                "key": "f20",
+                "required": true
+              },
+              {
+                "type": "section",
+                "renderType": null,
+                "name": "Robot Selection Section",
+                "title": null,
+                "visible": true,
+                "omitWhenHidden": null,
+                "renderAttributes": {},
+                "elements": [
+                  {
+                    "enabled": true,
+                    "dataType": "string",
+                    "defaultDataSource": "none",
+                    "requiredMessage": null,
+                    "name": "Space or Kapp",
+                    "choicesResourceName": null,
+                    "omitWhenHidden": null,
+                    "renderAttributes": {},
+                    "renderType": "radio",
+                    "pattern": null,
+                    "defaultValue": null,
+                    "visible": true,
+                    "choices": [
+                      {
+                        "label": "Space",
+                        "value": "Space"
+                      },
+                      {
+                        "label": "Kapp",
+                        "value": "Kapp"
+                      }
+                    ],
+                    "label": "Is WepAPI Location at Space or Kapp",
+                    "choicesResourceProperty": null,
+                    "choicesRunIf": null,
+                    "constraints": [],
+                    "choicesDataSource": "custom",
+                    "events": [
+                      {
+                        "runIf": "values('Space or Kapp') === \"Space\"",
+                        "name": "Get Space WebAPIs",
+                        "code": "//Clear Kapp Selection field\nK('field[Kapp Selection]').value(null);\n\n//Call Retrieve and Populate Kapps logic stored in page load event\nbundle.ext.forms[K('form').slug()].getWebApis();\n\n",
+                        "integrationResourceName": null,
+                        "action": "Custom",
+                        "integrationResourceProperty": "",
+                        "type": "Change"
+                      },
+                      {
+                        "runIf": "values('Space or Kapp') === \"Kapp\"",
+                        "name": "Clear WebAPI",
+                        "code": "//clear existing options\nK('field[WebAPI Selection]').options([]);\nK('field[WebAPI Selection]').value(null);\n\n//clear WebAPI Path\nK('field[WebAPI Path]').value(null);",
+                        "integrationResourceName": null,
+                        "action": "Custom",
+                        "integrationResourceProperty": "",
+                        "type": "Change"
+                      }
+                    ],
+                    "defaultResourceName": null,
+                    "type": "field",
+                    "key": "28acdf35f0f242dcbbc65ca2fb045b72",
+                    "required": true
+                  },
+                  {
+                    "enabled": true,
+                    "dataType": "string",
+                    "defaultDataSource": "none",
+                    "requiredMessage": null,
+                    "name": "Kapp Selection",
+                    "choicesResourceName": "Kapps",
+                    "omitWhenHidden": false,
+                    "renderAttributes": {},
+                    "renderType": "dropdown",
+                    "pattern": null,
+                    "defaultValue": null,
+                    "visible": "values('Space or Kapp') === \"Kapp\"",
+                    "choices": {
+                      "label": "${integration('Name')}",
+                      "value": "${integration('Slug')}"
+                    },
+                    "label": "Kapp Selection",
+                    "choicesResourceProperty": "Kapps",
+                    "choicesRunIf": null,
+                    "constraints": [],
+                    "choicesDataSource": "integration",
+                    "events": [
+                      {
+                        "name": "Get WebAPIs",
+                        "code": "//Call Retrieve and Populate Kapps logic stored in page load event\nbundle.ext.forms[K('form').slug()].getWebApis();\n",
+                        "integrationResourceName": null,
+                        "action": "Custom",
+                        "integrationResourceProperty": "",
+                        "type": "Change"
+                      }
+                    ],
+                    "defaultResourceName": null,
+                    "type": "field",
+                    "key": "c67b8d669589425184e84de11418955a",
+                    "required": "values('Space or Kapp') === \"Kapp\""
+                  },
+                  {
+                    "enabled": true,
+                    "dataType": "string",
+                    "defaultDataSource": "none",
+                    "requiredMessage": null,
+                    "name": "WebAPI Selection",
+                    "choicesResourceName": null,
+                    "omitWhenHidden": null,
+                    "renderAttributes": {},
+                    "renderType": "dropdown",
+                    "pattern": null,
+                    "defaultValue": null,
+                    "visible": true,
+                    "choices": [],
+                    "label": "WebAPI Selection",
+                    "choicesResourceProperty": null,
+                    "choicesRunIf": null,
+                    "constraints": [],
+                    "choicesDataSource": "custom",
+                    "events": [
+                      {
+                        "mappings": [
+                          {
+                            "field": "WebAPI URL",
+                            "value": "${values('WebAPI Path')}/${values('WebAPI Selection')}",
+                            "visible": null
+                          }
+                        ],
+                        "runIf": "values('WebAPI Selection') !== null",
+                        "name": "Set WebAPI URL",
+                        "integrationResourceName": null,
+                        "action": "Set Fields",
+                        "integrationResourceProperty": "",
+                        "type": "Change"
+                      }
+                    ],
+                    "defaultResourceName": null,
+                    "type": "field",
+                    "key": "da3feca1371d43cea20da4107866c3a8",
+                    "required": true
+                  },
+                  {
+                    "enabled": true,
+                    "dataType": "string",
+                    "defaultDataSource": "none",
+                    "requiredMessage": null,
+                    "name": "WebAPI Path",
+                    "omitWhenHidden": false,
+                    "renderAttributes": {},
+                    "renderType": "text",
+                    "pattern": null,
+                    "defaultValue": null,
+                    "visible": false,
+                    "label": "WebAPI Path",
+                    "constraints": [],
+                    "events": [],
+                    "rows": 1,
+                    "defaultResourceName": null,
+                    "type": "field",
+                    "key": "6b3bd05854a140e3b56aba377773c2c2",
+                    "required": true
+                  },
+                  {
+                    "enabled": true,
+                    "dataType": "string",
+                    "defaultDataSource": "none",
+                    "requiredMessage": null,
+                    "name": "WebAPI URL",
+                    "omitWhenHidden": false,
+                    "renderAttributes": {},
+                    "renderType": "text",
+                    "pattern": null,
+                    "defaultValue": null,
+                    "visible": false,
+                    "label": "WebAPI URL",
+                    "constraints": [],
+                    "events": [],
+                    "rows": 1,
+                    "defaultResourceName": null,
+                    "type": "field",
+                    "key": "3d7e189ac9c54f8fa96237e5dcfe0e7b",
+                    "required": true
+                  }
+                ]
+              },
+              {
+                "type": "content",
+                "renderType": "html",
+                "name": "Valid JSON Format Message",
+                "text": "<div class=\"alert alert-danger\" role=\"alert\">\n  'Runtime Inputs' must be valid JSON or blank. <br>\n  Example: {\"input 1\":\"value 1\",\"input 2\":\"value 2\"}\n</div>",
+                "visible": false,
+                "renderAttributes": {}
+              },
+              {
+                "enabled": true,
+                "dataType": "string",
+                "defaultDataSource": "none",
+                "requiredMessage": null,
+                "name": "Runtime Inputs",
+                "omitWhenHidden": false,
+                "renderAttributes": {},
+                "renderType": "text",
+                "pattern": null,
+                "defaultValue": null,
+                "visible": "values('Embedded') === null  || (values('Embedded') !== null && values('Embedded Display Mode') === \"Advanced\") ",
+                "label": "Runtime Inputs (JSON format)",
+                "constraints": [],
+                "events": [],
+                "rows": 3,
+                "defaultResourceName": null,
+                "type": "field",
+                "key": "f21",
+                "required": false
+              }
+            ]
+          },
+          {
+            "type": "section",
+            "renderType": null,
+            "name": "Notify on Run Completion Section",
+            "title": "Execution Notification",
+            "visible": "values('Embedded') === null  || (values('Embedded') !== null && values('Embedded Display Mode') === \"Advanced\") ",
+            "omitWhenHidden": false,
+            "renderAttributes": {},
+            "elements": [
+              {
+                "enabled": true,
+                "dataType": "string",
+                "defaultDataSource": "none",
+                "requiredMessage": null,
+                "name": "Notify Upon Each Run Completion",
+                "choicesResourceName": null,
+                "omitWhenHidden": false,
+                "renderAttributes": {
+                  "data-recurrence-radio": "true"
+                },
+                "renderType": "radio",
+                "pattern": null,
+                "defaultValue": "No",
+                "visible": "values('Embedded') === null  || (values('Embedded') !== null && values('Embedded Display Mode') === \"Advanced\") ",
+                "choices": [
+                  {
+                    "label": "Yes",
+                    "value": "Yes"
+                  },
+                  {
+                    "label": "No",
+                    "value": "No"
+                  }
+                ],
+                "label": "Notify Upon Each Run Completion",
+                "choicesRunIf": null,
+                "constraints": [],
+                "choicesDataSource": "custom",
+                "events": [],
+                "defaultResourceName": null,
+                "type": "field",
+                "key": "f22",
+                "required": true
+              },
+              {
+                "type": "section",
+                "renderType": null,
+                "name": "Run Completion Notification Section",
+                "title": null,
+                "visible": "values('Notify Upon Each Run Completion') === \"Yes\"",
+                "omitWhenHidden": true,
+                "renderAttributes": {},
+                "elements": [
+                  {
+                    "enabled": true,
+                    "dataType": "string",
+                    "defaultDataSource": "none",
+                    "requiredMessage": null,
+                    "name": "Run Completion Recipient",
+                    "omitWhenHidden": null,
+                    "renderAttributes": {},
+                    "renderType": "text",
+                    "pattern": null,
+                    "defaultValue": null,
+                    "visible": true,
+                    "label": "Recipient (Comma separated Teams, Usernames, and/or STMP Addresses)",
+                    "constraints": [],
+                    "events": [],
+                    "rows": 1,
+                    "defaultResourceName": null,
+                    "type": "field",
+                    "key": "f23",
+                    "required": "values('Notify Upon Each Run Completion') === \"Yes\""
+                  },
+                  {
+                    "enabled": true,
+                    "dataType": "string",
+                    "defaultDataSource": "none",
+                    "requiredMessage": null,
+                    "name": "Run Completion Notification Message Template",
+                    "omitWhenHidden": null,
+                    "renderAttributes": {},
+                    "renderType": "text",
+                    "pattern": null,
+                    "defaultValue": null,
+                    "visible": true,
+                    "label": "Notification Message Template",
+                    "constraints": [],
+                    "events": [],
+                    "rows": 1,
+                    "defaultResourceName": null,
+                    "type": "field",
+                    "key": "f24",
+                    "required": "values('Notify Upon Each Run Completion') === \"Yes\""
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "content",
+            "renderType": "html",
+            "name": "HR",
+            "text": "<hr/>",
+            "visible": true,
+            "renderAttributes": {}
+          },
+          {
+            "type": "section",
+            "renderType": null,
+            "name": "Recurrence Section",
+            "title": "Recurrence Information",
+            "visible": true,
+            "omitWhenHidden": null,
+            "renderAttributes": {},
+            "elements": [
+              {
+                "type": "content",
+                "renderType": "html",
+                "name": "Recurrence GMT Note",
+                "text": "<b><em>All recurrence information must be entered as UTC, or execution times may not be as expected.</em></b>",
+                "visible": true,
+                "renderAttributes": {
+                  "class": "alert alert-info"
+                }
+              },
+              {
+                "type": "section",
+                "renderType": null,
+                "name": "Interval Section",
+                "title": null,
+                "visible": true,
+                "omitWhenHidden": null,
+                "renderAttributes": {},
+                "elements": [
+                  {
+                    "enabled": true,
+                    "dataType": "string",
+                    "defaultDataSource": "none",
+                    "requiredMessage": "You must specify an interval for the recurrences.",
+                    "name": "Interval",
+                    "omitWhenHidden": null,
+                    "renderAttributes": {},
+                    "renderType": "text",
+                    "pattern": null,
+                    "defaultValue": "1",
+                    "visible": true,
+                    "label": "Every",
+                    "constraints": [],
+                    "events": [],
+                    "rows": 1,
+                    "defaultResourceName": null,
+                    "type": "field",
+                    "key": "f1",
+                    "required": "values('Recurrence') != null"
+                  },
+                  {
+                    "enabled": true,
+                    "dataType": "string",
+                    "defaultDataSource": "none",
+                    "requiredMessage": null,
+                    "name": "Recurrence Label",
+                    "choicesResourceName": null,
+                    "omitWhenHidden": null,
+                    "renderAttributes": {},
+                    "renderType": "dropdown",
+                    "pattern": null,
+                    "defaultValue": "",
+                    "visible": true,
+                    "choices": [
+                      {
+                        "label": "minute(s)",
+                        "value": "minutely"
+                      },
+                      {
+                        "label": "hour(s)",
+                        "value": "hourly"
+                      },
+                      {
+                        "label": "day(s)",
+                        "value": "daily"
+                      },
+                      {
+                        "label": "week(s)",
+                        "value": "weekly"
+                      },
+                      {
+                        "label": "month(s)",
+                        "value": "monthly"
+                      },
+                      {
+                        "label": "year(s)",
+                        "value": "yearly"
+                      }
+                    ],
+                    "label": "",
+                    "choicesRunIf": null,
+                    "constraints": [],
+                    "choicesDataSource": "custom",
+                    "events": [
+                      {
+                        "name": "Set Recurrence Value",
+                        "type": "Change",
+                        "action": "Set Fields",
+                        "mappings": [
+                          {
+                            "field": "Recurrence",
+                            "value": "${values('Recurrence Label')}",
+                            "visible": null
+                          }
+                        ]
+                      }
+                    ],
+                    "defaultResourceName": null,
+                    "type": "field",
+                    "key": "f4",
+                    "required": false
+                  },
+                  {
+                    "enabled": true,
+                    "dataType": "string",
+                    "defaultDataSource": "none",
+                    "requiredMessage": null,
+                    "name": "Recurrence",
+                    "choicesResourceName": null,
+                    "omitWhenHidden": false,
+                    "renderAttributes": {},
+                    "renderType": "dropdown",
+                    "pattern": null,
+                    "defaultValue": "",
+                    "visible": false,
+                    "choices": [
+                      {
+                        "label": "Minutely",
+                        "value": "minutely"
+                      },
+                      {
+                        "label": "Hourly",
+                        "value": "hourly"
+                      },
+                      {
+                        "label": "Daily",
+                        "value": "daily"
+                      },
+                      {
+                        "label": "Weekly",
+                        "value": "weekly"
+                      },
+                      {
+                        "label": "Monthly",
+                        "value": "monthly"
+                      },
+                      {
+                        "label": "Yearly",
+                        "value": "yearly"
+                      }
+                    ],
+                    "label": "Recurrence",
+                    "choicesRunIf": null,
+                    "constraints": [],
+                    "choicesDataSource": "custom",
+                    "events": [
+                      {
+                        "name": "Populate Recurrence Label - DISABLED",
+                        "type": "Change",
+                        "action": "Set Fields",
+                        "mappings": [
+                          {
+                            "field": "Recurrence Label",
+                            "value": "${values('Recurrence')}",
+                            "visible": null
+                          }
+                        ],
+                        "runIf": "1==2"
+                      }
+                    ],
+                    "defaultResourceName": null,
+                    "type": "field",
+                    "key": "f2",
+                    "required": false
+                  }
+                ]
+              },
+              {
+                "type": "content",
+                "renderType": "html",
+                "name": "Minute Execution Note",
+                "text": "<b>Note: Recurring minute execution times are calculated from the time of the previous execution's completion.\n  <br/>\n  <br/>\n  <em>Ex: If a recurrence is set for every 3 minutes, and a run begins at 2:05 and takes 2 minutes to complete, the next run will be scheduled for 2:10 -- 3 minutes after the completion time of 2:07.</em>\n</b>",
+                "visible": "values('Recurrence Label') === \"minutely\"",
+                "renderAttributes": {
+                  "class": "alert alert-warning"
+                }
+              },
+              {
+                "enabled": true,
+                "dataType": "string",
+                "defaultDataSource": "none",
+                "requiredMessage": "Either 'On certain days of week' or 'On specific days in a month' must be selected.",
+                "name": "Timing",
+                "choicesResourceName": null,
+                "omitWhenHidden": true,
+                "renderAttributes": {
+                  "data-recurrence-radio": "true",
+                  "data-label-hidden": "true"
+                },
+                "renderType": "radio",
+                "pattern": null,
+                "defaultValue": "relative",
+                "visible": "values('Recurrence') == \"monthly\" || values('Recurrence') == \"yearly\"",
+                "choices": [
+                  {
+                    "label": "On certain days of the week",
+                    "value": "relative"
+                  },
+                  {
+                    "label": "On specific dates in a month",
+                    "value": "absolute"
+                  }
+                ],
+                "label": "On",
+                "choicesRunIf": null,
+                "constraints": [],
+                "choicesDataSource": "custom",
+                "events": [],
+                "defaultResourceName": null,
+                "type": "field",
+                "key": "f7",
+                "required": "values('Recurrence') == \"monthly\" || values('Recurrence') == \"yearly\""
+              },
+              {
+                "type": "section",
+                "renderType": null,
+                "name": "Months Section",
+                "title": null,
+                "visible": "values('Recurrence') == \"yearly\"",
+                "omitWhenHidden": true,
+                "renderAttributes": {},
+                "elements": [
+                  {
+                    "enabled": true,
+                    "dataType": "json",
+                    "defaultDataSource": "none",
+                    "requiredMessage": "You must select at least one month.",
+                    "name": "Months",
+                    "choicesResourceName": null,
+                    "omitWhenHidden": null,
+                    "renderAttributes": {
+                      "data-recurrence-checkbox": "true",
+                      "class": "cols-3"
+                    },
+                    "renderType": "checkbox",
+                    "pattern": null,
+                    "defaultValue": null,
+                    "visible": true,
+                    "choices": [
+                      {
+                        "label": "January",
+                        "value": "January"
+                      },
+                      {
+                        "label": "February",
+                        "value": "February"
+                      },
+                      {
+                        "label": "March",
+                        "value": "March"
+                      },
+                      {
+                        "label": "April",
+                        "value": "April"
+                      },
+                      {
+                        "label": "May",
+                        "value": "May"
+                      },
+                      {
+                        "label": "June",
+                        "value": "June"
+                      },
+                      {
+                        "label": "July",
+                        "value": "July"
+                      },
+                      {
+                        "label": "August",
+                        "value": "August"
+                      },
+                      {
+                        "label": "September",
+                        "value": "September"
+                      },
+                      {
+                        "label": "October",
+                        "value": "October"
+                      },
+                      {
+                        "label": "November",
+                        "value": "November"
+                      },
+                      {
+                        "label": "December",
+                        "value": "December"
+                      }
+                    ],
+                    "label": "In which month(s)?",
+                    "choicesRunIf": null,
+                    "constraints": [],
+                    "choicesDataSource": "custom",
+                    "events": [],
+                    "defaultResourceName": null,
+                    "type": "field",
+                    "key": "f6",
+                    "required": "values('Recurrence') == \"yearly\""
+                  }
+                ]
+              },
+              {
+                "type": "section",
+                "renderType": null,
+                "name": "Weeks Section",
+                "title": null,
+                "visible": "values('Recurrence') == \"weekly\" || ((values('Recurrence') == \"monthly\" || values('Recurrence') == \"yearly\") && values('Timing') == \"relative\")",
+                "omitWhenHidden": true,
+                "renderAttributes": {},
+                "elements": [
+                  {
+                    "enabled": true,
+                    "dataType": "json",
+                    "defaultDataSource": "none",
+                    "requiredMessage": "You must select at least one day of the week.",
+                    "name": "Weekdays",
+                    "choicesResourceName": null,
+                    "omitWhenHidden": null,
+                    "renderAttributes": {
+                      "data-recurrence-checkbox": "true",
+                      "class": "cols-4"
+                    },
+                    "renderType": "checkbox",
+                    "pattern": null,
+                    "defaultValue": null,
+                    "visible": true,
+                    "choices": [
+                      {
+                        "label": "Sunday",
+                        "value": "Sunday"
+                      },
+                      {
+                        "label": "Monday",
+                        "value": "Monday"
+                      },
+                      {
+                        "label": "Tuesday",
+                        "value": "Tuesday"
+                      },
+                      {
+                        "label": "Wednesday",
+                        "value": "Wednesday"
+                      },
+                      {
+                        "label": "Thursday",
+                        "value": "Thursday"
+                      },
+                      {
+                        "label": "Friday",
+                        "value": "Friday"
+                      },
+                      {
+                        "label": "Saturday",
+                        "value": "Saturday"
+                      }
+                    ],
+                    "label": "On which day(s) of the week?",
+                    "choicesRunIf": null,
+                    "constraints": [],
+                    "choicesDataSource": "custom",
+                    "events": [],
+                    "defaultResourceName": null,
+                    "type": "field",
+                    "key": "f5",
+                    "required": "values('Recurrence') == \"weekly\" || ((values('Recurrence') == \"monthly\" || values('Recurrence') == \"yearly\") && values('Timing') == \"relative\")"
+                  },
+                  {
+                    "enabled": true,
+                    "dataType": "json",
+                    "defaultDataSource": "none",
+                    "requiredMessage": "You must select at least one Sunday of the month.",
+                    "name": "Sunday Index",
+                    "choicesResourceName": null,
+                    "omitWhenHidden": true,
+                    "renderAttributes": {
+                      "data-recurrence-checkbox": "true",
+                      "class": "cols-4"
+                    },
+                    "renderType": "checkbox",
+                    "pattern": null,
+                    "defaultValue": null,
+                    "visible": "values('Weekdays').indexOf(\"Sunday\") > -1 && ((values('Recurrence') == \"monthly\" || values('Recurrence') == \"yearly\") && values('Timing') == \"relative\")",
+                    "choices": [
+                      {
+                        "label": "Every",
+                        "value": "Every"
+                      },
+                      {
+                        "label": "First",
+                        "value": "First"
+                      },
+                      {
+                        "label": "Second",
+                        "value": "Second"
+                      },
+                      {
+                        "label": "Third",
+                        "value": "Third"
+                      },
+                      {
+                        "label": "Fourth",
+                        "value": "Fourth"
+                      },
+                      {
+                        "label": "Last",
+                        "value": "Last"
+                      }
+                    ],
+                    "label": "On which Sunday(s) on the month?",
+                    "choicesRunIf": null,
+                    "constraints": [],
+                    "choicesDataSource": "custom",
+                    "events": [
+                      {
+                        "name": "Verify Values",
+                        "type": "Change",
+                        "action": "Set Fields",
+                        "code": "console.log(this);\nconsole.log(element);\nconsole.log(event);\nconsole.log(action);\nconsole.log(resource);",
+                        "mappings": [
+                          {
+                            "field": "Sunday Index",
+                            "value": "[\"Every\"]",
+                            "visible": null
+                          }
+                        ],
+                        "runIf": "values('Sunday Index').indexOf(\"Every\") > -1"
+                      }
+                    ],
+                    "defaultResourceName": null,
+                    "type": "field",
+                    "key": "f9",
+                    "required": "values('Weekdays').indexOf(\"Sunday\") > -1 && ((values('Recurrence') == \"monthly\" || values('Recurrence') == \"yearly\") && values('Timing') == \"relative\")"
+                  },
+                  {
+                    "enabled": true,
+                    "dataType": "json",
+                    "defaultDataSource": "none",
+                    "requiredMessage": "You must select at least one Monday of the month.",
+                    "name": "Monday Index",
+                    "choicesResourceName": null,
+                    "omitWhenHidden": true,
+                    "renderAttributes": {
+                      "data-recurrence-checkbox": "true",
+                      "class": "cols-4"
+                    },
+                    "renderType": "checkbox",
+                    "pattern": null,
+                    "defaultValue": null,
+                    "visible": "values('Weekdays').indexOf(\"Monday\") > -1 && ((values('Recurrence') == \"monthly\" || values('Recurrence') == \"yearly\") && values('Timing') == \"relative\")",
+                    "choices": [
+                      {
+                        "label": "Every",
+                        "value": "Every"
+                      },
+                      {
+                        "label": "First",
+                        "value": "First"
+                      },
+                      {
+                        "label": "Second",
+                        "value": "Second"
+                      },
+                      {
+                        "label": "Third",
+                        "value": "Third"
+                      },
+                      {
+                        "label": "Fourth",
+                        "value": "Fourth"
+                      },
+                      {
+                        "label": "Last",
+                        "value": "Last"
+                      }
+                    ],
+                    "label": "On which Monday(s) on the month?",
+                    "choicesRunIf": null,
+                    "constraints": [],
+                    "choicesDataSource": "custom",
+                    "events": [
+                      {
+                        "name": "Verify Values",
+                        "type": "Change",
+                        "action": "Set Fields",
+                        "code": "console.log(this);\nconsole.log(element);\nconsole.log(event);\nconsole.log(action);\nconsole.log(resource);",
+                        "mappings": [
+                          {
+                            "field": "Monday Index",
+                            "value": "[\"Every\"]",
+                            "visible": null
+                          }
+                        ],
+                        "runIf": "values('Monday Index').indexOf(\"Every\") > -1"
+                      }
+                    ],
+                    "defaultResourceName": null,
+                    "type": "field",
+                    "key": "f10",
+                    "required": "values('Weekdays').indexOf(\"Monday\") > -1 && ((values('Recurrence') == \"monthly\" || values('Recurrence') == \"yearly\") && values('Timing') == \"relative\")"
+                  },
+                  {
+                    "enabled": true,
+                    "dataType": "json",
+                    "defaultDataSource": "none",
+                    "requiredMessage": "You must select at least one Tuesday of the month.",
+                    "name": "Tuesday Index",
+                    "choicesResourceName": null,
+                    "omitWhenHidden": true,
+                    "renderAttributes": {
+                      "data-recurrence-checkbox": "true",
+                      "class": "cols-4"
+                    },
+                    "renderType": "checkbox",
+                    "pattern": null,
+                    "defaultValue": null,
+                    "visible": "values('Weekdays').indexOf(\"Tuesday\") > -1 && ((values('Recurrence') == \"monthly\" || values('Recurrence') == \"yearly\") && values('Timing') == \"relative\")",
+                    "choices": [
+                      {
+                        "label": "Every",
+                        "value": "Every"
+                      },
+                      {
+                        "label": "First",
+                        "value": "First"
+                      },
+                      {
+                        "label": "Second",
+                        "value": "Second"
+                      },
+                      {
+                        "label": "Third",
+                        "value": "Third"
+                      },
+                      {
+                        "label": "Fourth",
+                        "value": "Fourth"
+                      },
+                      {
+                        "label": "Last",
+                        "value": "Last"
+                      }
+                    ],
+                    "label": "On which Tuesday(s) on the month?",
+                    "choicesRunIf": null,
+                    "constraints": [],
+                    "choicesDataSource": "custom",
+                    "events": [
+                      {
+                        "name": "Verify Values",
+                        "type": "Change",
+                        "action": "Set Fields",
+                        "code": "console.log(this);\nconsole.log(element);\nconsole.log(event);\nconsole.log(action);\nconsole.log(resource);",
+                        "mappings": [
+                          {
+                            "field": "Tuesday Index",
+                            "value": "[\"Every\"]",
+                            "visible": null
+                          }
+                        ],
+                        "runIf": "values('Tuesday Index').indexOf(\"Every\") > -1"
+                      }
+                    ],
+                    "defaultResourceName": null,
+                    "type": "field",
+                    "key": "f11",
+                    "required": "values('Weekdays').indexOf(\"Tuesday\") > -1 && ((values('Recurrence') == \"monthly\" || values('Recurrence') == \"yearly\") && values('Timing') == \"relative\")"
+                  },
+                  {
+                    "enabled": true,
+                    "dataType": "json",
+                    "defaultDataSource": "none",
+                    "requiredMessage": "You must select at least one Wednesday of the month.",
+                    "name": "Wednesday Index",
+                    "choicesResourceName": null,
+                    "omitWhenHidden": true,
+                    "renderAttributes": {
+                      "data-recurrence-checkbox": "true",
+                      "class": "cols-4"
+                    },
+                    "renderType": "checkbox",
+                    "pattern": null,
+                    "defaultValue": null,
+                    "visible": "values('Weekdays').indexOf(\"Wednesday\") > -1 && ((values('Recurrence') == \"monthly\" || values('Recurrence') == \"yearly\") && values('Timing') == \"relative\")",
+                    "choices": [
+                      {
+                        "label": "Every",
+                        "value": "Every"
+                      },
+                      {
+                        "label": "First",
+                        "value": "First"
+                      },
+                      {
+                        "label": "Second",
+                        "value": "Second"
+                      },
+                      {
+                        "label": "Third",
+                        "value": "Third"
+                      },
+                      {
+                        "label": "Fourth",
+                        "value": "Fourth"
+                      },
+                      {
+                        "label": "Last",
+                        "value": "Last"
+                      }
+                    ],
+                    "label": "On which Wednesday(s) on the month?",
+                    "choicesRunIf": null,
+                    "constraints": [],
+                    "choicesDataSource": "custom",
+                    "events": [
+                      {
+                        "name": "Verify Values",
+                        "type": "Change",
+                        "action": "Set Fields",
+                        "code": "console.log(this);\nconsole.log(element);\nconsole.log(event);\nconsole.log(action);\nconsole.log(resource);",
+                        "mappings": [
+                          {
+                            "field": "Wednesday Index",
+                            "value": "[\"Every\"]",
+                            "visible": null
+                          }
+                        ],
+                        "runIf": "values('Wednesday Index').indexOf(\"Every\") > -1"
+                      }
+                    ],
+                    "defaultResourceName": null,
+                    "type": "field",
+                    "key": "f12",
+                    "required": "values('Weekdays').indexOf(\"Wednesday\") > -1 && ((values('Recurrence') == \"monthly\" || values('Recurrence') == \"yearly\") && values('Timing') == \"relative\")"
+                  },
+                  {
+                    "enabled": true,
+                    "dataType": "json",
+                    "defaultDataSource": "none",
+                    "requiredMessage": "You must select at least one Thursday of the month.",
+                    "name": "Thursday Index",
+                    "choicesResourceName": null,
+                    "omitWhenHidden": true,
+                    "renderAttributes": {
+                      "data-recurrence-checkbox": "true",
+                      "class": "cols-4"
+                    },
+                    "renderType": "checkbox",
+                    "pattern": null,
+                    "defaultValue": null,
+                    "visible": "values('Weekdays').indexOf(\"Thursday\") > -1 && ((values('Recurrence') == \"monthly\" || values('Recurrence') == \"yearly\") && values('Timing') == \"relative\")",
+                    "choices": [
+                      {
+                        "label": "Every",
+                        "value": "Every"
+                      },
+                      {
+                        "label": "First",
+                        "value": "First"
+                      },
+                      {
+                        "label": "Second",
+                        "value": "Second"
+                      },
+                      {
+                        "label": "Third",
+                        "value": "Third"
+                      },
+                      {
+                        "label": "Fourth",
+                        "value": "Fourth"
+                      },
+                      {
+                        "label": "Last",
+                        "value": "Last"
+                      }
+                    ],
+                    "label": "On which Thursday(s) on the month?",
+                    "choicesRunIf": null,
+                    "constraints": [],
+                    "choicesDataSource": "custom",
+                    "events": [
+                      {
+                        "name": "Verify Values",
+                        "type": "Change",
+                        "action": "Set Fields",
+                        "code": "console.log(this);\nconsole.log(element);\nconsole.log(event);\nconsole.log(action);\nconsole.log(resource);",
+                        "mappings": [
+                          {
+                            "field": "Thursday Index",
+                            "value": "[\"Every\"]",
+                            "visible": null
+                          }
+                        ],
+                        "runIf": "values('Thursday Index').indexOf(\"Every\") > -1"
+                      }
+                    ],
+                    "defaultResourceName": null,
+                    "type": "field",
+                    "key": "f13",
+                    "required": "values('Weekdays').indexOf(\"Thursday\") > -1 && ((values('Recurrence') == \"monthly\" || values('Recurrence') == \"yearly\") && values('Timing') == \"relative\")"
+                  },
+                  {
+                    "enabled": true,
+                    "dataType": "json",
+                    "defaultDataSource": "none",
+                    "requiredMessage": "You must select at least one Friday of the month.",
+                    "name": "Friday Index",
+                    "choicesResourceName": null,
+                    "omitWhenHidden": true,
+                    "renderAttributes": {
+                      "data-recurrence-checkbox": "true",
+                      "class": "cols-4"
+                    },
+                    "renderType": "checkbox",
+                    "pattern": null,
+                    "defaultValue": null,
+                    "visible": "values('Weekdays').indexOf(\"Friday\") > -1 && ((values('Recurrence') == \"monthly\" || values('Recurrence') == \"yearly\") && values('Timing') == \"relative\")",
+                    "choices": [
+                      {
+                        "label": "Every",
+                        "value": "Every"
+                      },
+                      {
+                        "label": "First",
+                        "value": "First"
+                      },
+                      {
+                        "label": "Second",
+                        "value": "Second"
+                      },
+                      {
+                        "label": "Third",
+                        "value": "Third"
+                      },
+                      {
+                        "label": "Fourth",
+                        "value": "Fourth"
+                      },
+                      {
+                        "label": "Last",
+                        "value": "Last"
+                      }
+                    ],
+                    "label": "On which Friday(s) on the month?",
+                    "choicesRunIf": null,
+                    "constraints": [],
+                    "choicesDataSource": "custom",
+                    "events": [
+                      {
+                        "name": "Verify Values",
+                        "type": "Change",
+                        "action": "Set Fields",
+                        "code": "console.log(this);\nconsole.log(element);\nconsole.log(event);\nconsole.log(action);\nconsole.log(resource);",
+                        "mappings": [
+                          {
+                            "field": "Friday Index",
+                            "value": "[\"Every\"]",
+                            "visible": null
+                          }
+                        ],
+                        "runIf": "values('Friday Index').indexOf(\"Every\") > -1"
+                      }
+                    ],
+                    "defaultResourceName": null,
+                    "type": "field",
+                    "key": "f14",
+                    "required": "values('Weekdays').indexOf(\"Friday\") > -1 && ((values('Recurrence') == \"monthly\" || values('Recurrence') == \"yearly\") && values('Timing') == \"relative\")"
+                  },
+                  {
+                    "enabled": true,
+                    "dataType": "json",
+                    "defaultDataSource": "none",
+                    "requiredMessage": "You must select at least one Saturday of the month.",
+                    "name": "Saturday Index",
+                    "choicesResourceName": null,
+                    "omitWhenHidden": true,
+                    "renderAttributes": {
+                      "data-recurrence-checkbox": "true",
+                      "class": "cols-4"
+                    },
+                    "renderType": "checkbox",
+                    "pattern": null,
+                    "defaultValue": null,
+                    "visible": "values('Weekdays').indexOf(\"Saturday\") > -1 && ((values('Recurrence') == \"monthly\" || values('Recurrence') == \"yearly\") && values('Timing') == \"relative\")",
+                    "choices": [
+                      {
+                        "label": "Every",
+                        "value": "Every"
+                      },
+                      {
+                        "label": "First",
+                        "value": "First"
+                      },
+                      {
+                        "label": "Second",
+                        "value": "Second"
+                      },
+                      {
+                        "label": "Third",
+                        "value": "Third"
+                      },
+                      {
+                        "label": "Fourth",
+                        "value": "Fourth"
+                      },
+                      {
+                        "label": "Last",
+                        "value": "Last"
+                      }
+                    ],
+                    "label": "On which Saturday(s) on the month?",
+                    "choicesRunIf": null,
+                    "constraints": [],
+                    "choicesDataSource": "custom",
+                    "events": [
+                      {
+                        "name": "Verify Values",
+                        "type": "Change",
+                        "action": "Set Fields",
+                        "code": "console.log(this);\nconsole.log(element);\nconsole.log(event);\nconsole.log(action);\nconsole.log(resource);",
+                        "mappings": [
+                          {
+                            "field": "Saturday Index",
+                            "value": "[\"Every\"]",
+                            "visible": null
+                          }
+                        ],
+                        "runIf": "values('Saturday Index').indexOf(\"Every\") > -1"
+                      }
+                    ],
+                    "defaultResourceName": null,
+                    "type": "field",
+                    "key": "f15",
+                    "required": "values('Weekdays').indexOf(\"Saturday\") > -1 && ((values('Recurrence') == \"monthly\" || values('Recurrence') == \"yearly\") && values('Timing') == \"relative\")"
+                  }
+                ]
+              },
+              {
+                "type": "section",
+                "renderType": null,
+                "name": "Days Section",
+                "title": null,
+                "visible": "(values('Recurrence') == \"monthly\" || values('Recurrence') == \"yearly\") && values('Timing') == \"absolute\"",
+                "omitWhenHidden": true,
+                "renderAttributes": {},
+                "elements": [
+                  {
+                    "enabled": true,
+                    "dataType": "json",
+                    "defaultDataSource": "none",
+                    "requiredMessage": "You must select at least one day.",
+                    "name": "Days",
+                    "choicesResourceName": null,
+                    "omitWhenHidden": null,
+                    "renderAttributes": {
+                      "data-recurrence-checkbox": "true",
+                      "class": "cols-4"
+                    },
+                    "renderType": "checkbox",
+                    "pattern": null,
+                    "defaultValue": null,
+                    "visible": true,
+                    "choices": [
+                      {
+                        "label": "1",
+                        "value": "1"
+                      },
+                      {
+                        "label": "2",
+                        "value": "2"
+                      },
+                      {
+                        "label": "3",
+                        "value": "3"
+                      },
+                      {
+                        "label": "4",
+                        "value": "4"
+                      },
+                      {
+                        "label": "5",
+                        "value": "5"
+                      },
+                      {
+                        "label": "6",
+                        "value": "6"
+                      },
+                      {
+                        "label": "7",
+                        "value": "7"
+                      },
+                      {
+                        "label": "8",
+                        "value": "8"
+                      },
+                      {
+                        "label": "9",
+                        "value": "9"
+                      },
+                      {
+                        "label": "10",
+                        "value": "10"
+                      },
+                      {
+                        "label": "11",
+                        "value": "11"
+                      },
+                      {
+                        "label": "12",
+                        "value": "12"
+                      },
+                      {
+                        "label": "13",
+                        "value": "13"
+                      },
+                      {
+                        "label": "14",
+                        "value": "14"
+                      },
+                      {
+                        "label": "15",
+                        "value": "15"
+                      },
+                      {
+                        "label": "16",
+                        "value": "16"
+                      },
+                      {
+                        "label": "17",
+                        "value": "17"
+                      },
+                      {
+                        "label": "18",
+                        "value": "18"
+                      },
+                      {
+                        "label": "19",
+                        "value": "19"
+                      },
+                      {
+                        "label": "20",
+                        "value": "20"
+                      },
+                      {
+                        "label": "21",
+                        "value": "21"
+                      },
+                      {
+                        "label": "22",
+                        "value": "22"
+                      },
+                      {
+                        "label": "23",
+                        "value": "23"
+                      },
+                      {
+                        "label": "24",
+                        "value": "24"
+                      },
+                      {
+                        "label": "25",
+                        "value": "25"
+                      },
+                      {
+                        "label": "26",
+                        "value": "26"
+                      },
+                      {
+                        "label": "27",
+                        "value": "27"
+                      },
+                      {
+                        "label": "28",
+                        "value": "28"
+                      },
+                      {
+                        "label": "29",
+                        "value": "29"
+                      },
+                      {
+                        "label": "30",
+                        "value": "30"
+                      },
+                      {
+                        "label": "31",
+                        "value": "31"
+                      },
+                      {
+                        "label": "Last",
+                        "value": "Last"
+                      }
+                    ],
+                    "label": "On which day(s) of the month?",
+                    "choicesRunIf": null,
+                    "constraints": [],
+                    "choicesDataSource": "custom",
+                    "events": [],
+                    "defaultResourceName": null,
+                    "type": "field",
+                    "key": "f8",
+                    "required": "(values('Recurrence') == \"monthly\" || values('Recurrence') == \"yearly\") && values('Timing') == \"absolute\""
+                  },
+                  {
+                    "type": "content",
+                    "renderType": "html",
+                    "name": "Disclaimer",
+                    "text": "<i>Note: If a day is selected that does not exist for a given month, a run will not execute for that date.</i>",
+                    "visible": true,
+                    "renderAttributes": {
+                      "class": "alert alert-warning"
+                    }
+                  }
+                ]
+              },
+              {
+                "type": "section",
+                "renderType": null,
+                "name": "Hours and Minutes Section",
+                "title": null,
+                "visible": "values('Recurrence') == \"hourly\" || values('Recurrence') == \"daily\" || values('Recurrence') == \"weekly\" || values('Recurrence') == \"monthly\" || values('Recurrence') == \"yearly\"",
+                "omitWhenHidden": true,
+                "renderAttributes": {
+                  "class": "row"
+                },
+                "elements": [
+                  {
+                    "type": "section",
+                    "renderType": null,
+                    "name": "Execution Values Section",
+                    "title": null,
+                    "visible": true,
+                    "omitWhenHidden": null,
+                    "renderAttributes": {
+                      "class": "col-md-6"
+                    },
+                    "elements": [
+                      {
+                        "type": "section",
+                        "renderType": null,
+                        "name": "Execution Values Section Wrapper",
+                        "title": null,
+                        "visible": true,
+                        "omitWhenHidden": null,
+                        "renderAttributes": {
+                          "class": "row"
+                        },
+                        "elements": [
+                          {
+                            "type": "section",
+                            "renderType": null,
+                            "name": "Execution Hour Section",
+                            "title": null,
+                            "visible": "values('Recurrence') == \"daily\" || values('Recurrence') == \"weekly\" || values('Recurrence') == \"monthly\" || values('Recurrence') == \"yearly\"",
+                            "omitWhenHidden": true,
+                            "renderAttributes": {
+                              "class": "col-6"
+                            },
+                            "elements": [
+                              {
+                                "enabled": true,
+                                "dataType": "string",
+                                "defaultDataSource": "none",
+                                "requiredMessage": null,
+                                "name": "Execution Hour",
+                                "choicesResourceName": null,
+                                "omitWhenHidden": null,
+                                "renderAttributes": {},
+                                "renderType": "dropdown",
+                                "pattern": null,
+                                "defaultValue": null,
+                                "visible": true,
+                                "choices": [
+                                  {
+                                    "label": "12 AM",
+                                    "value": "00"
+                                  },
+                                  {
+                                    "label": "1 AM",
+                                    "value": "01"
+                                  },
+                                  {
+                                    "label": "2 AM",
+                                    "value": "02"
+                                  },
+                                  {
+                                    "label": "3 AM",
+                                    "value": "03"
+                                  },
+                                  {
+                                    "label": "4 AM",
+                                    "value": "04"
+                                  },
+                                  {
+                                    "label": "5 AM",
+                                    "value": "05"
+                                  },
+                                  {
+                                    "label": "6 AM",
+                                    "value": "06"
+                                  },
+                                  {
+                                    "label": "7 AM",
+                                    "value": "07"
+                                  },
+                                  {
+                                    "label": "8 AM",
+                                    "value": "08"
+                                  },
+                                  {
+                                    "label": "9 AM",
+                                    "value": "09"
+                                  },
+                                  {
+                                    "label": "10 AM",
+                                    "value": "10"
+                                  },
+                                  {
+                                    "label": "11 AM",
+                                    "value": "11"
+                                  },
+                                  {
+                                    "label": "12 AM",
+                                    "value": "12"
+                                  },
+                                  {
+                                    "label": "1 PM",
+                                    "value": "13"
+                                  },
+                                  {
+                                    "label": "2 PM",
+                                    "value": "14"
+                                  },
+                                  {
+                                    "label": "3 PM",
+                                    "value": "15"
+                                  },
+                                  {
+                                    "label": "4 PM",
+                                    "value": "16"
+                                  },
+                                  {
+                                    "label": "5 PM",
+                                    "value": "17"
+                                  },
+                                  {
+                                    "label": "6 PM",
+                                    "value": "18"
+                                  },
+                                  {
+                                    "label": "7 PM",
+                                    "value": "19"
+                                  },
+                                  {
+                                    "label": "8 PM",
+                                    "value": "20"
+                                  },
+                                  {
+                                    "label": "9 PM",
+                                    "value": "21"
+                                  },
+                                  {
+                                    "label": "10 PM",
+                                    "value": "22"
+                                  },
+                                  {
+                                    "label": "11 PM",
+                                    "value": "23"
+                                  }
+                                ],
+                                "label": "At what hour (UTC)",
+                                "choicesRunIf": null,
+                                "constraints": [],
+                                "choicesDataSource": "custom",
+                                "events": [],
+                                "defaultResourceName": null,
+                                "type": "field",
+                                "key": "f32",
+                                "required": "values('Recurrence') == \"daily\" || values('Recurrence') == \"weekly\" || values('Recurrence') == \"monthly\" || values('Recurrence') == \"yearly\""
+                              }
+                            ]
+                          },
+                          {
+                            "type": "section",
+                            "renderType": null,
+                            "name": "Execution Minute Section",
+                            "title": null,
+                            "visible": true,
+                            "omitWhenHidden": null,
+                            "renderAttributes": {
+                              "class": "col-6"
+                            },
+                            "elements": [
+                              {
+                                "enabled": true,
+                                "dataType": "string",
+                                "defaultDataSource": "none",
+                                "requiredMessage": null,
+                                "name": "Execution Minute",
+                                "choicesResourceName": null,
+                                "omitWhenHidden": true,
+                                "renderAttributes": {},
+                                "renderType": "dropdown",
+                                "pattern": null,
+                                "defaultValue": null,
+                                "visible": "values('Recurrence') == \"hourly\" || values('Recurrence') == \"daily\" || values('Recurrence') == \"weekly\" || values('Recurrence') == \"monthly\" || values('Recurrence') == \"yearly\"",
+                                "choices": [
+                                  {
+                                    "label": "00",
+                                    "value": "00"
+                                  },
+                                  {
+                                    "label": "01",
+                                    "value": "01"
+                                  },
+                                  {
+                                    "label": "02",
+                                    "value": "02"
+                                  },
+                                  {
+                                    "label": "03",
+                                    "value": "03"
+                                  },
+                                  {
+                                    "label": "04",
+                                    "value": "04"
+                                  },
+                                  {
+                                    "label": "05",
+                                    "value": "05"
+                                  },
+                                  {
+                                    "label": "06",
+                                    "value": "06"
+                                  },
+                                  {
+                                    "label": "07",
+                                    "value": "07"
+                                  },
+                                  {
+                                    "label": "08",
+                                    "value": "08"
+                                  },
+                                  {
+                                    "label": "09",
+                                    "value": "09"
+                                  },
+                                  {
+                                    "label": "10",
+                                    "value": "10"
+                                  },
+                                  {
+                                    "label": "11",
+                                    "value": "11"
+                                  },
+                                  {
+                                    "label": "12",
+                                    "value": "12"
+                                  },
+                                  {
+                                    "label": "13",
+                                    "value": "13"
+                                  },
+                                  {
+                                    "label": "14",
+                                    "value": "14"
+                                  },
+                                  {
+                                    "label": "15",
+                                    "value": "15"
+                                  },
+                                  {
+                                    "label": "16",
+                                    "value": "16"
+                                  },
+                                  {
+                                    "label": "17",
+                                    "value": "17"
+                                  },
+                                  {
+                                    "label": "18",
+                                    "value": "18"
+                                  },
+                                  {
+                                    "label": "19",
+                                    "value": "19"
+                                  },
+                                  {
+                                    "label": "20",
+                                    "value": "20"
+                                  },
+                                  {
+                                    "label": "21",
+                                    "value": "21"
+                                  },
+                                  {
+                                    "label": "22",
+                                    "value": "22"
+                                  },
+                                  {
+                                    "label": "23",
+                                    "value": "23"
+                                  },
+                                  {
+                                    "label": "24",
+                                    "value": "24"
+                                  },
+                                  {
+                                    "label": "25",
+                                    "value": "25"
+                                  },
+                                  {
+                                    "label": "26",
+                                    "value": "26"
+                                  },
+                                  {
+                                    "label": "27",
+                                    "value": "27"
+                                  },
+                                  {
+                                    "label": "28",
+                                    "value": "28"
+                                  },
+                                  {
+                                    "label": "29",
+                                    "value": "29"
+                                  },
+                                  {
+                                    "label": "30",
+                                    "value": "30"
+                                  },
+                                  {
+                                    "label": "31",
+                                    "value": "31"
+                                  },
+                                  {
+                                    "label": "32",
+                                    "value": "32"
+                                  },
+                                  {
+                                    "label": "33",
+                                    "value": "33"
+                                  },
+                                  {
+                                    "label": "34",
+                                    "value": "34"
+                                  },
+                                  {
+                                    "label": "35",
+                                    "value": "35"
+                                  },
+                                  {
+                                    "label": "36",
+                                    "value": "36"
+                                  },
+                                  {
+                                    "label": "37",
+                                    "value": "37"
+                                  },
+                                  {
+                                    "label": "38",
+                                    "value": "38"
+                                  },
+                                  {
+                                    "label": "39",
+                                    "value": "39"
+                                  },
+                                  {
+                                    "label": "40",
+                                    "value": "40"
+                                  },
+                                  {
+                                    "label": "41",
+                                    "value": "41"
+                                  },
+                                  {
+                                    "label": "42",
+                                    "value": "42"
+                                  },
+                                  {
+                                    "label": "43",
+                                    "value": "43"
+                                  },
+                                  {
+                                    "label": "44",
+                                    "value": "44"
+                                  },
+                                  {
+                                    "label": "45",
+                                    "value": "45"
+                                  },
+                                  {
+                                    "label": "46",
+                                    "value": "46"
+                                  },
+                                  {
+                                    "label": "47",
+                                    "value": "47"
+                                  },
+                                  {
+                                    "label": "48",
+                                    "value": "48"
+                                  },
+                                  {
+                                    "label": "49",
+                                    "value": "49"
+                                  },
+                                  {
+                                    "label": "50",
+                                    "value": "50"
+                                  },
+                                  {
+                                    "label": "51",
+                                    "value": "51"
+                                  },
+                                  {
+                                    "label": "52",
+                                    "value": "52"
+                                  },
+                                  {
+                                    "label": "53",
+                                    "value": "53"
+                                  },
+                                  {
+                                    "label": "54",
+                                    "value": "54"
+                                  },
+                                  {
+                                    "label": "55",
+                                    "value": "55"
+                                  },
+                                  {
+                                    "label": "56",
+                                    "value": "56"
+                                  },
+                                  {
+                                    "label": "57",
+                                    "value": "57"
+                                  },
+                                  {
+                                    "label": "58",
+                                    "value": "58"
+                                  },
+                                  {
+                                    "label": "59",
+                                    "value": "59"
+                                  }
+                                ],
+                                "label": "At what minute (UTC)",
+                                "choicesRunIf": null,
+                                "constraints": [],
+                                "choicesDataSource": "custom",
+                                "events": [],
+                                "defaultResourceName": null,
+                                "type": "field",
+                                "key": "f34",
+                                "required": "values('Recurrence') == \"hourly\" || values('Recurrence') == \"daily\" || values('Recurrence') == \"weekly\" || values('Recurrence') == \"monthly\" || values('Recurrence') == \"yearly\""
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "type": "section",
+                    "renderType": null,
+                    "name": "Offset Container",
+                    "title": null,
+                    "visible": true,
+                    "omitWhenHidden": null,
+                    "renderAttributes": {
+                      "class": "col-sm-12 col-md-6"
+                    },
+                    "elements": [
+                      {
+                        "type": "section",
+                        "renderType": null,
+                        "name": "Offset Info Alert Container",
+                        "title": null,
+                        "visible": true,
+                        "omitWhenHidden": null,
+                        "renderAttributes": {
+                          "class": "col alert alert-info"
+                        },
+                        "elements": [
+                          {
+                            "type": "section",
+                            "renderType": null,
+                            "name": "Offset Info Wrapper",
+                            "title": null,
+                            "visible": true,
+                            "omitWhenHidden": null,
+                            "renderAttributes": {
+                              "class": "row"
+                            },
+                            "elements": [
+                              {
+                                "type": "section",
+                                "renderType": null,
+                                "name": "Timezone Offset Message Container",
+                                "title": null,
+                                "visible": true,
+                                "omitWhenHidden": null,
+                                "renderAttributes": {
+                                  "class": "col-6"
+                                },
+                                "elements": [
+                                  {
+                                    "type": "content",
+                                    "renderType": "html",
+                                    "name": "Timezone offset message",
+                                    "text": "<span id=\"operation-for-utc\"></span> <span id=\"hours-for-utc\"></span> hour(s) from your local time to calculate UTC time.\n\n<script>\n  var x = new Date(),\n      currentTimeZoneOffsetInHours = x.getTimezoneOffset() / 60;\n  if ( currentTimeZoneOffsetInHours >= 0) {\n    $('#operation-for-utc').html(\"Add\");\n  } else {\n    $('#operation-for-utc').html(\"Subtract\");\n  }\n  $('#hours-for-utc').html(currentTimeZoneOffsetInHours);\n</script>",
+                                    "visible": true,
+                                    "renderAttributes": {
+                                      "class": "x-alert x-alert-info"
+                                    }
+                                  }
+                                ]
+                              },
+                              {
+                                "type": "section",
+                                "renderType": null,
+                                "name": "Set to Local Time Button Container",
+                                "title": null,
+                                "visible": true,
+                                "omitWhenHidden": null,
+                                "renderAttributes": {
+                                  "class": "col-6"
+                                },
+                                "elements": [
+                                  {
+                                    "type": "button",
+                                    "label": "Set values to current time UTC",
+                                    "name": "Set to current time UTC",
+                                    "visible": true,
+                                    "enabled": true,
+                                    "renderType": "custom",
+                                    "renderAttributes": {},
+                                    "events": [
+                                      {
+                                        "name": "Set Execution Hour and Execution Minute based on user local tim",
+                                        "type": "Click",
+                                        "action": "Custom",
+                                        "code": "K('field[Execution Hour]').value( moment(Date.now()).utc().format(\"HH\") );\nK('field[Execution Minute]').value( moment(Date.now()).utc().format(\"mm\") );\n"
+                                      }
+                                    ]
+                                  }
+                                ]
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "content",
+            "renderType": "html",
+            "name": "HR 2",
+            "text": "<hr/>",
+            "visible": true,
+            "renderAttributes": {}
+          },
+          {
+            "type": "section",
+            "renderType": null,
+            "name": "Execution Period",
+            "title": "Execution Period",
+            "visible": "values('Embedded') === null  || (values('Embedded') !== null  && values('Embedded Display Mode') === \"Advanced\") ",
+            "omitWhenHidden": false,
+            "renderAttributes": {},
+            "elements": [
+              {
+                "type": "section",
+                "renderType": null,
+                "name": "Start Date Wrapper",
+                "title": null,
+                "visible": true,
+                "omitWhenHidden": null,
+                "renderAttributes": {
+                  "class": "row"
+                },
+                "elements": [
+                  {
+                    "type": "section",
+                    "renderType": null,
+                    "name": "Start Date Container",
+                    "title": null,
+                    "visible": true,
+                    "omitWhenHidden": null,
+                    "renderAttributes": {
+                      "class": "cols-2"
+                    },
+                    "elements": [
+                      {
+                        "enabled": true,
+                        "dataType": "string",
+                        "defaultDataSource": "none",
+                        "requiredMessage": null,
+                        "name": "Start Date",
+                        "omitWhenHidden": null,
+                        "renderAttributes": {},
+                        "renderType": "datetime",
+                        "pattern": null,
+                        "defaultValue": null,
+                        "visible": true,
+                        "label": "Start Date",
+                        "constraints": [],
+                        "events": [
+                          {
+                            "name": "Convert and populate Start Date UTC",
+                            "code": "bundle.ext.forms[K('form').slug()].setUtcStartDate();",
+                            "integrationResourceName": null,
+                            "action": "Custom",
+                            "integrationResourceProperty": "",
+                            "type": "Change"
+                          }
+                        ],
+                        "defaultResourceName": null,
+                        "type": "field",
+                        "key": "f25",
+                        "required": true
+                      },
+                      {
+                        "type": "section",
+                        "renderType": null,
+                        "name": "Start Date UTC Container",
+                        "title": null,
+                        "visible": "values('Start Date') !== null",
+                        "omitWhenHidden": true,
+                        "renderAttributes": {},
+                        "elements": [
+                          {
+                            "type": "content",
+                            "renderType": "html",
+                            "name": "Start Date UTC Display",
+                            "text": "Start date as UTC: <span id=\"start-date-utc\"></span>",
+                            "visible": true,
+                            "renderAttributes": {
+                              "class": "kalert kalert-info",
+                              "id": "start-date-utc-display"
+                            }
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "section",
+                "renderType": null,
+                "name": "End Date Wrapper",
+                "title": null,
+                "visible": true,
+                "omitWhenHidden": null,
+                "renderAttributes": {
+                  "class": "row"
+                },
+                "elements": [
+                  {
+                    "type": "section",
+                    "renderType": null,
+                    "name": "End Date Container",
+                    "title": null,
+                    "visible": true,
+                    "omitWhenHidden": null,
+                    "renderAttributes": {
+                      "class": "cols-2"
+                    },
+                    "elements": [
+                      {
+                        "enabled": true,
+                        "dataType": "string",
+                        "defaultDataSource": "none",
+                        "requiredMessage": null,
+                        "name": "End Date",
+                        "omitWhenHidden": null,
+                        "renderAttributes": {},
+                        "renderType": "datetime",
+                        "pattern": null,
+                        "defaultValue": null,
+                        "visible": true,
+                        "label": "End Date (Leave blank for continual execution)",
+                        "constraints": [],
+                        "events": [
+                          {
+                            "name": "Convert and populate End Date UTC",
+                            "code": "bundle.ext.forms[K('form').slug()].setUtcEndDate();",
+                            "integrationResourceName": null,
+                            "action": "Custom",
+                            "integrationResourceProperty": "",
+                            "type": "Change"
+                          }
+                        ],
+                        "defaultResourceName": null,
+                        "type": "field",
+                        "key": "f26",
+                        "required": false
+                      },
+                      {
+                        "type": "section",
+                        "renderType": null,
+                        "name": "End Date UTC Container",
+                        "title": null,
+                        "visible": "values('End Date') !== null",
+                        "omitWhenHidden": true,
+                        "renderAttributes": {},
+                        "elements": [
+                          {
+                            "type": "content",
+                            "renderType": "html",
+                            "name": "End Date UTC Display",
+                            "text": "End date as UTC: <span id=\"end-date-utc\"></span>",
+                            "visible": true,
+                            "renderAttributes": {
+                              "class": "kalert kalert-info",
+                              "id": "end-date-utc-display"
+                            }
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "content",
+                "renderType": "html",
+                "name": "HR 3",
+                "text": "<hr/>",
+                "visible": true,
+                "renderAttributes": {}
+              },
+              {
+                "type": "section",
+                "renderType": null,
+                "name": "Notify on Schedule Completion Section",
+                "title": "Schedule Completion Notification",
+                "visible": "values('End Date') != null",
+                "omitWhenHidden": true,
+                "renderAttributes": {},
+                "elements": [
+                  {
+                    "enabled": true,
+                    "dataType": "string",
+                    "defaultDataSource": "none",
+                    "requiredMessage": null,
+                    "name": "Notify Upon Schedule Completion",
+                    "choicesResourceName": null,
+                    "omitWhenHidden": null,
+                    "renderAttributes": {
+                      "data-recurrence-radio": "true"
+                    },
+                    "renderType": "radio",
+                    "pattern": null,
+                    "defaultValue": "No",
+                    "visible": true,
+                    "choices": [
+                      {
+                        "label": "Yes",
+                        "value": "Yes"
+                      },
+                      {
+                        "label": "No",
+                        "value": "No"
+                      }
+                    ],
+                    "label": "Notify Upon Schedule Completion",
+                    "choicesRunIf": null,
+                    "constraints": [],
+                    "choicesDataSource": "custom",
+                    "events": [],
+                    "defaultResourceName": null,
+                    "type": "field",
+                    "key": "f27",
+                    "required": "values('End Date') != null"
+                  },
+                  {
+                    "type": "section",
+                    "renderType": null,
+                    "name": "Schedule Completion Notification Section",
+                    "title": "",
+                    "visible": "values('Notify Upon Schedule Completion') === \"Yes\"",
+                    "omitWhenHidden": true,
+                    "renderAttributes": {},
+                    "elements": [
+                      {
+                        "enabled": true,
+                        "dataType": "string",
+                        "defaultDataSource": "none",
+                        "requiredMessage": null,
+                        "name": "Schedule Completion Recipient",
+                        "omitWhenHidden": null,
+                        "renderAttributes": {},
+                        "renderType": "text",
+                        "pattern": null,
+                        "defaultValue": null,
+                        "visible": true,
+                        "label": "Recipient (Comma separated Teams, Usernames, and/or STMP Addresses)",
+                        "constraints": [],
+                        "events": [],
+                        "rows": 1,
+                        "defaultResourceName": null,
+                        "type": "field",
+                        "key": "f28",
+                        "required": "values('Notify Upon Schedule Completion') === \"Yes\""
+                      },
+                      {
+                        "enabled": true,
+                        "dataType": "string",
+                        "defaultDataSource": "none",
+                        "requiredMessage": null,
+                        "name": "Schedule Completion Notification Message Template",
+                        "omitWhenHidden": null,
+                        "renderAttributes": {},
+                        "renderType": "text",
+                        "pattern": null,
+                        "defaultValue": null,
+                        "visible": true,
+                        "label": "Notification Message Template",
+                        "constraints": [],
+                        "events": [],
+                        "rows": 1,
+                        "defaultResourceName": null,
+                        "type": "field",
+                        "key": "f29",
+                        "required": "values('Notify Upon Schedule Completion') === \"Yes\""
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "section",
+                "renderType": null,
+                "name": "Next Scheduled Execution Section",
+                "title": "",
+                "visible": true,
+                "omitWhenHidden": null,
+                "renderAttributes": {
+                  "class": "kalert kalert-success"
+                },
+                "elements": [
+                  {
+                    "type": "content",
+                    "renderType": "html",
+                    "name": "Next Scheduled Execution",
+                    "text": "Next scheduled execution (local time): <b><span id=\"next-scheduled-execution\"></span></b>",
+                    "visible": true,
+                    "renderAttributes": {}
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "section",
+            "renderType": null,
+            "name": "Buttons",
+            "title": null,
+            "visible": false,
+            "omitWhenHidden": false,
+            "renderAttributes": {},
+            "elements": [
+              {
+                "type": "button",
+                "label": "Save",
+                "name": "Save",
+                "visible": true,
+                "enabled": true,
+                "renderType": "submit-page",
+                "renderAttributes": {
+                  "class": "btn btn-primary"
+                }
+              },
+              {
+                "type": "button",
+                "label": "Delete Schedule",
+                "name": "Delete Schedule",
+                "visible": false,
+                "enabled": true,
+                "renderType": "custom",
+                "renderAttributes": {
+                  "class": "btn btn-link delete-schedule pull-right",
+                  "id": "delete-schedule-btn"
+                },
+                "events": []
+              }
+            ]
+          }
+        ],
+        "events": [
+          {
+            "name": "Validate Runtime Inputs",
+            "type": "Submit",
+            "action": "Custom",
+            "code": "IsJsonString( K('field[Runtime Inputs]').value() );\n\nfunction IsJsonString(str) {\n  try {\n    var input = JSON.parse( str );\n  } catch (e) {\n    action.stop();\n    K('content[Valid JSON Format Message]').show();\n    return false;\n  }\n  if (typeof input === \"object\" && input !== null) {\n\t\treturn true;\n\t}\n  action.stop();\n  K('content[Valid JSON Format Message]').show();\n  return false\n}",
+            "runIf": "K('field[Runtime Inputs]').value() != null"
+          },
+          {
+            "name": "Load Page Code",
+            "code": "var formSlug = K('form').slug();\n// Confirm bundle.ext exists, or create it\nbundle.ext = bundle.ext || {};\n// Confirm bundle.ext.forms.<form_slug> exists, or create it\nbundle.ext.forms = bundle.ext.forms || {};\nbundle.ext.forms[formSlug] = bundle.ext.forms[formSlug] || {};\n// Create variable to customCode\nvar customCode = bundle.ext.forms[formSlug];\n\ncustomCode.setUtcStartDate = function() {\n  var utcDate = moment( K('field[Start Date]').value() ).utc().format(\"LLLL\");\n  $('#start-date-utc').html(utcDate);\n}\ncustomCode.setUtcEndDate = function() {\n  var utcDate = moment( K('field[End Date]').value() ).utc().format(\"LLLL\");\n  console.log(utcDate);\n  console.log($('#end-date-utc'))\n  $('#end-date-utc').html(utcDate);\n}\n\ncustomCode.populateNextExecutionDateDisplay = function() {\n  if ( K('submission').id() !== null ) {\n    K('section[Next Scheduled Execution Section]').hide();\n    $('#next-scheduled-execution').empty();\n    var nextExecutionUrl = bundle.apiLocation() + \"/kapps/admin-center/forms/robot-next-execution/submissions?include=values&limit=1&index=values[Robot ID]&q=values[Robot ID]=\\\"\"+K('submission').id()+\"\\\"\"\n    $.ajax({\n      url: nextExecutionUrl,\n    }).done(function(data) {\n      var nextExecutionDate = null;\n      if ( data['submissions'].length == 1 ) {\n        var nextExecutionDate = data['submissions'][0]['values']['Next Execution'] || null\n      }\n      /*\n      var nextExecDisplay = \"\";\n      if ( nextExecutionDate === null || nextExecutionDate === \"\" ) {\n        if ( K('field[End Date]').value() !== null && new Date( K('field[End Date]').value() ) > new Date( K('field[End Date Original]').value() ) ) {\n          nextExecDisplay = \"<em>Pending update</em>\";\n        } else {\n          nextExecDisplay = \"<em>Expired (next scheduled date is beyond End Date)</em>\"\n        }\n      } else {\n        //var nextExecDate = new Date(nextExecutionDate);\n        nextExecDisplay = moment( nextExecutionDate ).format( \"ddd ll LTS\" );\n      }\n      */\n      if ( nextExecutionDate !== null && nextExecutionDate !== \"\" ) {\n        $('#next-scheduled-execution').html( moment( nextExecutionDate ).format( \"ddd ll LTS\" ) );\n        K('section[Next Scheduled Execution Section]').show();\n      }\n    });\n  }\n}\n\n//Retrieve WebAPI listing\ncustomCode.getWebApis = function(redisplay) {\n  //clear existing options \n  K('field[WebAPI Selection]').options([]);\n  \n  //get new options\n  var url = \"/app/api/v1/webApis\",\n      path = \"/webApis\";\n  if (K('field[Kapp Selection]').value() !== null) {\n    url = \"/app/api/v1/kapps/\" + K('field[Kapp Selection]').value() + \"/webApis\";\n    path = \"/kapps/\" + K('field[Kapp Selection]').value() + \"/webApis\";\n  }\n  //Store the path\n  K('field[WebAPI Path]').value(path);\n\n  $.ajax({\n    url: url,\n  })\n  .done(function(result){\n    var menuOptions = [];\n    $.each(result['webApis'],function(i,v){\n      menuOptions.push({\"label\":v.slug,\"value\":v.slug});\n      K('field[WebAPI Selection]').options(menuOptions);\n\t\t\t// This is required because the Platform bridge doesn't support WebAPIs and \n      // they have to be retrieved from an ajax call.\n      // Without this logic, the WebAPI Selection field will be cleared.\n      if ( redisplay && K('field[WebAPI URL]').value() !== null ) {\n        var webApiParts = K('field[WebAPI URL]').value().split(\"/\");\n        K('field[WebAPI Selection]').value(webApiParts[webApiParts.length - 1])\n      }\n    })\n  })\n  .fail(function(response){\n    console.log(\"Couldn't retrieve WebAPI listing\");\n  })\n}\n\n\n//Functions that run on page load\n\n// Set End Date Original field to End Date\n// End Date Original is only used for UI display related to 'Next Execution Date'.  It is a hidden field that is omitted upon save.\nK('field[End Date Original]').value( K('field[End Date]').value() );\n\n// Execute functions on Load\nif ( K('field[Start Date]').value() !== null ) {\n    customCode.setUtcStartDate();\n    }\nif ( K('field[End Date]').value() !== null ) {\n  customCode.setUtcEndDate();\n}\n\n//Show Next Schedule Execution \ncustomCode.populateNextExecutionDateDisplay();\n\nif (K('submission').id() !== null) {\n  customCode.getWebApis(true);\n}",
+            "integrationResourceName": null,
+            "action": "Custom",
+            "integrationResourceProperty": "",
+            "type": "Load"
+          },
+          {
+            "name": "Populate Recurrence Description",
+            "type": "Submit",
+            "action": "Custom",
+            "code": "var recurrence = K('field[Recurrence]').value(),\n    textArray = [\"Every\"],\n    weeklyArray = [],\n    daysDisplay = [];\n\nswitch (recurrence)\n{\n  case 'minutely':\n    textArray.push( values('Interval') );\n    textArray.push( values('Interval') === \"1\" ? \"minute\" : \"minutes\" );\n    break;\n  case 'hourly':\n    textArray.push( values('Interval') );\n    textArray.push( values('Interval') === \"1\" ? \"hour\" : \"hours\" );\n    textArray.push( \"at\" );\n    textArray.push( \":\" + values('Execution Minute') + \" past the hour\");\n    break;\n  case 'daily':\n    textArray.push( values('Interval') );\n    textArray.push( values('Interval') === \"1\" ? \"day\" : \"days\" );\n    textArray.push( \"at\" );\n    textArray.push( values('Execution Hour') + \":\" + values('Execution Minute') + \" UTC\" );\n    break;\n  case 'weekly':\n    textArray.push( values('Interval') );\n    textArray.push( values('Interval') === \"1\" ? \"week\" : \"weeks\" );\n    textArray.push( \"on\" );\n    textArray.push( values('Weekdays').join(\" and \" ) );\n    textArray.push( \"at\" );\n    textArray.push( values('Execution Hour') + \":\" + values('Execution Minute') + \" UTC\" );\n    break;\n  case 'monthly':\n    textArray.push( values('Interval') );\n    textArray.push( values('Interval') === \"1\" ? \"month\" : \"months\" );\n    textArray.push( \"on the\" );\n    if ( values('Timing') === \"absolute\" ) {\n      $.each(values('Days'),function(key,value){\n        // values ending in 11, 12, 13 are always \"th\".  Otherwise values ending in 1=1st, 2=2nd, 3=3rd; \"Last\" ends with 't'.\n        switch ( [\"11\", \"12\", \"13\"].indexOf(value.slice(-2)) > -1 ? \"th\" : value.slice(-1) )\n        {\n          case '1':\n            daysDisplay.push(value + \"st\");\n            break;\n          case '2':\n            daysDisplay.push(value + \"nd\");\n            break;\n          case '3':\n            daysDisplay.push(value + \"rd\");\n            break;\n          case 't':\n            daysDisplay.push(value + \" day\");\n            break;\n          default:\n            daysDisplay.push(value + \"th\");\n        }\n      })\n      textArray.push( daysDisplay.join( \", \" ) );\n    }\n    else {\n      $.each( values('Weekdays'), function(key, value) {\n        weeklyArray.push( values( value + ' Index').join( \", \" ) + \" \" + value );\n      } );\n      textArray.push( weeklyArray.join(\", and \") );\n    }\n    textArray.push( \"at\" );\n    textArray.push( values('Execution Hour') + \":\" + values('Execution Minute') + \" UTC\" );\n    break;\n  case 'yearly':\n    textArray.push( values('Interval') );\n    textArray.push( values('Interval') === \"1\" ? \"year\" : \"years\" );\n    textArray.push( \"in\" );\n    textArray.push( values('Months').join(\" and \" ) );\n    textArray.push( \"on the\" );\n    if ( values('Timing') === \"absolute\" ) {\n      $.each(values('Days'),function(key,value){\n        // values ending in 11, 12, 13 are always \"th\".  Otherwise values ending in 1=1st, 2=2nd, 3=3rd; \"Last\" ends with 't'.\n        switch ( [\"11\", \"12\", \"13\"].indexOf(value.slice(-2)) > -1 ? \"th\" : value.slice(-1) )\n        {\n          case '1':\n            daysDisplay.push(value + \"st\");\n            break;\n          case '2':\n            daysDisplay.push(value + \"nd\");\n            break;\n          case '3':\n            daysDisplay.push(value + \"th\");\n            break;\n          case 't':\n            daysDisplay.push(value + \" day\");\n            break;\n          default:\n            daysDisplay.push(value);\n        }\n      })\n      textArray.push( daysDisplay.join( \", \" ) );\n    }\n    else {\n      $.each( values('Weekdays'), function(key, value) {\n        weeklyArray.push( values( value + ' Index').join( \", \" ) + \" \" + value);\n      } );\n      textArray.push( weeklyArray.join(\", and \") );\n    }\n    textArray.push( \"at\" );\n    textArray.push( values('Execution Hour') + \":\" + values('Execution Minute') + \" UTC\" );\n    break;\n  default:\n    textArray.push( \"Unknown\" );\n}\nK('field[Recurrence Description]').value( textArray.join(\" \") );"
+          }
+        ],
+        "name": "Schedule",
+        "renderType": "submittable",
+        "type": "page"
+      }
+    ],
+    "securityPolicies": [],
+    "slug": "robot-definitions",
+    "status": "Active",
+    "submissionLabelExpression": "${values('Robot Name')} - ${values('Start Date')}",
+    "type": "Data"
+  }
+}

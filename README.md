@@ -33,21 +33,24 @@ Compose Portal reads registry URLs from a space attribute named **`Capability Re
 
 ```
 compose-capabilities/
-├── index.json                       # Registry index — list of capabilities
+├── index.json                          # Registry index — list of capabilities
+├── README.md                           # You are here
 ├── notification-templates/
-│   ├── manifest.json                # Capability manifest (schema below)
-│   ├── kapp.json                    # Kapp export (stub today)
-│   └── README.md                    # Human docs for this capability
+│   ├── manifest.json                   # Capability manifest (schema below)
+│   ├── kapp.json                       # Kapp export
+│   ├── <form>.json                     # Form exports
+│   ├── <form>-submissions.csv          # Optional seed data for a form
+│   ├── <handler>.zip                   # Task handler packages
+│   ├── tree_<Name>.xml                 # Workflow tree exports
+│   ├── routine_<Name>.xml              # Workflow routine exports
+│   └── integrations.json               # Integration / connection export
 ├── robots/
-│   ├── manifest.json
-│   ├── kapp.json
-│   └── README.md
-├── datastore/
-│   ├── manifest.json
-│   ├── kapp.json
-│   └── README.md
-└── README.md                        # You are here
+│   └── ...                             # Same structure as above
+└── datastore/
+    └── ...                             # A minimal capability: kapp + a form
 ```
+
+Folder names are convention, not required — `manifestUrl` in `index.json` can point anywhere. Include only the asset files a capability actually needs; omit manifest keys for assets you don't have rather than leaving empty arrays.
 
 ## `index.json` schema
 
@@ -75,27 +78,100 @@ The registry index enumerates the capabilities hosted in this registry.
   "name": "Notification Templates",
   "description": "What this capability does, in one paragraph.",
   "version": "0.1.0",
-  "author": "Optional author string.",
+  "author": "Kinetic Data",
   "tags": ["optional", "labels"],
+
   "kapp": {
-    "slug": "notification-templates",
-    "name": "Notification Templates",
-    "export": "./kapp.json"
+    "definition": "./kapp.json"
   },
-  "forms": [],
-  "taskHandlers": [],
-  "workflows": [],
-  "datastores": [],
+
+  "forms": [
+    {
+      "definition": "./form-slug.json",
+      "data": ["./form-slug-submissions.csv"]
+    }
+  ],
+
+  "taskHandlers": [
+    {
+      "definition": "./handler_name_v1.zip",
+      "configuration_parameters": {
+        "kapp_slug": "notification-templates"
+      }
+    }
+  ],
+
+  "workflows": {
+    "trees": [
+      { "definition": "./tree_Name.xml" }
+    ],
+    "routines": [
+      "./routine_Name.xml"
+    ]
+  },
+
+  "integrations": [
+    { "definition": "./integrations.json" }
+  ],
+
+  "notes": {
+    "manual_steps": [
+      {
+        "id": "1",
+        "text": "Human-readable instruction for a step an operator must complete after install.",
+        "link": "/app/console/#/space/plugins/connections"
+      }
+    ]
+  },
+
   "requires": []
 }
 ```
 
-- `id` / `name` / `description` / `version` are user-visible. `version` should be semver.
-- `kapp` is required. Its `slug` becomes the installed kapp's slug on the space — that's also how Compose Portal detects the capability as installed (kapp with this slug + a `Capability Metadata` kapp attribute set to this manifest's id and version).
-- `forms`, `taskHandlers`, `workflows`, `datastores` are arrays of install items. Today they're empty — the Phase 3 portal only reads the top-level metadata. Phase 4+ will define shapes for each array entry and actually import them.
-- `requires` is an array of other capability ids this capability depends on. Phase 6+.
+### Field reference
 
-Asset URLs (the kapp `export`, and eventually entries in the other arrays) may be **relative to the manifest** (as shown here) or absolute URLs pointing anywhere reachable over HTTPS.
+**Top-level metadata**
+
+- `id` / `name` / `description` / `version` / `author` / `tags` — user-visible. `id` must match the id in `index.json` and becomes the kapp's slug on install. `version` should be semver.
+
+**`kapp`** *(required)* — the kapp to install.
+
+- `definition` — URL to a kapp export JSON.
+
+The installed kapp's slug and name are taken from the top-level `id` and `name`. Compose Portal detects the capability as installed when it finds a kapp with that slug carrying a `Capability Metadata` attribute referencing this manifest's id and version.
+
+**`forms`** *(optional)* — datastore or kapp forms to install. Array of:
+
+- `definition` — URL to the form export JSON.
+- `data` *(optional)* — array of CSV URLs whose rows are seeded as submissions after the form is created.
+
+**`taskHandlers`** *(optional)* — handler packages to register. Array of:
+
+- `definition` — URL to the handler `.zip`.
+- `configuration_parameters` *(optional)* — keys/values written to the handler's configuration (e.g. `kapp_slug`, form slugs the handler should target). Use this when the handler needs to know about slugs the capability itself is creating.
+
+**`workflows`** *(optional)* — workflow assets. An object with:
+
+- `trees` — array of `{ "definition": "<url>.xml" }`. Trees bind to specific forms or events.
+- `routines` — array of URL strings pointing to reusable workflow routines.
+
+**`integrations`** *(optional)* — external system connections. Array of `{ "definition": "<url>.json" }`.
+
+**`notes.manual_steps`** *(optional)* — post-install steps an operator must complete manually (plugin credentials, handler config, etc.). Each entry:
+
+- `id` — stable identifier for the step.
+- `text` — instruction shown to the operator.
+- `link` — relative path inside the admin console that opens the right screen.
+
+**`requires`** *(optional, future)* — array of capability ids this capability depends on. Honored in Phase 6+.
+
+### Omit what doesn't apply
+
+Every top-level key except `id`, `name`, `description`, `version`, and `kapp` is optional. Omit keys that don't apply rather than including empty arrays or placeholder objects — an empty `"forms": []` or a `"notes": {}` reads as unfinished work, not a deliberate "no forms here." `datastore/manifest.json` is a minimal example: a kapp and one form, nothing else.
+
+### Asset URLs
+
+Any URL in the manifest (`kapp.definition`, `forms[].definition`, `forms[].data[]`, `taskHandlers[].definition`, `workflows.trees[].definition`, `workflows.routines[]`, `integrations[].definition`) may be **relative to the manifest** — as in the example above — or an **absolute HTTPS URL** pointing anywhere reachable from the portal.
 
 ## Adding a new capability
 
@@ -111,9 +187,9 @@ Bump `version` in the capability's `manifest.json` whenever you change it. Compo
 
 ## Status
 
-This schema is v1 — deliberately minimal. We will extend it over time as Compose Portal's installer grows:
+This schema is v1 and will extend as Compose Portal's installer grows. The asset arrays (`forms`, `taskHandlers`, `workflows`, `integrations`, `notes`) are populated in this registry ahead of the installer work so later phases have the data ready to consume.
 
-- Phase 3 (portal side): fetch + merge registries, display capabilities, detect installed status — **current focus**
-- Phase 4: install action for kapp + forms + kapp attribute definitions
-- Phase 5: install support for task handlers, workflows, datastores, integrations
-- Phase 6: upgrade flow + customization detection via SHA-256 checksums on asset URLs
+- Phase 3 (portal side): fetch + merge registries, display capabilities, detect installed status — **current focus**. Reads top-level metadata only.
+- Phase 4: install action for kapp + forms + kapp attribute definitions.
+- Phase 5: install support for task handlers, workflows, integrations; surface `notes.manual_steps` in the install UI.
+- Phase 6: upgrade flow + customization detection via SHA-256 checksums on asset URLs; honor `requires`.
