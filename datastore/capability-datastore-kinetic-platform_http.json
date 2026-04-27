@@ -1,17 +1,17 @@
 {
   "connection": {
     "id": "6976f6b5-386e-4be6-afce-636a604a4440",
-    "name": "Kinetic Platform - Datastore",
+    "name": "Capability: Datastore: Kinetic Platform",
     "type": "http",
     "config": {
       "auth": {
-        "password": "placeholder",
+        "password": null,
         "authType": "basic",
-        "username": "placeholder"
+        "username": "matthew.howe@kineticdata.com"
       },
       "configType": "http",
       "caCert": null,
-      "baseUrl": "https://slug.domain/app/api/v1/kapps/capability-datastore",
+      "baseUrl": "https://playground-matthew-howe.kinopsdev.io/app/api/v1/kapps/capability-datastore",
       "testPath": "/forms"
     },
     "description": "",
@@ -64,10 +64,10 @@
             "value": "body.count"
           }
         },
-        "insertedAt": "2026-04-20T05:17:01.328229Z",
-        "lockVersion": 4,
+        "insertedAt": "2026-04-20T05:24:46.535505Z",
+        "lockVersion": 2,
         "documentationLink": "",
-        "updatedAt": "2026-04-20T05:22:38.479933Z",
+        "updatedAt": "2026-04-20T05:24:46.535505Z",
         "connectionId": "6976f6b5-386e-4be6-afce-636a604a4440",
         "notes": ""
       },
@@ -119,10 +119,10 @@
             "value": "body.count"
           }
         },
-        "insertedAt": "2026-04-20T05:18:56.589767Z",
-        "lockVersion": 4,
+        "insertedAt": "2026-04-20T05:24:46.536764Z",
+        "lockVersion": 2,
         "documentationLink": "",
-        "updatedAt": "2026-04-20T05:22:44.988947Z",
+        "updatedAt": "2026-04-20T05:24:46.536764Z",
         "connectionId": "6976f6b5-386e-4be6-afce-636a604a4440",
         "notes": ""
       },
@@ -174,10 +174,10 @@
             "value": "body.count"
           }
         },
-        "insertedAt": "2026-04-20T05:19:38.296939Z",
-        "lockVersion": 4,
+        "insertedAt": "2026-04-20T05:24:46.537818Z",
+        "lockVersion": 2,
         "documentationLink": "",
-        "updatedAt": "2026-04-20T05:22:51.375142Z",
+        "updatedAt": "2026-04-20T05:24:46.537818Z",
         "connectionId": "6976f6b5-386e-4be6-afce-636a604a4440",
         "notes": ""
       },
@@ -229,18 +229,18 @@
             "value": "body.count"
           }
         },
-        "insertedAt": "2026-04-20T05:20:05.521204Z",
-        "lockVersion": 3,
+        "insertedAt": "2026-04-20T05:24:46.538851Z",
+        "lockVersion": 2,
         "documentationLink": "",
-        "updatedAt": "2026-04-20T05:21:36.233700Z",
+        "updatedAt": "2026-04-20T05:24:46.538851Z",
         "connectionId": "6976f6b5-386e-4be6-afce-636a604a4440",
         "notes": ""
       }
     ],
     "documentationLink": "",
-    "insertedAt": "2026-04-20T05:13:06.154954Z",
+    "insertedAt": "2026-04-20T05:24:42.429400Z",
     "lockVersion": 3,
     "secrets": {},
-    "updatedAt": "2026-04-20T05:22:30.925768Z"
+    "updatedAt": "2026-04-24T04:27:40.921218Z"
   }
 }

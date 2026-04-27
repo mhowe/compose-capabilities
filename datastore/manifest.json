@@ -16,7 +16,7 @@
   ],
   "integrations": [
     {
-      "definition": "./integrations.json"
+      "definition": "./capability-datastore-kinetic-platform_http.json"
     }
   ]
 }
