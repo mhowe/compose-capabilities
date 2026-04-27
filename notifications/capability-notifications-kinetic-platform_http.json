@@ -1,0 +1,809 @@
+{
+  "connection": {
+    "id": "1415539c-bb98-48bb-ad33-11be25189ad0",
+    "name": "Capability: Notifications:  Kinetic Platform",
+    "type": "http",
+    "config": {
+      "auth": {
+        "password": null,
+        "authType": "basic",
+        "username": "matthew.howe@kineticdata.com"
+      },
+      "configType": "http",
+      "caCert": null,
+      "baseUrl": "https://playground-matthew-howe.kinopsdev.io/app/api/v1",
+      "testPath": "/space"
+    },
+    "description": "",
+    "operations": [
+      {
+        "id": "771f279a-988d-4b91-9b8f-85861c5c13fe",
+        "name": "Get User",
+        "config": {
+          "path": "/users/{{Username}}",
+          "params": {
+            "include": "details,attributesMap,profileAttributesMap"
+          },
+          "body": {
+            "form": {},
+            "bodyType": "www_form_urlencoded"
+          },
+          "headers": {
+            "accept": "application/json",
+            "content-type": "application/json"
+          },
+          "configType": "http",
+          "method": "GET",
+          "includeEmptyParams": false,
+          "followRedirect": false,
+          "streamResponse": false
+        },
+        "outputs": {
+          "Attributes": {
+            "value": "body.user?.attributesMap"
+          },
+          "Display Name": {
+            "value": "body.user?.displayName"
+          },
+          "Email": {
+            "value": "body.user?.email"
+          },
+          "Preferred Locale": {
+            "value": "body.user?.preferredLocale"
+          },
+          "Profile Attributes": {
+            "value": "body.user?.profileAttributesMap"
+          },
+          "Username": {
+            "value": "body.user?.username"
+          }
+        },
+        "insertedAt": "2025-07-16T17:23:06.546392Z",
+        "lockVersion": 2,
+        "documentationLink": "",
+        "updatedAt": "2025-07-16T17:23:06.546392Z",
+        "connectionId": "1415539c-bb98-48bb-ad33-11be25189ad0",
+        "notes": ""
+      },
+      {
+        "id": "58d43eea-3459-4d60-920d-93ddde9031e3",
+        "name": "Get Kapps",
+        "config": {
+          "path": "/kapps",
+          "params": {
+            "include": "attributesMap"
+          },
+          "body": {
+            "form": {},
+            "bodyType": "www_form_urlencoded"
+          },
+          "headers": {},
+          "configType": "http",
+          "method": "GET",
+          "includeEmptyParams": false,
+          "followRedirect": false,
+          "streamResponse": false
+        },
+        "outputs": {
+          "Kapps": {
+            "children": {
+              "Attributes Map": "current.attributesMap",
+              "Name": "current.name",
+              "Slug": "current.slug"
+            },
+            "value": "body.kapps"
+          },
+          "_Error": {
+            "value": "body.error"
+          },
+          "_Returned Count": {
+            "value": "body.kapps?.length"
+          },
+          "_Status Code": {
+            "value": "statusCode"
+          }
+        },
+        "insertedAt": "2025-07-16T17:27:23.026523Z",
+        "lockVersion": 2,
+        "documentationLink": "",
+        "updatedAt": "2025-07-16T17:27:23.026523Z",
+        "connectionId": "1415539c-bb98-48bb-ad33-11be25189ad0",
+        "notes": ""
+      },
+      {
+        "id": "5a5da035-b670-4683-9895-7fb1f63cc29e",
+        "name": "Get Team - By Name",
+        "config": {
+          "path": "teams",
+          "params": {
+            "include": "details,attributesMap,memberships,memberships.user,memberships.user.details,memberships.user.profileAttributesMap",
+            "limit": "1",
+            "q": "name=\"{{Name}}\""
+          },
+          "body": {
+            "form": {},
+            "bodyType": "www_form_urlencoded"
+          },
+          "headers": {
+            "content-type": "application/json"
+          },
+          "configType": "http",
+          "method": "GET",
+          "includeEmptyParams": false,
+          "followRedirect": false,
+          "streamResponse": false
+        },
+        "outputs": {
+          "CID": {
+            "value": "body.teams[0]?.attributesMap['CID']"
+          },
+          "Description": {
+            "value": "body.teams[0]?.description"
+          },
+          "Manager": {
+            "value": "body.teams[0]?.attributesMap.Manager[0]"
+          },
+          "Member Email List": {
+            "value": "body.teams[0]?.memberships.map(m => m.user.email).join(',')"
+          },
+          "Memberships": {
+            "children": {
+              "Profile Attributes Map": "current.user['profileAttributesMap']",
+              "User Display Name": "current.user['displayName']",
+              "User Email": "current.user['email']",
+              "User Name": "current.user['username']",
+              "User Preferred Locale": "current.user['preferredLocale']"
+            },
+            "value": "body.teams[0]?.memberships"
+          },
+          "Name": {
+            "value": "body.teams[0]?.name"
+          },
+          "Notification Delivery Method": {
+            "value": "body.teams[0]?.attributesMap['Notification Delivery Method'][0]"
+          },
+          "Notification Delivery Target": {
+            "value": "body.teams[0]?.attributesMap['Notification Delivery Target']"
+          },
+          "Slug": {
+            "value": "body.teams[0]?.slug"
+          },
+          "_Total Count": {
+            "value": "body.count"
+          }
+        },
+        "insertedAt": "2025-07-16T17:28:08.734556Z",
+        "lockVersion": 2,
+        "documentationLink": "",
+        "updatedAt": "2025-07-16T17:28:08.734556Z",
+        "connectionId": "1415539c-bb98-48bb-ad33-11be25189ad0",
+        "notes": ""
+      },
+      {
+        "id": "1326290a-d758-48e2-aed8-2d9c9d00766e",
+        "name": "Get Forms By Kapp",
+        "config": {
+          "path": "/kapps/capability-notifications/forms",
+          "params": {},
+          "body": {
+            "form": {},
+            "bodyType": "www_form_urlencoded"
+          },
+          "headers": {},
+          "configType": "http",
+          "method": "GET",
+          "includeEmptyParams": false,
+          "followRedirect": false,
+          "streamResponse": false
+        },
+        "outputs": {
+          "Forms": {
+            "children": {
+              "Name": "current.name",
+              "Slug": "current.slug"
+            },
+            "value": "body.forms"
+          },
+          "_Error": {
+            "value": "body.error"
+          },
+          "_Returned Count": {
+            "value": "body.forms?.length"
+          },
+          "_Status Code": {
+            "value": "statusCode"
+          }
+        },
+        "insertedAt": "2025-07-16T17:28:00.317487Z",
+        "lockVersion": 3,
+        "documentationLink": "",
+        "updatedAt": "2026-04-26T17:00:49.157854Z",
+        "connectionId": "1415539c-bb98-48bb-ad33-11be25189ad0",
+        "notes": ""
+      },
+      {
+        "id": "6d60054b-fc32-4135-bbb8-ed943cb2b2f5",
+        "name": "Get Kapp by Slug",
+        "config": {
+          "path": "/kapps/capability-notifications",
+          "params": {
+            "include": "attributesMap"
+          },
+          "body": {
+            "form": {},
+            "bodyType": "www_form_urlencoded"
+          },
+          "headers": {},
+          "configType": "http",
+          "method": "GET",
+          "includeEmptyParams": false,
+          "followRedirect": false,
+          "streamResponse": false
+        },
+        "outputs": {
+          "Attributes Map": {
+            "value": "body.kapp?.attributesMap"
+          },
+          "Name": {
+            "value": "body.kapp?.name"
+          },
+          "Slug": {
+            "value": "body.kapp?.slug"
+          }
+        },
+        "insertedAt": "2025-07-16T17:27:38.541905Z",
+        "lockVersion": 3,
+        "documentationLink": "",
+        "updatedAt": "2026-04-26T17:01:05.107700Z",
+        "connectionId": "1415539c-bb98-48bb-ad33-11be25189ad0",
+        "notes": ""
+      },
+      {
+        "id": "7ad51a20-8bab-422b-a0f7-247e082dccd5",
+        "name": "Get Space",
+        "config": {
+          "path": "/space",
+          "params": {
+            "include": "details,attributesMap"
+          },
+          "body": {
+            "form": {},
+            "bodyType": "www_form_urlencoded"
+          },
+          "headers": {},
+          "configType": "http",
+          "method": "GET",
+          "includeEmptyParams": false,
+          "followRedirect": false,
+          "streamResponse": false
+        },
+        "outputs": {
+          "Attributes Map": {
+            "value": "body.space['attributesMap']"
+          },
+          "Name": {
+            "value": "body.space['name']"
+          },
+          "Slug": {
+            "value": "body.space['slug']"
+          },
+          "Web Server Url": {
+            "value": "body.space['attributesMap']['Web Server Url'][0]"
+          }
+        },
+        "insertedAt": "2025-07-16T17:28:52.907659Z",
+        "lockVersion": 2,
+        "documentationLink": "",
+        "updatedAt": "2025-07-16T17:28:52.907659Z",
+        "connectionId": "1415539c-bb98-48bb-ad33-11be25189ad0",
+        "notes": ""
+      },
+      {
+        "id": "c09e9e4d-5747-4882-9298-ad1a71a75997",
+        "name": "Get Notification Template - By Name",
+        "config": {
+          "path": "/kapps/capability-notifications/forms/notification-data/submissions",
+          "params": {
+            "direction": "ASC",
+            "include": "values",
+            "limit": "1000",
+            "orderBy": "values[Name]",
+            "q": "values[Type]=\"Template\" AND values[Name]=\"{{Template Name}}\""
+          },
+          "body": {
+            "form": {},
+            "bodyType": "www_form_urlencoded"
+          },
+          "headers": {},
+          "configType": "http",
+          "method": "GET",
+          "includeEmptyParams": false,
+          "followRedirect": false,
+          "streamResponse": false
+        },
+        "outputs": {
+          "Submissions": {
+            "children": {
+              "HTML Content": "current.values['HTML Content']",
+              "Id": "current.id",
+              "Name": "current.values['Name']",
+              "Status": "current.values['Status']",
+              "Subject": "current.values['Subject']",
+              "Text Content": "current.values['Text Content']",
+              "Type": "current.values['Type']"
+            },
+            "value": "body.submissions"
+          },
+          "_Error": {
+            "value": "body.error"
+          },
+          "_Returned Count": {
+            "value": "body.submissions?.length"
+          },
+          "_Status Code": {
+            "value": "statusCode"
+          }
+        },
+        "insertedAt": "2025-07-16T17:28:17.508696Z",
+        "lockVersion": 3,
+        "documentationLink": "",
+        "updatedAt": "2026-04-26T16:58:59.756190Z",
+        "connectionId": "1415539c-bb98-48bb-ad33-11be25189ad0",
+        "notes": ""
+      },
+      {
+        "id": "7152d4bc-d8d5-4122-a40d-e933a65b5fe8",
+        "name": "Get Notification Snippets",
+        "config": {
+          "path": "/kapps/capability-notifications/forms/notification-data/submissions",
+          "params": {
+            "direction": "ASC",
+            "include": "values",
+            "limit": "1000",
+            "orderBy": "values[Name]",
+            "q": "values[Type]=\"Snippet\""
+          },
+          "body": {
+            "form": {},
+            "bodyType": "www_form_urlencoded"
+          },
+          "headers": {},
+          "configType": "http",
+          "method": "GET",
+          "includeEmptyParams": false,
+          "followRedirect": false,
+          "streamResponse": false
+        },
+        "outputs": {
+          "Submissions": {
+            "children": {
+              "HTML Content": "current.values['HTML Content']",
+              "Id": "current.id",
+              "Name": "current.values['Name']",
+              "Status": "current.values['Status']",
+              "Text Content": "current.values['Text Content']",
+              "Type": "current.values['Type']"
+            },
+            "value": "body.submissions"
+          }
+        },
+        "insertedAt": "2025-07-16T17:28:35.405477Z",
+        "lockVersion": 3,
+        "documentationLink": "",
+        "updatedAt": "2026-04-26T16:55:33.219090Z",
+        "connectionId": "1415539c-bb98-48bb-ad33-11be25189ad0",
+        "notes": ""
+      },
+      {
+        "id": "5cac360d-317d-429e-9cec-0ea7bd8c6b0f",
+        "name": "Get Notification Templates",
+        "config": {
+          "path": "/kapps/capability-notifications/forms/notification-data/submissions",
+          "params": {
+            "direction": "ASC",
+            "include": "values",
+            "limit": "1000",
+            "orderBy": "values[Name]",
+            "q": "values[Type]=\"Template\""
+          },
+          "body": {
+            "form": {},
+            "bodyType": "www_form_urlencoded"
+          },
+          "headers": {},
+          "configType": "http",
+          "method": "GET",
+          "includeEmptyParams": false,
+          "followRedirect": false,
+          "streamResponse": false
+        },
+        "outputs": {
+          "submissions": {
+            "children": {
+              "format": "current.values['HTML Content']",
+              "id": "current.id",
+              "name": "current.values['Name']",
+              "status": "current.values['Status']",
+              "subject": "current.values['Subject']",
+              "type": "current.values['Type']"
+            },
+            "value": "body.submissions"
+          }
+        },
+        "insertedAt": "2025-07-16T17:28:27.743086Z",
+        "lockVersion": 3,
+        "documentationLink": "",
+        "updatedAt": "2026-04-26T16:59:08.990924Z",
+        "connectionId": "1415539c-bb98-48bb-ad33-11be25189ad0",
+        "notes": ""
+      },
+      {
+        "id": "bb8d89b8-d63e-4fcd-b893-825ca2666c6c",
+        "name": "Get Notification Dates",
+        "config": {
+          "path": "/kapps/capability-notifications/forms/notification-template-dates/submissions",
+          "params": {
+            "direction": "ASC",
+            "include": "values",
+            "limit": "1000",
+            "orderBy": "values[Name]"
+          },
+          "body": {
+            "form": {},
+            "bodyType": "www_form_urlencoded"
+          },
+          "headers": {},
+          "configType": "http",
+          "method": "GET",
+          "includeEmptyParams": false,
+          "followRedirect": false,
+          "streamResponse": false
+        },
+        "outputs": {
+          "submissions": {
+            "children": {
+              "format": "current.values['Format']",
+              "id": "current.id",
+              "name": "current.values['Name']",
+              "status": "current.values['Status']"
+            },
+            "value": "body.submissions"
+          }
+        },
+        "insertedAt": "2025-07-16T17:28:43.458418Z",
+        "lockVersion": 4,
+        "documentationLink": "",
+        "updatedAt": "2026-04-26T17:01:20.794755Z",
+        "connectionId": "1415539c-bb98-48bb-ad33-11be25189ad0",
+        "notes": ""
+      },
+      {
+        "id": "7b0bc4ed-493e-4b2d-ba22-89a082d11052",
+        "name": "Get Teams - By Name Starts With",
+        "config": {
+          "path": "/teams",
+          "params": {
+            "include": "attributesMap",
+            "limit": "1000",
+            "q": "name=*\"{{Starts With}}\""
+          },
+          "body": {
+            "raw": "",
+            "bodyType": "raw"
+          },
+          "headers": {},
+          "configType": "http",
+          "method": "GET",
+          "includeEmptyParams": false,
+          "followRedirect": false,
+          "streamResponse": false
+        },
+        "outputs": {
+          "Teams": {
+            "children": {
+              "Notification Delivery Method": "current['attributesMap']['Notification Delivery Method']?.[0]",
+              "Notification Delivery Target": "current['attributesMap']['Notification Delivery Target']?.[0]",
+              "Slug": "current.slug",
+              "Team": "current.name"
+            },
+            "value": "body.teams"
+          }
+        },
+        "insertedAt": "2026-04-25T03:17:58.851887Z",
+        "lockVersion": 4,
+        "documentationLink": "",
+        "updatedAt": "2026-04-25T03:54:54.948846Z",
+        "connectionId": "1415539c-bb98-48bb-ad33-11be25189ad0",
+        "notes": ""
+      },
+      {
+        "id": "026f0715-8c12-4a99-b89c-7a3c1ef415f1",
+        "name": "Update Teams Notification Preferences",
+        "config": {
+          "path": "/teams/{{Team Slug}}",
+          "params": {
+            "include": "attributesMap"
+          },
+          "body": {
+            "raw": "{\n  \"attributesMap\": {\n    \"Notification Delivery Method\": [\n      \"{{Notification Delivery Method}}\"\n    ],\n    \"Notification Delivery Target\": [\n      \"{{Notification Delivery Target}}\"\n    ]\n  }\n}",
+            "bodyType": "raw"
+          },
+          "headers": {},
+          "configType": "http",
+          "method": "PUT",
+          "includeEmptyParams": false,
+          "followRedirect": false,
+          "streamResponse": false
+        },
+        "outputs": {
+          "Teams": {
+            "children": {
+              "Notification Delivery Method": "current['attributesMap']['Notification Delivery Method']?.[0]",
+              "Notification Delivery Target": "current['attributesMap']['Notification Delivery Target']?.[0]",
+              "Slug": "current.slug",
+              "Team": "current.name"
+            },
+            "value": "body.team"
+          },
+          "_Message": {
+            "value": "body.error"
+          },
+          "_Status Code": {
+            "value": "statusCode"
+          }
+        },
+        "insertedAt": "2026-04-25T04:03:29.488326Z",
+        "lockVersion": 3,
+        "documentationLink": "",
+        "updatedAt": "2026-04-25T04:24:59.033705Z",
+        "connectionId": "1415539c-bb98-48bb-ad33-11be25189ad0",
+        "notes": ""
+      },
+      {
+        "id": "6f709ef6-bb2a-42d5-85e7-e30d0c6ebae7",
+        "name": "Get Notification Snippets - By Application",
+        "config": {
+          "path": "/kapps/capability-notifications/forms/notification-data/submissions",
+          "params": {
+            "direction": "ASC",
+            "include": "values",
+            "limit": "1000",
+            "orderBy": "values[Name]",
+            "q": "values[Type]=\"Snippet\" AND (values[Application]=\"{{Application}}\" OR values[Application]=\"- All -\")"
+          },
+          "body": {
+            "form": {},
+            "bodyType": "www_form_urlencoded"
+          },
+          "headers": {},
+          "configType": "http",
+          "method": "GET",
+          "includeEmptyParams": false,
+          "followRedirect": false,
+          "streamResponse": false
+        },
+        "outputs": {
+          "Submissions": {
+            "children": {
+              "HTML Content": "current.values['HTML Content']",
+              "Id": "current.id",
+              "Name": "current.values['Name']",
+              "Status": "current.values['Status']",
+              "Text Content": "current.values['Text Content']",
+              "Type": "current.values['Type']"
+            },
+            "value": "body.submissions"
+          }
+        },
+        "insertedAt": "2026-04-26T16:54:16.957149Z",
+        "lockVersion": 3,
+        "documentationLink": "",
+        "updatedAt": "2026-04-26T16:58:51.436776Z",
+        "connectionId": "1415539c-bb98-48bb-ad33-11be25189ad0",
+        "notes": ""
+      },
+      {
+        "id": "047397f4-896d-4bb3-a6c9-644bee85a245",
+        "name": "Search Users",
+        "config": {
+          "path": "/users",
+          "params": {
+            "include": "attributesMap,profileAttributesMap",
+            "limit": "1000",
+            "orderBy": "",
+            "q": "username =* \"{{Search Value}}\" OR displayName =* \"{{Search Value}}\" OR email =* \"{{Search Value}}\""
+          },
+          "body": {
+            "raw": "",
+            "bodyType": "raw"
+          },
+          "headers": {},
+          "configType": "http",
+          "method": "GET",
+          "includeEmptyParams": false,
+          "followRedirect": false,
+          "streamResponse": false
+        },
+        "outputs": {
+          "Users": {
+            "children": {
+              "Display Name": "current.displayName",
+              "Email": "current.email",
+              "First Name": "current['profileAttributesMap']['First Name']?.[0]",
+              "Last Name": "current['profileAttributesMap']['Last Name']?.[0]",
+              "Notification Delivery Method": "current['profileAttributesMap']['Notification Delivery Method']?.[0]",
+              "Notification Delivery Target": "current['profileAttributesMap']['Notification Delivery Target']?.[0]",
+              "Username": "current.username"
+            },
+            "value": "body.users"
+          },
+          "_Message": {
+            "value": "body.error"
+          },
+          "_Status Code": {
+            "value": "statusCode"
+          }
+        },
+        "insertedAt": "2026-04-25T15:22:22.683660Z",
+        "lockVersion": 3,
+        "documentationLink": "",
+        "updatedAt": "2026-04-25T15:24:19.267888Z",
+        "connectionId": "1415539c-bb98-48bb-ad33-11be25189ad0",
+        "notes": ""
+      },
+      {
+        "id": "1f02ca06-4eba-4c9d-bb06-fde98bddca03",
+        "name": "Update User Notification Preferences",
+        "config": {
+          "path": "/users/{{Username}}",
+          "params": {
+            "include": "attributesMap,profileAttributesMap"
+          },
+          "body": {
+            "raw": "{\n  \"profileAttributesMap\": {\n    \"Notification Delivery Method\": [\n      \"{{Notification Delivery Method}}\"\n    ],\n    \"Notification Delivery Target\": [\n      \"{{Notification Delivery Target}}\"\n    ]\n  }\n}",
+            "bodyType": "raw"
+          },
+          "headers": {},
+          "configType": "http",
+          "method": "PUT",
+          "includeEmptyParams": false,
+          "followRedirect": false,
+          "streamResponse": false
+        },
+        "outputs": {
+          "User": {
+            "children": {
+              "Display Name": "current.displayName",
+              "Email": "current.email",
+              "Notification Delivery Method": "current['profileAttributesMap']['Notification Delivery Method']?.[0]",
+              "Notification Delivery Target": "current['profileAttributesMap']['Notification Delivery Target']?.[0]",
+              "Username": "current.username"
+            },
+            "value": "body.user"
+          },
+          "_Message": {
+            "value": "body.error"
+          },
+          "_Status Code": {
+            "value": "statusCode"
+          }
+        },
+        "insertedAt": "2026-04-25T15:35:29.127568Z",
+        "lockVersion": 2,
+        "documentationLink": "",
+        "updatedAt": "2026-04-25T15:35:29.127568Z",
+        "connectionId": "1415539c-bb98-48bb-ad33-11be25189ad0",
+        "notes": ""
+      },
+      {
+        "id": "53cea1d4-bc09-47a8-ba7f-e39fee4657af",
+        "name": "Get Form by Slug",
+        "config": {
+          "path": "/kapps/capability-notifications/forms/{{form-slug}}",
+          "params": {
+            "include": "fields,attributesMap,details"
+          },
+          "body": {
+            "form": {},
+            "bodyType": "www_form_urlencoded"
+          },
+          "headers": {},
+          "configType": "http",
+          "method": "GET",
+          "includeEmptyParams": false,
+          "followRedirect": false,
+          "streamResponse": false
+        },
+        "outputs": {
+          "Attributes Map": {
+            "value": "body.form?.attributesMap"
+          },
+          "Description": {
+            "value": "body.form?.description"
+          },
+          "Fields": {
+            "children": {
+              "Field Name": "current.name"
+            },
+            "value": "body.form?.fields"
+          },
+          "Name": {
+            "value": "body.form?.name"
+          },
+          "Notes": {
+            "value": "body.form?.notes"
+          },
+          "Slug": {
+            "value": "body.form?.slug"
+          },
+          "Status": {
+            "value": "body.form?.status"
+          },
+          "Type": {
+            "value": "body.form?.type"
+          },
+          "_Error": {
+            "value": "body.error"
+          },
+          "_Status Code": {
+            "value": "statusCode"
+          }
+        },
+        "insertedAt": "2025-07-16T17:27:50.727619Z",
+        "lockVersion": 4,
+        "documentationLink": "",
+        "updatedAt": "2026-04-26T17:00:34.719105Z",
+        "connectionId": "1415539c-bb98-48bb-ad33-11be25189ad0",
+        "notes": ""
+      },
+      {
+        "id": "c06dd230-f668-4e69-a029-4aa2ad8caeb7",
+        "name": "Get Notification Templates - By Application",
+        "config": {
+          "path": "/kapps/capability-notifications/forms/notification-data/submissions",
+          "params": {
+            "direction": "ASC",
+            "include": "values",
+            "limit": "1000",
+            "orderBy": "values[Name]",
+            "q": "values[Type]=\"Template\" AND (values[Application]=\"{{Application}}\" OR values[Application]=\"- All -\")"
+          },
+          "body": {
+            "form": {},
+            "bodyType": "www_form_urlencoded"
+          },
+          "headers": {},
+          "configType": "http",
+          "method": "GET",
+          "includeEmptyParams": false,
+          "followRedirect": false,
+          "streamResponse": false
+        },
+        "outputs": {
+          "submissions": {
+            "children": {
+              "format": "current.values['HTML Content']",
+              "id": "current.id",
+              "name": "current.values['Name']",
+              "status": "current.values['Status']",
+              "subject": "current.values['Subject']",
+              "type": "current.values['Type']"
+            },
+            "value": "body.submissions"
+          }
+        },
+        "insertedAt": "2026-04-27T00:02:40.826421Z",
+        "lockVersion": 2,
+        "documentationLink": "",
+        "updatedAt": "2026-04-27T00:02:40.826421Z",
+        "connectionId": "1415539c-bb98-48bb-ad33-11be25189ad0",
+        "notes": ""
+      }
+    ],
+    "documentationLink": "",
+    "insertedAt": "2025-07-16T16:42:27.329146Z",
+    "lockVersion": 5,
+    "secrets": {},
+    "updatedAt": "2026-04-24T04:26:27.031358Z"
+  }
+}

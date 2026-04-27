@@ -4,8 +4,8 @@
   "description": "Sample Compose Portal capability registry. Clone, rename, and host via GitHub Pages (or any static host).",
   "capabilities": [
     {
-      "id": "notification-templates",
-      "manifestUrl": "./notification-templates/manifest.json"
+      "id": "notifications",
+      "manifestUrl": "./notifications/manifest.json"
     },
     {
       "id": "robots",

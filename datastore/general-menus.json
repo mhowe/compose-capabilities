@@ -217,12 +217,12 @@
     ],
     "integrations": [
       {
-        "connectionId": "1415539c-bb98-48bb-ad33-11be25189ad0",
+        "connectionId": "6976f6b5-386e-4be6-afce-636a604a4440",
         "inputMappings": {
           "Menu Name": "Menu Name"
         },
         "name": "Menu Names",
-        "operationId": "af9b4e18-6f16-4510-9302-34e65a01ea0d"
+        "operationId": "7f0f47dc-4c68-4a0b-bd75-dfade54db65a"
       }
     ],
     "name": "General Menus",

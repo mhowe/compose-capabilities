@@ -318,10 +318,10 @@
     ],
     "integrations": [
       {
-        "connectionId": "1415539c-bb98-48bb-ad33-11be25189ad0",
+        "connectionId": "3b6ea084-4f2d-428c-930a-166cc70bf5e1",
         "inputMappings": {},
         "name": "Kapps",
-        "operationId": "58d43eea-3459-4d60-920d-93ddde9031e3"
+        "operationId": "524e35bb-28db-4e7a-a5a1-ce6c0c9fd451"
       }
     ],
     "name": "Robot Definitions",

@@ -7,6 +7,12 @@
         "values": [
           "True"
         ]
+      },
+      {
+        "name": "Slack Integration",
+        "values": [
+          "True"
+        ]
       }
     ],
     "bridgedResources": [],
@@ -46,6 +52,13 @@
         "name": "updatedBy",
         "parts": [
           "updatedBy"
+        ],
+        "unique": false
+      },
+      {
+        "name": "values[Application]",
+        "parts": [
+          "values[Application]"
         ],
         "unique": false
       },
@@ -107,6 +120,20 @@
         "unique": false
       },
       {
+        "name": "values[Slack Block Content]",
+        "parts": [
+          "values[Slack Block Content]"
+        ],
+        "unique": false
+      },
+      {
+        "name": "values[Slack Text Content]",
+        "parts": [
+          "values[Slack Text Content]"
+        ],
+        "unique": false
+      },
+      {
         "name": "values[Status]",
         "parts": [
           "values[Status]"
@@ -135,6 +162,24 @@
         "unique": false
       },
       {
+        "name": "values[Type],values[Application],values[Name]",
+        "parts": [
+          "values[Type]",
+          "values[Application]",
+          "values[Name]"
+        ],
+        "unique": false
+      },
+      {
+        "name": "values[Type],values[Application],values[Status]",
+        "parts": [
+          "values[Type]",
+          "values[Application]",
+          "values[Status]"
+        ],
+        "unique": false
+      },
+      {
         "name": "values[Type],values[Name]",
         "parts": [
           "values[Type]",
@@ -145,53 +190,48 @@
     ],
     "integrations": [
       {
-        "connectionId": "7f1f8282-4603-4552-a006-30553d2466c8",
+        "connectionId": "1415539c-bb98-48bb-ad33-11be25189ad0",
         "inputMappings": {
-          "form-slug": "${values('Form')}",
-          "kapp-slug": "${values('Kapp')}"
+          "form-slug": "${values('Form')}"
         },
         "name": "Form by Slug",
-        "operationId": "5f4eeb23-838a-4a06-a87f-798c8be3259f"
+        "operationId": "53cea1d4-bc09-47a8-ba7f-e39fee4657af"
       },
       {
-        "connectionId": "7f1f8282-4603-4552-a006-30553d2466c8",
-        "inputMappings": {
-          "Kapp Slug": "${values('Kapp')}"
-        },
+        "connectionId": "1415539c-bb98-48bb-ad33-11be25189ad0",
+        "inputMappings": {},
         "name": "Forms by Kapp",
-        "operationId": "88472916-9e91-4508-85bd-b88fbcf40433"
+        "operationId": "1326290a-d758-48e2-aed8-2d9c9d00766e"
       },
       {
-        "connectionId": "7f1f8282-4603-4552-a006-30553d2466c8",
+        "connectionId": "1415539c-bb98-48bb-ad33-11be25189ad0",
         "inputMappings": {},
         "name": "Get Notification Date Formats",
-        "operationId": "20914f71-72de-4e58-93f0-6ce50ae850a2"
+        "operationId": "bb8d89b8-d63e-4fcd-b893-825ca2666c6c"
       },
       {
-        "connectionId": "7f1f8282-4603-4552-a006-30553d2466c8",
+        "connectionId": "1415539c-bb98-48bb-ad33-11be25189ad0",
         "inputMappings": {},
         "name": "Get Notification Snippets",
-        "operationId": "1ab9e768-20b3-4bcd-9824-9d8527597d2b"
+        "operationId": "7152d4bc-d8d5-4122-a40d-e933a65b5fe8"
       },
       {
-        "connectionId": "7f1f8282-4603-4552-a006-30553d2466c8",
-        "inputMappings": {
-          "Kapp Slug": "${values('Kapp')}"
-        },
+        "connectionId": "1415539c-bb98-48bb-ad33-11be25189ad0",
+        "inputMappings": {},
         "name": "Kapp by Kapp Slug",
-        "operationId": "4e21f169-b8ac-40f7-aa03-6b3350a47cc2"
+        "operationId": "6d60054b-fc32-4135-bbb8-ed943cb2b2f5"
       },
       {
-        "connectionId": "7f1f8282-4603-4552-a006-30553d2466c8",
+        "connectionId": "1415539c-bb98-48bb-ad33-11be25189ad0",
         "inputMappings": {},
         "name": "Kapps",
-        "operationId": "7cf02631-6804-4e32-86c2-832b3e8d9c85"
+        "operationId": "58d43eea-3459-4d60-920d-93ddde9031e3"
       },
       {
-        "connectionId": "7f1f8282-4603-4552-a006-30553d2466c8",
+        "connectionId": "1415539c-bb98-48bb-ad33-11be25189ad0",
         "inputMappings": {},
         "name": "Space",
-        "operationId": "740626de-7ca1-4a3f-b100-32561d8b4dd1"
+        "operationId": "7ad51a20-8bab-422b-a0f7-247e082dccd5"
       }
     ],
     "name": "Notification Data",
@@ -311,6 +351,27 @@
                 ]
               }
             ]
+          },
+          {
+            "enabled": false,
+            "dataType": "string",
+            "defaultDataSource": "none",
+            "requiredMessage": null,
+            "name": "Application",
+            "omitWhenHidden": null,
+            "renderAttributes": {},
+            "renderType": "text",
+            "pattern": null,
+            "defaultValue": "- All -",
+            "visible": true,
+            "label": "Application",
+            "constraints": [],
+            "events": [],
+            "rows": 1,
+            "defaultResourceName": null,
+            "type": "field",
+            "key": "037ea99106834043a153e0c23fd741ab",
+            "required": true
           },
           {
             "enabled": true,
@@ -444,73 +505,165 @@
             "required": false
           },
           {
-            "enabled": true,
-            "dataType": "string",
-            "defaultDataSource": "none",
-            "requiredMessage": null,
-            "name": "Subject",
-            "omitWhenHidden": true,
-            "renderAttributes": {
-              "class": "dropdown-enabled"
-            },
-            "renderType": "text",
-            "pattern": null,
-            "defaultValue": null,
-            "visible": "values('Type') !== \"Snippet\"",
-            "label": "Subject",
-            "constraints": [],
-            "events": [],
-            "rows": 1,
-            "defaultResourceName": null,
-            "type": "field",
-            "key": "f7",
-            "required": "values('Type') !== \"Snippet\""
-          },
-          {
-            "enabled": true,
-            "dataType": "string",
-            "defaultDataSource": "none",
-            "requiredMessage": null,
-            "name": "HTML Content",
+            "type": "section",
+            "renderType": null,
+            "name": "Email Notification Section",
+            "title": null,
+            "visible": true,
             "omitWhenHidden": null,
             "renderAttributes": {
-              "class": "dropdown-enabled"
+              "class": "border-top pt-3"
             },
-            "renderType": "text",
-            "pattern": null,
-            "defaultValue": null,
-            "visible": true,
-            "label": "HTML Content",
-            "constraints": [],
-            "events": [],
-            "rows": 10,
-            "defaultResourceName": null,
-            "type": "field",
-            "key": "f6",
-            "required": true
+            "elements": [
+              {
+                "type": "content",
+                "renderType": "html",
+                "name": "Email Notification Title",
+                "text": "<h6>Email Notification Content</h6>",
+                "visible": true,
+                "renderAttributes": {}
+              },
+              {
+                "enabled": true,
+                "dataType": "string",
+                "defaultDataSource": "none",
+                "requiredMessage": null,
+                "name": "Subject",
+                "omitWhenHidden": true,
+                "renderAttributes": {
+                  "class": "dropdown-enabled"
+                },
+                "renderType": "text",
+                "pattern": null,
+                "defaultValue": null,
+                "visible": "values('Type') !== \"Snippet\"",
+                "label": "Subject",
+                "constraints": [],
+                "events": [],
+                "rows": 1,
+                "defaultResourceName": null,
+                "type": "field",
+                "key": "f7",
+                "required": "values('Type') !== \"Snippet\""
+              },
+              {
+                "enabled": true,
+                "dataType": "string",
+                "defaultDataSource": "none",
+                "requiredMessage": null,
+                "name": "HTML Content",
+                "omitWhenHidden": null,
+                "renderAttributes": {
+                  "class": "dropdown-enabled"
+                },
+                "renderType": "text",
+                "pattern": null,
+                "defaultValue": null,
+                "visible": true,
+                "label": "HTML Content",
+                "constraints": [],
+                "events": [],
+                "rows": 10,
+                "defaultResourceName": null,
+                "type": "field",
+                "key": "f6",
+                "required": true
+              },
+              {
+                "enabled": true,
+                "dataType": "string",
+                "defaultDataSource": "none",
+                "requiredMessage": null,
+                "name": "Text Content",
+                "omitWhenHidden": null,
+                "renderAttributes": {
+                  "class": "dropdown-enabled"
+                },
+                "renderType": "text",
+                "pattern": null,
+                "defaultValue": null,
+                "visible": true,
+                "label": "Text Content",
+                "constraints": [],
+                "events": [],
+                "rows": 5,
+                "defaultResourceName": null,
+                "type": "field",
+                "key": "f5",
+                "required": true
+              }
+            ]
           },
           {
-            "enabled": true,
-            "dataType": "string",
-            "defaultDataSource": "none",
-            "requiredMessage": null,
-            "name": "Text Content",
-            "omitWhenHidden": null,
+            "type": "section",
+            "renderType": null,
+            "name": "Slack Notification Section",
+            "title": null,
+            "visible": "kapp('attribute:Slack Integration').toLowerCase() === \"true\"",
+            "omitWhenHidden": false,
             "renderAttributes": {
-              "class": "dropdown-enabled"
+              "class": "border-top pt-3"
             },
-            "renderType": "text",
-            "pattern": null,
-            "defaultValue": null,
-            "visible": true,
-            "label": "Text Content",
-            "constraints": [],
-            "events": [],
-            "rows": 5,
-            "defaultResourceName": null,
-            "type": "field",
-            "key": "f5",
-            "required": true
+            "elements": [
+              {
+                "type": "content",
+                "renderType": "html",
+                "name": "Slack Notification Title",
+                "text": "<h6>Slack Notification Content</h6>",
+                "visible": true,
+                "renderAttributes": {}
+              },
+              {
+                "type": "content",
+                "renderType": "html",
+                "name": "Slack Instructions",
+                "text": "Use the <a href=\"https://app.slack.com/block-kit-builder/\" target=\"_blank\">Block Kit Builder</a> for assistance.",
+                "visible": true,
+                "renderAttributes": {}
+              },
+              {
+                "enabled": true,
+                "dataType": "string",
+                "defaultDataSource": "none",
+                "requiredMessage": null,
+                "name": "Slack Block Content",
+                "omitWhenHidden": null,
+                "renderAttributes": {},
+                "renderType": "text",
+                "pattern": null,
+                "defaultValue": null,
+                "visible": true,
+                "label": "Slack Block Content",
+                "constraints": [],
+                "events": [],
+                "rows": 10,
+                "defaultResourceName": null,
+                "type": "field",
+                "key": "25968cb7911a4214860bbc820a7a23f0",
+                "required": "kapp('attribute:Slack Integration').toLowerCase() === \"true\""
+              },
+              {
+                "enabled": true,
+                "dataType": "string",
+                "defaultDataSource": "none",
+                "requiredMessage": null,
+                "name": "Slack Text Content",
+                "omitWhenHidden": null,
+                "renderAttributes": {},
+                "renderType": "text",
+                "pattern": null,
+                "defaultValue": null,
+                "visible": true,
+                "label": "Slack Text Content",
+                "constraints": [],
+                "events": [],
+                "rows": 3,
+                "defaultResourceName": null,
+                "type": "field",
+                "key": "dba2e37a9b694b7d92a0992b0a6ef603",
+                "required": "kapp('attribute:Slack Integration').toLowerCase() === \"true\""
+              }
+            ]
           },
           {
             "type": "section",
@@ -620,24 +773,24 @@
     "securityPolicies": [
       {
         "endpoint": "Display",
-        "name": "Admins"
+        "name": "Notification Superusers"
       },
       {
         "endpoint": "Modification",
-        "name": "Admins"
+        "name": "Notification Superusers"
       },
       {
         "endpoint": "Submission Access",
-        "name": "Admins"
+        "name": "Notification Superusers-Data Admins-App Role Superusers-App Role Notification Admins - Access"
       },
       {
         "endpoint": "Submission Modification",
-        "name": "Admins"
+        "name": "Notification Superusers-Data Admins-App Role Superusers-App Role Notification Admins - Modify"
       }
     ],
     "slug": "notification-data",
     "status": "Active",
     "submissionLabelExpression": "${values('Type')}: ${values('Name')}",
-    "type": "Datastore"
+    "type": null
   }
 }

@@ -79,7 +79,7 @@
       }
     ],
     "loginPage": null,
-    "name": "Datastore",
+    "name": "Capability: Datastore",
     "resetPasswordPage": null,
     "securityPolicies": [
       {
@@ -147,41 +147,6 @@
         "type": "Submission"
       }
     ],
-    "slug": "datastore",
-    "webApis": [
-      {
-        "method": "POST",
-        "securityPolicies": [
-          {
-            "endpoint": "Execution",
-            "name": "Authenticated Users"
-          }
-        ],
-        "slug": "delete-onboarding-blueprint-step"
-      }
-    ],
-    "webhooks": [
-      {
-        "event": "Deleted",
-        "filter": "form('slug')===\"bbbbbbb\"",
-        "name": "123",
-        "type": "Submission",
-        "url": "ashfo dkl;f"
-      },
-      {
-        "event": "Submitted",
-        "filter": "form('slug') === \"process-orchestration\" && values('Status') === \"New\"",
-        "name": "Submission Submitted - Orchestration - New",
-        "type": "Submission",
-        "url": "/app/api/v1/run-tree/${space('attribute:Task Source Name')}/Submissions%20%3E%20${kapp('slug')}%20%3E%20${form('slug')}/Submitted"
-      },
-      {
-        "event": "Updated",
-        "filter": "form('slug') === \"process-orchestration\" && values('Status') === \"Retry\"",
-        "name": "Submission Submitted - Orchestration - Retry",
-        "type": "Submission",
-        "url": "app/api/v1/run-tree/${space('attribute:Task Source Name')}/Submissions%20%3E%20${kapp('slug')}%20%3E%20${form('slug')}/Submitted"
-      }
-    ]
+    "slug": "capability-datastore"
   }
 }

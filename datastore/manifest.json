@@ -13,5 +13,10 @@
       "definition": "./general-menus.json",
       "data": ["./general-menus-submissions.csv"]
     }
+  ],
+  "integrations": [
+    {
+      "definition": "./integrations.json"
+    }
   ]
 }

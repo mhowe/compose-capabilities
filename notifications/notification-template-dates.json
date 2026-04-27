@@ -218,19 +218,19 @@
     "securityPolicies": [
       {
         "endpoint": "Display",
-        "name": "Data Admins"
+        "name": "Notification Superusers"
       },
       {
         "endpoint": "Modification",
-        "name": "Admins"
+        "name": "Notification Superusers"
       },
       {
         "endpoint": "Submission Access",
-        "name": "Data Admins"
+        "name": "Notification Superusers-Data Admins-App Role Superusers-App Role Notification Admins - Access"
       },
       {
         "endpoint": "Submission Modification",
-        "name": "Data Admins"
+        "name": "Notification Superusers"
       }
     ],
     "slug": "notification-template-dates",

@@ -183,20 +183,16 @@
     "securityPolicies": [
       {
         "endpoint": "Display",
-        "name": "Data Admins"
+        "name": "Notification Superusers"
       },
       {
-        "endpoint": "Submission Access",
-        "name": "Data Admins"
-      },
-      {
-        "endpoint": "Submission Modification",
-        "name": "Data Admins"
+        "endpoint": "Modification",
+        "name": "Notification Superusers"
       }
     ],
     "slug": "notifications",
-    "status": "New",
-    "submissionLabelExpression": null,
-    "type": "Settings"
+    "status": "Active",
+    "submissionLabelExpression": "",
+    "type": null
   }
 }

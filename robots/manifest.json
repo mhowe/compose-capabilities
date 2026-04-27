@@ -38,5 +38,14 @@
     {
       "definition": "./integrations.json"
     }
-  ]
+  ],
+  "notes": {
+    "manual_steps": [
+      {
+        "id": "1",
+        "text":"Manual step required: The Connection plugin \"Kinetic Platform - Robots\" was installed, but requires a proper endpoint and credentials to work. Follow the link provided and select the integration. From the three ellipses in the upper right select 'Edit'. Update the endpoint and provide the proper user name and password for a Space Admin user and click the Update Connection button.",
+        "link":"/app/console/#/space/plugins/connections"
+      }
+    ]
+  }
 }

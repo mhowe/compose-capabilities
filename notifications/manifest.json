@@ -1,0 +1,95 @@
+{
+  "id": "notifications",
+  "name": "Notifications",
+  "description": "Provides methods to deliver team and individual notifications. Includes User and Team delivery preferences along with reusable notification templates for email, and Slack. Provides a Notification Templates kapp with template records, a notification-send task handler, and workflow components that other kapps invoke.",
+  "version": "0.1.0",
+  "author": "Kinetic Data",
+  "tags": ["notifications", "communication"],
+  "kapp": {
+    "definition": "./kapp.json"
+  },
+  "forms": [
+    {
+      "definition": "./notifications.json"
+    },
+    {
+      "definition": "./notifications-for-applications.json"
+    },
+    {
+      "definition": "./notification-data.json"
+    },
+    {
+      "definition": "./notification-template-dates.json",
+      "data": ["./notification-template-dates-submissions.csv"]
+    },
+    {
+      "definition": "./notification-preferences-admin.json"
+    },
+    {
+      "definition": "./notification-preferences-user.json"
+    }
+  ],
+  "spaceConfiguration": {
+    "userProfileAttributes": [
+      {
+        "name": "Notification Delivery Method",
+        "allowsMultiple": false,
+          "description": "Email | None | <Other options supported by the Notification Capability>. Determines how notifications are delivered to this user.  'Email' is the default notification mechanism. 'None' indicates no messages should be sent to this user."
+      },
+      {
+        "name": "Notification Delivery Target",
+        "allowsMultiple": false,
+        "description": "Provide an email address if it differs from the user's account email or another value supported by the Notification Capability."
+      }
+    ],
+    "teamAttributes": [
+      {
+        "name": "Notification Delivery Method",
+        "allowsMultiple": false,
+        "description": "Individual | Group Email | <Other options supported by the Notification Capability>. Determines how notifications are delivered to this team. 'Individual' (default) sends separate notifications to each team member via their preference. 'Group Email' sends to specific email addresses. 'None' indicates no messages should be sent to this team.  Or other options supported by the Notification Capability."
+      },
+      {
+        "name": "Notification Delivery Target",
+        "allowsMultiple": false,
+        "description": "Provide the email address to indicate where notifications to this team should be delivered when the Notification Delivery Method is set to 'Group Email', or enter a value supported by the Notification Capability."
+      }
+    ]
+  },
+  "taskHandlers": [
+    {
+      "definition": "./kinetic_request_ce_notification_template_send_v5.zip",
+      "configuration_properties": {
+        "kapp_slug": "notifications",
+        "form_slug_data": "notification-data",
+        "form_slug_dates": "notification-template-dates"
+      }
+    }
+  ],
+  "workflows": {
+    "routines": [
+      "./routine_Email_Template_Notification_Send.xml"
+    ]
+  },
+  "integrations": [
+    {
+      "definition": "./capability-notifications-kinetic-platform_http.json"
+    },
+    {
+      "definition": "./capability-notifications-slack_http.json"
+    }
+  ],
+  "notes": {
+    "manual_steps": [
+      {
+        "id": "1",
+        "text":"Manual step required: The Connection plugin \"Capability: Notifications: Kinetic Platform\" was installed, but requires a proper endpoint and credentials to work. Follow the link provided and select the integration. From the three ellipses in the upper right select 'Edit'. Update the endpoint and provide the proper user name and password for a Space Admin user and click the Update Connection button.",
+        "link":"/app/console/#/space/plugins/connections"
+      },
+      {
+        "id": "2",
+        "text":"Manual step required: The Handler plugin \"Kinetic Request CE Notification Template Send\" was installed but requires proper configuration to work. Follow the link provided and enter the required values for your email server, and provide credentials for a Space Admin user in the api_username and api_password fields.",
+        "link":"/app/console/#/space/plugins/handlers/edit/kinetic_request_ce_notification_template_send_v5"
+      }
+    ]
+  }
+}

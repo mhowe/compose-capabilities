@@ -1,0 +1,246 @@
+{
+  "connection": {
+    "id": "6976f6b5-386e-4be6-afce-636a604a4440",
+    "name": "Kinetic Platform - Datastore",
+    "type": "http",
+    "config": {
+      "auth": {
+        "password": "placeholder",
+        "authType": "basic",
+        "username": "placeholder"
+      },
+      "configType": "http",
+      "caCert": null,
+      "baseUrl": "https://slug.domain/app/api/v1/kapps/capability-datastore",
+      "testPath": "/forms"
+    },
+    "description": "",
+    "operations": [
+      {
+        "id": "7f0f47dc-4c68-4a0b-bd75-dfade54db65a",
+        "name": "General Menus - Active by Menu Name",
+        "config": {
+          "path": "/forms/general-menus/submissions",
+          "params": {
+            "count": "true",
+            "direction": "ASC",
+            "include": "values",
+            "limit": "1000",
+            "orderBy": "values[Order],values[Label],values[Value]",
+            "q": "values[Status]=\"Active\" AND values[Menu Name]=\"{{Menu Name}}\""
+          },
+          "body": {
+            "raw": "",
+            "bodyType": "raw"
+          },
+          "headers": {},
+          "configType": "http",
+          "method": "GET",
+          "includeEmptyParams": false,
+          "followRedirect": false,
+          "streamResponse": false
+        },
+        "outputs": {
+          "Submissions": {
+            "children": {
+              "Category 1": "current.values['Category 1']",
+              "Category 2": "current.values['Category 2']",
+              "Category 3": "current.values['Category 3']",
+              "Label": "current.values['Label']",
+              "Value": "current.values['Value']"
+            },
+            "value": "body.submissions"
+          },
+          "_Error": {
+            "value": "body.error"
+          },
+          "_Returned Count": {
+            "value": "body.submissions?.length"
+          },
+          "_Status Code": {
+            "value": "statusCode"
+          },
+          "_Total Count": {
+            "value": "body.count"
+          }
+        },
+        "insertedAt": "2026-04-20T05:17:01.328229Z",
+        "lockVersion": 4,
+        "documentationLink": "",
+        "updatedAt": "2026-04-20T05:22:38.479933Z",
+        "connectionId": "6976f6b5-386e-4be6-afce-636a604a4440",
+        "notes": ""
+      },
+      {
+        "id": "aa1a6c37-c4c4-48e6-81a2-e291b8ab0316",
+        "name": "General Menus - Active by Menu Name by Category 1",
+        "config": {
+          "path": "/forms/general-menus/submissions",
+          "params": {
+            "count": "true",
+            "direction": "ASC",
+            "include": "values",
+            "limit": "1000",
+            "orderBy": "values[Order],values[Label],values[Value]",
+            "q": "values[Status]=\"Active\" AND values[Menu Name]=\"{{Menu Name}}\""
+          },
+          "body": {
+            "raw": "",
+            "bodyType": "raw"
+          },
+          "headers": {},
+          "configType": "http",
+          "method": "GET",
+          "includeEmptyParams": false,
+          "followRedirect": false,
+          "streamResponse": false
+        },
+        "outputs": {
+          "Submissions": {
+            "children": {
+              "Category 1": "current.values['Category 1']",
+              "Category 2": "current.values['Category 2']",
+              "Category 3": "current.values['Category 3']",
+              "Label": "current.values['Label']",
+              "Value": "current.values['Value']"
+            },
+            "value": "body.submissions"
+          },
+          "_Error": {
+            "value": "body.error"
+          },
+          "_Returned Count": {
+            "value": "body.submissions?.length"
+          },
+          "_Status Code": {
+            "value": "statusCode"
+          },
+          "_Total Count": {
+            "value": "body.count"
+          }
+        },
+        "insertedAt": "2026-04-20T05:18:56.589767Z",
+        "lockVersion": 4,
+        "documentationLink": "",
+        "updatedAt": "2026-04-20T05:22:44.988947Z",
+        "connectionId": "6976f6b5-386e-4be6-afce-636a604a4440",
+        "notes": ""
+      },
+      {
+        "id": "d3d08ad4-7839-48de-8418-a1a6adad8a49",
+        "name": "General Menus - Active by Menu Name by Category 1 and Category 2",
+        "config": {
+          "path": "/forms/general-menus/submissions",
+          "params": {
+            "count": "true",
+            "direction": "ASC",
+            "include": "values",
+            "limit": "1000",
+            "orderBy": "values[Order],values[Label],values[Value]",
+            "q": "values[Status]=\"Active\" AND values[Menu Name]=\"{{Menu Name}}\" AND  values[Category 1] = \"{{Category 1}}\" AND values[Category 2] = \"{{Category 2}}\""
+          },
+          "body": {
+            "raw": "",
+            "bodyType": "raw"
+          },
+          "headers": {},
+          "configType": "http",
+          "method": "GET",
+          "includeEmptyParams": false,
+          "followRedirect": false,
+          "streamResponse": false
+        },
+        "outputs": {
+          "Submissions": {
+            "children": {
+              "Category 1": "current.values['Category 1']",
+              "Category 2": "current.values['Category 2']",
+              "Category 3": "current.values['Category 3']",
+              "Label": "current.values['Label']",
+              "Value": "current.values['Value']"
+            },
+            "value": "body.submissions"
+          },
+          "_Error": {
+            "value": "body.error"
+          },
+          "_Returned Count": {
+            "value": "body.submissions?.length"
+          },
+          "_Status Code": {
+            "value": "statusCode"
+          },
+          "_Total Count": {
+            "value": "body.count"
+          }
+        },
+        "insertedAt": "2026-04-20T05:19:38.296939Z",
+        "lockVersion": 4,
+        "documentationLink": "",
+        "updatedAt": "2026-04-20T05:22:51.375142Z",
+        "connectionId": "6976f6b5-386e-4be6-afce-636a604a4440",
+        "notes": ""
+      },
+      {
+        "id": "c51bb4e8-df83-4daf-aacf-b956d2957f38",
+        "name": "General Menus - Active by Menu Name by Category 1 and Category 2 and Category 3",
+        "config": {
+          "path": "/forms/general-menus/submissions",
+          "params": {
+            "count": "true",
+            "direction": "ASC",
+            "include": "values",
+            "limit": "1000",
+            "orderBy": "values[Order],values[Label],values[Value]",
+            "q": "values[Status]=\"Active\" AND values[Menu Name]=\"{{Menu Name}}\" AND  values[Category 1] = \"{{Category 1}}\" AND values[Category 2] = \"{{Category 2}}\" AND values[Category 3] = \"{{Category 3}}\""
+          },
+          "body": {
+            "raw": "",
+            "bodyType": "raw"
+          },
+          "headers": {},
+          "configType": "http",
+          "method": "GET",
+          "includeEmptyParams": false,
+          "followRedirect": false,
+          "streamResponse": false
+        },
+        "outputs": {
+          "Submissions": {
+            "children": {
+              "Category 1": "current.values['Category 1']",
+              "Category 2": "current.values['Category 2']",
+              "Category 3": "current.values['Category 3']",
+              "Label": "current.values['Label']",
+              "Value": "current.values['Value']"
+            },
+            "value": "body.submissions"
+          },
+          "_Error": {
+            "value": "body.error"
+          },
+          "_Returned Count": {
+            "value": "body.submissions?.length"
+          },
+          "_Status Code": {
+            "value": "statusCode"
+          },
+          "_Total Count": {
+            "value": "body.count"
+          }
+        },
+        "insertedAt": "2026-04-20T05:20:05.521204Z",
+        "lockVersion": 3,
+        "documentationLink": "",
+        "updatedAt": "2026-04-20T05:21:36.233700Z",
+        "connectionId": "6976f6b5-386e-4be6-afce-636a604a4440",
+        "notes": ""
+      }
+    ],
+    "documentationLink": "",
+    "insertedAt": "2026-04-20T05:13:06.154954Z",
+    "lockVersion": 3,
+    "secrets": {},
+    "updatedAt": "2026-04-20T05:22:30.925768Z"
+  }
+}

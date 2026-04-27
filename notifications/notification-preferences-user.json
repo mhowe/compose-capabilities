@@ -1,0 +1,338 @@
+{
+  "form": {
+    "anonymous": false,
+    "attributes": [],
+    "bridgedResources": [],
+    "categorizations": [],
+    "customHeadContent": null,
+    "description": "",
+    "indexDefinitions": [
+      {
+        "name": "closedBy",
+        "parts": [
+          "closedBy"
+        ],
+        "unique": false
+      },
+      {
+        "name": "createdBy",
+        "parts": [
+          "createdBy"
+        ],
+        "unique": false
+      },
+      {
+        "name": "handle",
+        "parts": [
+          "handle"
+        ],
+        "unique": false
+      },
+      {
+        "name": "submittedBy",
+        "parts": [
+          "submittedBy"
+        ],
+        "unique": false
+      },
+      {
+        "name": "updatedBy",
+        "parts": [
+          "updatedBy"
+        ],
+        "unique": false
+      },
+      {
+        "name": "values[Message]",
+        "parts": [
+          "values[Message]"
+        ],
+        "unique": false
+      },
+      {
+        "name": "values[Notification Delivery Method]",
+        "parts": [
+          "values[Notification Delivery Method]"
+        ],
+        "unique": false
+      },
+      {
+        "name": "values[Notification Delivery Target]",
+        "parts": [
+          "values[Notification Delivery Target]"
+        ],
+        "unique": false
+      },
+      {
+        "name": "values[Notification Email is Different]",
+        "parts": [
+          "values[Notification Email is Different]"
+        ],
+        "unique": false
+      }
+    ],
+    "integrations": [
+      {
+        "connectionId": "1415539c-bb98-48bb-ad33-11be25189ad0",
+        "inputMappings": {
+          "Notification Delivery Method": "${values('Notification Delivery Method')}",
+          "Notification Delivery Target": "${values('Notification Delivery Target')}",
+          "Username": "${identity('username')}"
+        },
+        "name": "Update User",
+        "operationId": "1f02ca06-4eba-4c9d-bb06-fde98bddca03"
+      }
+    ],
+    "name": "Notification Preferences",
+    "notes": null,
+    "pages": [
+      {
+        "advanceCondition": null,
+        "displayCondition": null,
+        "displayPage": null,
+        "elements": [
+          {
+            "enabled": true,
+            "dataType": "string",
+            "defaultDataSource": "none",
+            "requiredMessage": null,
+            "name": "Notification Delivery Method",
+            "choicesResourceName": null,
+            "omitWhenHidden": null,
+            "renderAttributes": {},
+            "renderType": "radio",
+            "pattern": null,
+            "defaultValue": "${identity('profileAttribute:Notification Delivery Method')}",
+            "visible": true,
+            "choices": [
+              {
+                "label": "Email (Default option)",
+                "value": "Email"
+              },
+              {
+                "label": "Slack (Message posted in Slack)",
+                "value": "Slack"
+              },
+              {
+                "label": "None (Messages not sent)",
+                "value": "None"
+              }
+            ],
+            "label": "Notification Delivery Method",
+            "choicesResourceProperty": null,
+            "choicesRunIf": null,
+            "constraints": [],
+            "choicesDataSource": "custom",
+            "events": [
+              {
+                "mappings": [
+                  {
+                    "field": "Message",
+                    "value": "${ null }",
+                    "visible": null
+                  }
+                ],
+                "name": "Clear Message",
+                "integrationResourceName": null,
+                "action": "Set Fields",
+                "integrationResourceProperty": "",
+                "type": "Change"
+              }
+            ],
+            "defaultResourceName": null,
+            "type": "field",
+            "key": "92e65adc75e14cf68b477b304133824c",
+            "required": false
+          },
+          {
+            "enabled": true,
+            "dataType": "json",
+            "defaultDataSource": "none",
+            "requiredMessage": null,
+            "name": "Notification Email is Different",
+            "choicesResourceName": null,
+            "omitWhenHidden": false,
+            "renderAttributes": {},
+            "renderType": "checkbox",
+            "pattern": null,
+            "defaultValue": "${(identity('profileAttribute:Notification Delivery Target') && identity('profileAttribute:Notification Delivery Target') !== identity('email') && (identity('profileAttribute:Notification Delivery Method') === \"Email\" || identity('profileAttribute:Notification Delivery Method') === \"Slack\")) ? '[\"Email is Different\"]' : '[]'}",
+            "visible": "values('Notification Delivery Method') === \"Email\" || values('Notification Delivery Method') === \"Slack\"",
+            "choices": [
+              {
+                "label": "Notification email is different from my profile email",
+                "value": "Email is Different"
+              }
+            ],
+            "label": "",
+            "choicesResourceProperty": null,
+            "choicesRunIf": null,
+            "constraints": [],
+            "choicesDataSource": "custom",
+            "events": [
+              {
+                "mappings": [
+                  {
+                    "field": "Notification Delivery Target",
+                    "value": "${ null }",
+                    "visible": null
+                  },
+                  {
+                    "field": "Message",
+                    "value": "${ null }",
+                    "visible": null
+                  }
+                ],
+                "runIf": "!values('Notification Email is Different').includes(\"Email is Different\")",
+                "name": "Clear Target when Unchecked",
+                "integrationResourceName": null,
+                "action": "Set Fields",
+                "integrationResourceProperty": "",
+                "type": "Change"
+              }
+            ],
+            "defaultResourceName": null,
+            "type": "field",
+            "key": "43fa078c61564519a96a6ab7cbd518cb",
+            "required": false
+          },
+          {
+            "enabled": true,
+            "dataType": "string",
+            "defaultDataSource": "none",
+            "requiredMessage": null,
+            "name": "Notification Delivery Target",
+            "omitWhenHidden": false,
+            "renderAttributes": {},
+            "renderType": "text",
+            "pattern": null,
+            "defaultValue": "${identity('profileAttribute:Notification Delivery Target')}",
+            "visible": "values('Notification Email is Different').includes('Email is Different') && (values('Notification Delivery Method') === \"Email\" || values('Notification Delivery Method') == \"Slack\")",
+            "label": "Notification Delivery Target",
+            "constraints": [
+              {
+                "content": "values('Notification Delivery Target') !== null && identity('email') !== values('Notification Delivery Target')",
+                "message": "Only populate the Notification Delivery Target if it is different from your profile email."
+              }
+            ],
+            "events": [],
+            "rows": 1,
+            "defaultResourceName": null,
+            "type": "field",
+            "key": "bc726e5393124545a2ff342247b19aa9",
+            "required": "values('Notification Email is Different').includes('Email is Different')"
+          },
+          {
+            "type": "section",
+            "renderType": null,
+            "name": "Response",
+            "title": null,
+            "visible": "values('Message') !== null",
+            "omitWhenHidden": false,
+            "renderAttributes": {},
+            "elements": [
+              {
+                "type": "content",
+                "renderType": "html",
+                "name": "Message",
+                "text": null,
+                "visible": true,
+                "renderAttributes": {
+                  "class": "alert alert-info"
+                }
+              },
+              {
+                "enabled": false,
+                "dataType": "string",
+                "defaultDataSource": "none",
+                "requiredMessage": null,
+                "name": "Message",
+                "omitWhenHidden": false,
+                "renderAttributes": {},
+                "renderType": "text",
+                "pattern": null,
+                "defaultValue": null,
+                "visible": false,
+                "label": "Message",
+                "constraints": [],
+                "events": [
+                  {
+                    "name": "Set Content Element",
+                    "code": "$(K('content[Message]').element()).html(K('field[Message]').value());",
+                    "integrationResourceName": null,
+                    "action": "Custom",
+                    "integrationResourceProperty": "",
+                    "type": "Change"
+                  }
+                ],
+                "rows": 1,
+                "defaultResourceName": null,
+                "type": "field",
+                "key": "62abde56d6514356984df894d1a9a1d7",
+                "required": false
+              }
+            ]
+          },
+          {
+            "type": "button",
+            "renderType": "custom",
+            "name": "Apply",
+            "label": "Apply",
+            "visible": true,
+            "enabled": true,
+            "renderAttributes": {
+              "type": "button"
+            },
+            "events": [
+              {
+                "runIf": "Object.keys(K('form').validate()).length === 0",
+                "name": "Apply Changes - User",
+                "code": "// Clear and errors generated by the form validation event\ndocument.querySelector('form > .errors')?.remove();\ndocument.querySelectorAll('.has-error').forEach(el => el.classList.remove('has-error'));\n\nif (resource['_Status Code'] === 200){\n  K('field[Message]').value(`Success: Preferences updated.`);\n} else {\n  K('field[Message]').value(`Something happened, please report this to an administrator: ${resource['_Message']}`);\n}",
+                "integrationResourceName": "Update User",
+                "action": "Custom",
+                "integrationResourceProperty": null,
+                "type": "Click"
+              },
+              {
+                "runIf": "Object.keys(K('form').validate()).length > 0",
+                "name": "Invalid Form",
+                "code": "K('form').submitPage();",
+                "integrationResourceName": null,
+                "action": "Custom",
+                "integrationResourceProperty": "",
+                "type": "Click"
+              },
+              {
+                "mappings": [
+                  {
+                    "field": "Message",
+                    "value": "${ null }",
+                    "visible": null
+                  }
+                ],
+                "name": "Clear Message",
+                "integrationResourceName": null,
+                "action": "Set Fields",
+                "integrationResourceProperty": "",
+                "type": "Click"
+              }
+            ]
+          }
+        ],
+        "events": [],
+        "name": "Page 1",
+        "renderType": "submittable",
+        "type": "page"
+      }
+    ],
+    "securityPolicies": [
+      {
+        "endpoint": "Display",
+        "name": "Authenticated Users"
+      }
+    ],
+    "slug": "notification-preferences-user",
+    "status": "Active",
+    "submissionLabelExpression": "",
+    "type": null
+  }
+}

@@ -35,7 +35,7 @@ Compose Portal reads registry URLs from a space attribute named **`Capability Re
 compose-capabilities/
 ├── index.json                          # Registry index — list of capabilities
 ├── README.md                           # You are here
-├── notification-templates/
+├── notifications/
 │   ├── manifest.json                   # Capability manifest (schema below)
 │   ├── kapp.json                       # Kapp export
 │   ├── <form>.json                     # Form exports
@@ -74,8 +74,8 @@ The registry index enumerates the capabilities hosted in this registry.
 
 ```json
 {
-  "id": "notification-templates",
-  "name": "Notification Templates",
+  "id": "notifications",
+  "name": "Notifications",
   "description": "What this capability does, in one paragraph.",
   "version": "0.1.0",
   "author": "Kinetic Data",
@@ -95,7 +95,7 @@ The registry index enumerates the capabilities hosted in this registry.
   "taskHandlers": [
     {
       "definition": "./handler_name_v1.zip",
-      "configuration_parameters": {
+      "configuration_properties": {
         "kapp_slug": "notification-templates"
       }
     }
@@ -113,6 +113,23 @@ The registry index enumerates the capabilities hosted in this registry.
   "integrations": [
     { "definition": "./integrations.json" }
   ],
+
+  "spaceConfiguration": {
+    "userProfileAttributes": [
+      {
+        "name": "<attribute name>",
+        "allowsMultiple": false,
+        "description": "Human-readable description of what this attribute controls."
+      }
+    ],
+    "teamAttributes": [
+      {
+        "name": "<attribute name>",
+        "allowsMultiple": false,
+        "description": "Human-readable description of what this attribute controls."
+      }
+    ]
+  },
 
   "notes": {
     "manual_steps": [
@@ -138,7 +155,7 @@ The registry index enumerates the capabilities hosted in this registry.
 
 - `definition` — URL to a kapp export JSON.
 
-The installed kapp's slug and name are taken from the top-level `id` and `name`. Compose Portal detects the capability as installed when it finds a kapp with that slug carrying a `Capability Metadata` attribute referencing this manifest's id and version.
+The installed kapp's slug and name come from kapp.json's slug and name fields. Compose Portal detects the capability as installed when it finds any kapp carrying a `Capability Metadata` attribute referencing this manifest's id.
 
 **`forms`** *(optional)* — datastore or kapp forms to install. Array of:
 
@@ -148,7 +165,7 @@ The installed kapp's slug and name are taken from the top-level `id` and `name`.
 **`taskHandlers`** *(optional)* — handler packages to register. Array of:
 
 - `definition` — URL to the handler `.zip`.
-- `configuration_parameters` *(optional)* — keys/values written to the handler's configuration (e.g. `kapp_slug`, form slugs the handler should target). Use this when the handler needs to know about slugs the capability itself is creating.
+- `configuration_properties` *(optional)* — keys/values written to the handler's configuration (e.g. `kapp_slug`, form slugs the handler should target). Use this when the handler needs to know about slugs the capability itself is creating.
 
 **`workflows`** *(optional)* — workflow assets. An object with:
 
@@ -156,6 +173,13 @@ The installed kapp's slug and name are taken from the top-level `id` and `name`.
 - `routines` — array of URL strings pointing to reusable workflow routines.
 
 **`integrations`** *(optional)* — external system connections. Array of `{ "definition": "<url>.json" }`.
+
+**`spaceConfiguration`** *(optional)* — space-level settings the capability needs in place to function. The installer ensures these exist on the space; values are typically populated per-user/per-team after install. An object with:
+
+- `userProfileAttributes` — array of user profile attribute definitions the capability reads or writes. Each entry: `name` (attribute name), `allowsMultiple` (boolean — whether the attribute supports multiple values), `description` (human-readable explanation, including any expected values).
+- `teamAttributes` — array of team attribute definitions, same shape as above.
+
+Use `spaceConfiguration` for attributes the capability *requires* to work (e.g. a notifications capability that reads a user's `Notification Delivery Method`). Don't list attributes a capability merely reads opportunistically.
 
 **`notes.manual_steps`** *(optional)* — post-install steps an operator must complete manually (plugin credentials, handler config, etc.). Each entry:
 

@@ -1,0 +1,150 @@
+{
+  "connection": {
+    "id": "d698303c-6ae9-40c1-a6c9-5b8330845fb0",
+    "name": "Capability: Notifications: Slack",
+    "type": "http",
+    "config": {
+      "auth": {
+        "header": "Authorization",
+        "prefix": "Bearer",
+        "token": null,
+        "authType": "raw_bearer_token"
+      },
+      "configType": "http",
+      "caCert": null,
+      "baseUrl": "https://slack.com/api",
+      "testPath": "api.test"
+    },
+    "description": "",
+    "operations": [
+      {
+        "id": "251cf1a8-96d8-4688-bcc5-a77341a8aae7",
+        "name": "Get User By Email",
+        "config": {
+          "path": "/users.lookupByEmail?email={{encoded_target}}",
+          "params": {},
+          "body": {
+            "raw": "",
+            "bodyType": "raw"
+          },
+          "headers": {},
+          "configType": "http",
+          "method": "GET",
+          "includeEmptyParams": false,
+          "followRedirect": false,
+          "streamResponse": false
+        },
+        "outputs": {
+          "OK": {
+            "value": "body.ok"
+          },
+          "User Id": {
+            "value": "body.user?.id"
+          }
+        },
+        "insertedAt": "2026-04-24T05:17:38.039480Z",
+        "lockVersion": 2,
+        "documentationLink": "",
+        "updatedAt": "2026-04-24T05:17:38.039480Z",
+        "connectionId": "d698303c-6ae9-40c1-a6c9-5b8330845fb0",
+        "notes": ""
+      },
+      {
+        "id": "9dfba936-e8ba-4432-94ca-8d43478452a7",
+        "name": "Get Channels",
+        "config": {
+          "path": "/conversations.list",
+          "params": {
+            "exclude_archived": "true",
+            "limit": "1000",
+            "type": "public_channel,private_channel"
+          },
+          "body": {
+            "raw": "",
+            "bodyType": "raw"
+          },
+          "headers": {},
+          "configType": "http",
+          "method": "GET",
+          "includeEmptyParams": false,
+          "followRedirect": false,
+          "streamResponse": false
+        },
+        "outputs": {
+          "Channels": {
+            "children": {
+              "Id": "current.id",
+              "Name": "current.name"
+            },
+            "value": "body.channels"
+          }
+        },
+        "insertedAt": "2026-04-24T05:34:38.167765Z",
+        "lockVersion": 2,
+        "documentationLink": "",
+        "updatedAt": "2026-04-24T05:34:38.167765Z",
+        "connectionId": "d698303c-6ae9-40c1-a6c9-5b8330845fb0",
+        "notes": ""
+      },
+      {
+        "id": "fed0affc-ab75-4bd3-9b6b-ca3c4b0ce753",
+        "name": "Post User Message",
+        "config": {
+          "path": "/chat.postMessage",
+          "params": {},
+          "body": {
+            "raw": "{\n  \"channel\": \"U0AUJKNE8G7\",\n  \"text\": \"You've been assigned: INC-4872 — VPN outage affecting Finance team\",\n  \"blocks\": [\n    {\n      \"type\": \"header\",\n      \"text\": {\n        \"type\": \"plain_text\",\n        \"text\": \"📋 New Assignment\",\n        \"emoji\": true\n      }\n    },\n    {\n      \"type\": \"section\",\n      \"text\": {\n        \"type\": \"mrkdwn\",\n        \"text\": \"Hey <@U01ABC2DEF3>, a new item has been assigned to you.\\n\\n*<https://kinetic.example.com/tickets/INC-4872|INC-4872 — VPN outage affecting Finance team>*\"\n      }\n    },\n    {\n      \"type\": \"section\",\n      \"fields\": [\n        {\n          \"type\": \"mrkdwn\",\n          \"text\": \"*Priority:*\\n🔴 High\"\n        },\n        {\n          \"type\": \"mrkdwn\",\n          \"text\": \"*Due:*\\nFri, Apr 25 · 5:00 PM CT\"\n        },\n        {\n          \"type\": \"mrkdwn\",\n          \"text\": \"*Requester:*\\nJane Doe (Finance)\"\n        },\n        {\n          \"type\": \"mrkdwn\",\n          \"text\": \"*Assigned by:*\\nMatt Smith\"\n        }\n      ]\n    },\n    {\n      \"type\": \"section\",\n      \"text\": {\n        \"type\": \"mrkdwn\",\n        \"text\": \"*Description:*\\nUsers in the Finance department are unable to connect to the corporate VPN since approximately 8:15 AM. Affects roughly 20 users. No recent config changes reported.\"\n      }\n    },\n    {\n      \"type\": \"actions\",\n      \"elements\": [\n        {\n          \"type\": \"button\",\n          \"text\": {\n            \"type\": \"plain_text\",\n            \"text\": \"Open Ticket\",\n            \"emoji\": true\n          },\n          \"style\": \"primary\",\n          \"url\": \"https://kinetic.example.com/tickets/INC-4872\"\n        },\n        {\n          \"type\": \"button\",\n          \"text\": {\n            \"type\": \"plain_text\",\n            \"text\": \"Acknowledge\",\n            \"emoji\": true\n          },\n          \"value\": \"ack_INC-4872\",\n          \"action_id\": \"acknowledge_assignment\"\n        },\n        {\n          \"type\": \"button\",\n          \"text\": {\n            \"type\": \"plain_text\",\n            \"text\": \"Reassign\",\n            \"emoji\": true\n          },\n          \"value\": \"reassign_INC-4872\",\n          \"action_id\": \"reassign_assignment\"\n        }\n      ]\n    },\n    {\n      \"type\": \"context\",\n      \"elements\": [\n        {\n          \"type\": \"mrkdwn\",\n          \"text\": \"Assigned 2 minutes ago · <https://kinetic.example.com/notifications/prefs|Notification settings>\"\n        }\n      ]\n    }\n  ]\n}",
+            "bodyType": "raw"
+          },
+          "headers": {
+            "content-type": "application/json"
+          },
+          "configType": "http",
+          "method": "POST",
+          "includeEmptyParams": false,
+          "followRedirect": false,
+          "streamResponse": false
+        },
+        "outputs": {},
+        "insertedAt": "2026-04-24T05:19:47.956590Z",
+        "lockVersion": 4,
+        "documentationLink": "",
+        "updatedAt": "2026-04-24T23:30:01.479380Z",
+        "connectionId": "d698303c-6ae9-40c1-a6c9-5b8330845fb0",
+        "notes": ""
+      },
+      {
+        "id": "06325012-45d1-4b79-8fa9-840aa3500283",
+        "name": "Post Team Message",
+        "config": {
+          "path": "/chat.postMessage",
+          "params": {},
+          "body": {
+            "raw": "{\n  \"channel\": \"{{channel_id}}\",\n  \"text\": \"You've been assigned: INC-4872 — VPN outage affecting Finance team\",\n  \"blocks\": [\n    {\n      \"type\": \"header\",\n      \"text\": {\n        \"type\": \"plain_text\",\n        \"text\": \"📋 New Assignment\",\n        \"emoji\": true\n      }\n    },\n    {\n      \"type\": \"section\",\n      \"text\": {\n        \"type\": \"mrkdwn\",\n        \"text\": \"Hey <@U0AUJKNE8G7>, a new item has been assigned to you.\\n\\n*<https://kinetic.example.com/tickets/INC-4872|INC-4872 — VPN outage affecting Finance team>*\"\n      }\n    },\n    {\n      \"type\": \"section\",\n      \"fields\": [\n        {\n          \"type\": \"mrkdwn\",\n          \"text\": \"*Priority:*\\n🔴 High\"\n        },\n        {\n          \"type\": \"mrkdwn\",\n          \"text\": \"*Due:*\\nFri, Apr 25 · 5:00 PM CT\"\n        },\n        {\n          \"type\": \"mrkdwn\",\n          \"text\": \"*Requester:*\\nJane Doe (Finance)\"\n        },\n        {\n          \"type\": \"mrkdwn\",\n          \"text\": \"*Assigned by:*\\nMatt Smith\"\n        }\n      ]\n    },\n    {\n      \"type\": \"section\",\n      \"text\": {\n        \"type\": \"mrkdwn\",\n        \"text\": \"*Description:*\\nUsers in the Finance department are unable to connect to the corporate VPN since approximately 8:15 AM. Affects roughly 20 users. No recent config changes reported.\"\n      }\n    },\n    {\n      \"type\": \"actions\",\n      \"elements\": [\n        {\n          \"type\": \"button\",\n          \"text\": {\n            \"type\": \"plain_text\",\n            \"text\": \"Open Ticket\",\n            \"emoji\": true\n          },\n          \"style\": \"primary\",\n          \"url\": \"https://kinetic.example.com/tickets/INC-4872\"\n        },\n        {\n          \"type\": \"button\",\n          \"text\": {\n            \"type\": \"plain_text\",\n            \"text\": \"Acknowledge\",\n            \"emoji\": true\n          },\n          \"value\": \"ack_INC-4872\",\n          \"action_id\": \"acknowledge_assignment\"\n        },\n        {\n          \"type\": \"button\",\n          \"text\": {\n            \"type\": \"plain_text\",\n            \"text\": \"Reassign\",\n            \"emoji\": true\n          },\n          \"value\": \"reassign_INC-4872\",\n          \"action_id\": \"reassign_assignment\"\n        }\n      ]\n    },\n    {\n      \"type\": \"context\",\n      \"elements\": [\n        {\n          \"type\": \"mrkdwn\",\n          \"text\": \"Assigned 2 minutes ago · <https://kinetic.example.com/notifications/prefs|Notification settings>\"\n        }\n      ]\n    }\n  ]\n}",
+            "bodyType": "raw"
+          },
+          "headers": {
+            "content-type": "application/json"
+          },
+          "configType": "http",
+          "method": "POST",
+          "includeEmptyParams": false,
+          "followRedirect": false,
+          "streamResponse": false
+        },
+        "outputs": {},
+        "insertedAt": "2026-04-24T05:37:35.709697Z",
+        "lockVersion": 5,
+        "documentationLink": "",
+        "updatedAt": "2026-04-24T23:30:18.498089Z",
+        "connectionId": "d698303c-6ae9-40c1-a6c9-5b8330845fb0",
+        "notes": ""
+      }
+    ],
+    "documentationLink": "",
+    "insertedAt": "2026-04-24T05:04:43.259865Z",
+    "lockVersion": 2,
+    "secrets": {},
+    "updatedAt": "2026-04-24T05:04:43.259865Z"
+  }
+}
