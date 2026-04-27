@@ -5,7 +5,7 @@
     "type": "http",
     "config": {
       "auth": {
-        "password": null,
+        "password": "placeholder",
         "authType": "basic",
         "username": "matthew.howe@kineticdata.com"
       },
