@@ -43,7 +43,7 @@
                 <deferrable>false</deferrable>
                 <visible>false</visible>
                 <parameters>
-                    <parameter dependsOnId="" dependsOnValue="" id="data_source" label="Data Source:" menu="" required="true" tooltip="The source that contains the data to use to create each task in the loop.">&lt;%= 
+                    <parameter dependsOnId="" dependsOnValue="" id="data_source" label="Data Source:" menu="" required="true" tooltip="The source that contains the data to use to create each task in the loop.">&lt;%=
 emails = JSON.parse(@results['Collect Results']['output']).select{|item| item['method'] == "email"}
 emails.to_json
 %&gt;</parameter>
@@ -614,7 +614,7 @@ end
  'recipient_json' =&gt; recipient,
  'notification_template_name' =&gt; @inputs['Notification Template Name'],
  'replacement_values' =&gt; @results['Replacement Values For Email']['output'],
- 'submission_id' =&gt; @inputs['Related Submission Id'] 
+ 'submission_id' =&gt; @inputs['Related Submission Id']
 }.to_json
 %&gt;</parameter>
                 </parameters>
@@ -637,7 +637,7 @@ Local Handlers:
   - 'Junction' to 'Assemble and Send Message'
   - 'Assemble and Send Message' to 'Send Message Loop End'
   - Remove any connectors to and from 'Assemble and Send Message - Agent'
-  
+
 Agent Handlers:
 -Connect the following node
   - 'Junction' to 'Assemble and Send Message - Agent'
@@ -664,11 +664,11 @@ end
 
 target = nil
 profile_attrs = JSON.parse(@results['Fetch User']['Profile Attributes'])
-if profile_attrs.key?('Notification Delivery Target') &amp;&amp; 
-   profile_attrs['Notification Delivery Target'][0] &amp;&amp; 
+if profile_attrs.key?('Notification Delivery Target') &amp;&amp;
+   profile_attrs['Notification Delivery Target'][0] &amp;&amp;
    !profile_attrs['Notification Delivery Target'][0].to_s.strip.empty?
   target = JSON.parse(@results['Fetch User']['Profile Attributes'])['Notification Delivery Target'][0]
-else 
+else
   unless /^[A-Z0-9._%+-~'?]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.match((@results['Fetch User']['Email']).to_s).nil?
     target = @results['Fetch User']['Email']
   end
@@ -794,8 +794,8 @@ JSON.parse(@results['Fetch Team']['Memberships']).each do |user|
   # This is here in preparation for when someone can turn off notifications
   #email_notifications = 'yes'
   ndm = (user.dig('Profile Attributes Map', 'Notification Delivery Method')&amp;.first || "email").downcase
-  
-  language = '- Default -' 
+
+  language = '- Default -'
   unless user['User Preferred Locale'].to_s.empty?
     language = user['User Preferred Locale']
   end
@@ -867,7 +867,7 @@ group_targets.to_json
                 <deferrable>false</deferrable>
                 <visible>false</visible>
                 <parameters>
-                    <parameter dependsOnId="" dependsOnValue="" id="data_source" label="Data Source:" menu="" required="true" tooltip="The source that contains the data to use to create each task in the loop.">&lt;%= 
+                    <parameter dependsOnId="" dependsOnValue="" id="data_source" label="Data Source:" menu="" required="true" tooltip="The source that contains the data to use to create each task in the loop.">&lt;%=
 emails = JSON.parse(@results['Collect Results']['output']).select{|item| item['method'] == "teams" || item['method'] == "slack"}
 emails.to_json
 %&gt;</parameter>
