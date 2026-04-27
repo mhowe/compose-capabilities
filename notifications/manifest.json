@@ -61,7 +61,10 @@
       "configuration_properties": {
         "kapp_slug": "notifications",
         "form_slug_data": "notification-data",
-        "form_slug_dates": "notification-template-dates"
+        "form_slug_dates": "notification-template-dates",
+        "api_username": "placeholder",
+        "api_password": "placeholder",
+        "smtp_from_address": "placeholder"
       }
     }
   ],
@@ -87,7 +90,7 @@
       },
       {
         "id": "2",
-        "text":"Manual step required: The Handler plugin \"Kinetic Request CE Notification Template Send\" was installed but requires proper configuration to work. Follow the link provided and enter the required values for your email server, and provide credentials for a Space Admin user in the api_username and api_password fields.",
+        "text":"Manual step required: The Handler plugin \"Kinetic Request CE Notification Template Send\" was installed but requires proper configuration to work. Follow the link provided and enter the required values for your email server, a proper SMTP From ADdress, and provide credentials for a Space Admin user in the api_username and api_password fields.",
         "link":"/app/console/#/space/plugins/handlers/edit/kinetic_request_ce_notification_template_send_v5"
       }
     ]

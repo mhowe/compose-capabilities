@@ -167,6 +167,8 @@ The installed kapp's slug and name come from kapp.json's slug and name fields. C
 - `definition` — URL to the handler `.zip`.
 - `configuration_properties` *(optional)* — keys/values written to the handler's configuration (e.g. `kapp_slug`, form slugs the handler should target). Use this when the handler needs to know about slugs the capability itself is creating.
 
+  **All-or-nothing rule:** if you set *any* value in `configuration_properties`, you must include *every* required field the handler defines — including sensitive ones like passwords or API keys. The handler update API rejects the call if any required field is blank, so omitting a required field causes the entire install to fail. For required fields you don't have a real value for, supply a placeholder string (e.g. `"placeholder"`) and add a `notes.manual_steps` entry telling the operator to open the handler and replace the placeholders with real values before the capability will work.
+
 **`workflows`** *(optional)* — workflow assets. An object with:
 
 - `trees` — array of `{ "definition": "<url>.xml" }`. Trees bind to specific forms or events.
