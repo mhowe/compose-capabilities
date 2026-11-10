@@ -375,14 +375,14 @@
           "streamResponse": false
         },
         "outputs": {
-          "Submissions": {
+          "submissions": {
             "children": {
-              "HTML Content": "current.values['HTML Content']",
-              "Id": "current.id",
-              "Name": "current.values['Name']",
-              "Status": "current.values['Status']",
-              "Text Content": "current.values['Text Content']",
-              "Type": "current.values['Type']"
+              "format": "current.values['HTML Content']",
+              "id": "current.id",
+              "name": "current.values['Name']",
+              "status": "current.values['Status']",
+              "text": "current.values['Text Content']",
+              "type": "current.values['Type']"
             },
             "value": "body.submissions"
           }
